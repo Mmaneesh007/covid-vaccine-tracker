@@ -423,6 +423,201 @@ KNOWLEDGE_BASE = [
         ]
     },
     {
+        "intent": "source_of_info",
+        "patterns": [
+            "Where do you get your answers?", "From where you will give the answers?",
+            "What is your data source?", "Are you reliable?", "Who taught you?",
+            "Can I trust you?", "Source of information", "Where is this data from?"
+        ],
+        "responses": [
+            "My knowledge is based on official guidelines from the World Health Organization (WHO), the Centers for Disease Control and Prevention (CDC), and verified medical data sources. I do not make up information."
+        ]
+    },
+    {
+        "intent": "vaccine_history",
+        "patterns": [
+            "History of vaccination", "First vaccine ever", "Who invented the first vaccine?",
+            "Edward Jenner", "Smallpox vaccine", "How long have vaccines existed?",
+            "Are vaccines new technology?"
+        ],
+        "responses": [
+            "Vaccines have a long history dating back to 1796 when Dr. Edward Jenner developed the first successful vaccine against smallpox. Since then, vaccines have eliminated or controlled many deadly diseases like polio, measles, and tetanus."
+        ]
+    },
+    {
+        "intent": "covishield",
+        "patterns": [
+            "What is Covishield?", "Is Covishield safe?", "Who made Covishield?",
+            "AstraZeneca India", "Serum Institute of India vaccine", "Covishield efficacy",
+            "Gap between Covishield doses"
+        ],
+        "responses": [
+            "Covishield is the Oxford-AstraZeneca vaccine manufactured locally by the Serum Institute of India. It is a viral vector vaccine that is highly effective against severe COVID-19. The recommended gap between doses is 12-16 weeks."
+        ]
+    },
+    {
+        "intent": "covaxin",
+        "patterns": [
+            "What is Covaxin?", "Is Covaxin safe?", "Who made Covaxin?",
+            "Bharat Biotech vaccine", "Covaxin efficacy", "Is Covaxin effective?",
+            "Covaxin vs Covishield"
+        ],
+        "responses": [
+            "Covaxin is India's indigenous COVID-19 vaccine developed by Bharat Biotech in collaboration with ICMR. It is an inactivated virus vaccine (traditional technology) and has demonstrated high efficacy in clinical trials."
+        ]
+    },
+    {
+        "intent": "sputnik",
+        "patterns": [
+            "What is Sputnik V?", "Russian vaccine", "Is Sputnik safe?",
+            "Sputnik efficacy", "Gamaleya Institute"
+        ],
+        "responses": [
+            "Sputnik V is a viral vector vaccine developed by the Gamaleya Research Institute in Russia. It uses two different adenoviruses for the first and second doses to boost immunity."
+        ]
+    },
+    {
+        "intent": "pfizer_moderna",
+        "patterns": [
+            "Pfizer vs Moderna", "What is Comirnaty?", "Spikevax",
+            "American vaccines", "mRNA vaccines list"
+        ],
+        "responses": [
+            "Pfizer-BioNTech (Comirnaty) and Moderna (Spikevax) are mRNA vaccines. They are widely used globally and have shown very high efficacy (over 90% in initial trials) against symptomatic COVID-19."
+        ]
+    },
+    {
+        "intent": "missed_dose",
+        "patterns": [
+            "I missed my second dose", "Late for second dose", "Can I take second dose late?",
+            "Gap too long", "Forgot my appointment", "Is it too late to get vaccinated?"
+        ],
+        "responses": [
+            "If you missed your scheduled second dose, get it as soon as possible. You do NOT need to restart the series. Just go to a vaccination center and get the remaining shot."
+        ]
+    },
+    {
+        "intent": "lost_certificate",
+        "patterns": [
+            "I lost my vaccine certificate", "How to download certificate?",
+            "Where to find vaccine proof?", "CoWIN certificate download",
+            "Get my records"
+        ],
+        "responses": [
+            "You can download your vaccination certificate from your country's official portal. In India, use the CoWIN website (cowin.gov.in) or the Aarogya Setu app. In the US, check with your state health department or pharmacy."
+        ]
+    },
+    {
+        "intent": "tested_positive_recently",
+        "patterns": [
+            "I tested positive yesterday", "Can I get vaccine if I have covid now?",
+            "Vaccine during infection", "I have covid symptoms should I vaccinate?"
+        ],
+        "responses": [
+            "No, you should wait until you have recovered from the acute illness and are no longer isolating. In many countries, it is recommended to wait 3 months after a COVID-19 infection before getting a booster."
+        ]
+    },
+    {
+        "intent": "mrna_vs_vector",
+        "patterns": [
+            "Difference between mRNA and viral vector", "How are vaccines different?",
+            "Which technology is better?", "Types of covid vaccines"
+        ],
+        "responses": [
+            "mRNA vaccines (Pfizer, Moderna) use genetic code to teach cells to make a protein. Viral vector vaccines (Covishield, Sputnik) use a harmless virus to deliver instructions. Both types train the immune system effectively."
+        ]
+    },
+    {
+        "intent": "alcohol",
+        "patterns": [
+            "Can I drink alcohol after vaccine?", "Alcohol and covid shot",
+            "Beer after vaccine", "Is it safe to drink?"
+        ],
+        "responses": [
+            "There is no evidence that moderate alcohol consumption reduces vaccine effectiveness. However, avoiding alcohol for a day or two may help you feel better if you have side effects like fatigue or headache."
+        ]
+    },
+    {
+        "intent": "exercise",
+        "patterns": [
+            "Can I exercise after vaccine?", "Gym after vaccine", "Workout after shot",
+            "Running after vaccination"
+        ],
+        "responses": [
+            "Yes, you can exercise if you feel well enough. However, listen to your body. If you feel tired or have arm pain, it's okay to take a rest day."
+        ]
+    },
+    {
+        "intent": "blood_donation",
+        "patterns": [
+            "Can I donate blood after vaccine?", "Blood donation rules",
+            "Waiting period for blood donation"
+        ],
+        "responses": [
+            "In most cases, you can donate blood immediately after vaccination if you feel well and have no symptoms. Check with your local blood donation center for specific guidelines."
+        ]
+    },
+    {
+        "intent": "variants_names",
+        "patterns": [
+            "What are the variant names?", "Alpha Beta Gamma Delta",
+            "Why Greek letters?", "Who names the variants?"
+        ],
+        "responses": [
+            "The WHO names variants using Greek letters (Alpha, Beta, Delta, Omicron) to avoid stigmatizing countries where they were first detected and to simplify public communication."
+        ]
+    },
+    {
+        "intent": "pandemic_end",
+        "patterns": [
+            "When will the pandemic end?", "Is covid over?", "End of covid",
+            "Are we in endemic phase?"
+        ],
+        "responses": [
+            "The WHO declared the end of COVID-19 as a global health emergency in May 2023. However, the virus is still circulating and is now considered an established and ongoing health issue (endemic) rather than an emergency."
+        ]
+    },
+    {
+        "intent": "vaccine_cost_india",
+        "patterns": [
+            "Price of vaccine in India", "Cost of Covishield", "Cost of Covaxin",
+            "Private hospital vaccine price"
+        ],
+        "responses": [
+            "In India, vaccines are free at government centers. Private hospitals charge a capped price (approx ₹225 + service charge) per dose. Prices may vary slightly, so check the CoWIN portal."
+        ]
+    },
+    {
+        "intent": "fear_of_needles",
+        "patterns": [
+            "I am scared of needles", "Needle phobia", "Does the shot hurt a lot?",
+            "I hate injections"
+        ],
+        "responses": [
+            "It's common to be nervous. The COVID-19 vaccine needle is very thin and the injection takes only a second. Many people report feeling just a tiny pinch or nothing at all. Tell the nurse you are nervous; they can help."
+        ]
+    },
+    {
+        "intent": "vaccine_mandate",
+        "patterns": [
+            "Is the vaccine mandatory?", "Do I have to get it?", "Forced vaccination",
+            "Government mandate"
+        ],
+        "responses": [
+            "Vaccination mandates vary by country and employer. In general, governments encourage vaccination to protect public health but do not force individuals. However, some jobs or travel may require proof of vaccination."
+        ]
+    },
+    {
+        "intent": "future_vaccines",
+        "patterns": [
+            "Nasal vaccine", "Future of covid vaccines", "Pan-coronavirus vaccine",
+            "Universal vaccine"
+        ],
+        "responses": [
+            "Scientists are working on next-generation vaccines, including nasal sprays that stop infection in the nose and 'pan-coronavirus' vaccines that could protect against many different coronaviruses at once."
+        ]
+    },
+    {
         "intent": "vaccine_inventor",
         "patterns": [
             "Who invented the vaccine?", "Who made the vaccine?", "Creator of covid vaccine",
