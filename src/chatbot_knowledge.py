@@ -1342,5 +1342,15 @@ KNOWLEDGE_BASE = [
         "responses": [
             "ARDS (Acute Respiratory Distress Syndrome) is a life-threatening condition where fluid builds up in the lungs' air sacs, preventing oxygen from reaching the bloodstream. Severe COVID-19 can cause ARDS, requiring ventilation."
         ]
+    },
+    {
+        "intent": "what_are_coronaviruses",
+        "patterns": [
+            "What are coronaviruses?", "Define coronaviruses", "Coronavirus family",
+            "What is coronavirus?", "Explain coronaviruses", "Coronavirus meaning"
+        ],
+        "responses": [
+            "Coronaviruses are a large family of viruses that can cause illnesses ranging from the common cold to more severe diseases like SARS (Severe Acute Respiratory Syndrome) and MERS (Middle East Respiratory Syndrome). SARS-CoV-2, which causes COVID-19, is a coronavirus similar to the one that caused SARS. Many coronaviruses are zoonotic, meaning they transmit from animals to humans."
+        ]
     }
 ]
