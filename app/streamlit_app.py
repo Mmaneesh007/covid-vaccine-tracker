@@ -501,6 +501,173 @@ except Exception as e:
     st.error(f"Error loading dashboard: {str(e)}")
     st.exception(e)
 
+
+# COVID-19 Symptom Checker
+st.divider()
+st.header("🩺 COVID-19 Symptom Self-Assessment")
+
+# Medical Disclaimer
+st.warning("""
+⚠️ **MEDICAL DISCLAIMER**  
+This is NOT a diagnostic tool and does not replace professional medical advice, diagnosis, or treatment. 
+If you have symptoms, please consult a healthcare provider and get tested for COVID-19.
+""")
+
+st.markdown("""
+This assessment is based on symptoms recognized by the **WHO** and **CDC**. 
+It helps you understand if you should get tested, but it cannot confirm or rule out COVID-19.
+""")
+
+# Symptom Checker Form
+with st.form("symptom_checker"):
+    st.subheader("📋 Check Your Symptoms")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("**Primary Symptoms:**")
+        fever = st.checkbox("🌡️ Fever (>100.4°F / 38°C)")
+        cough = st.checkbox("🤧 New continuous cough")
+        breathing = st.checkbox("😮‍💨 Difficulty breathing / shortness of breath")
+        taste_smell = st.checkbox("👃 Loss of taste or smell")
+    
+    with col2:
+        st.markdown("**Other Symptoms:**")
+        fatigue = st.checkbox("😴 Unusual tiredness / fatigue")
+        body_aches = st.checkbox("💪 Muscle or body aches")
+        sore_throat = st.checkbox("🗣️ Sore throat")
+        headache = st.checkbox("🤕 Headache")
+        congestion = st.checkbox("🤧 Nasal congestion or runny nose")
+        nausea = st.checkbox("🤢 Nausea or vomiting")
+        diarrhea = st.checkbox("🚽 Diarrhea")
+    
+    st.divider()
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        exposure = st.radio(
+            "Have you been in close contact with someone who tested positive for COVID-19?",
+            ["No", "Yes, within last 14 days", "Unsure"]
+        )
+    
+    with col2:
+        vaccinated = st.radio(
+            "Vaccination Status:",
+            ["Unvaccinated", "Partially Vaccinated", "Fully Vaccinated", "Boosted"]
+        )
+    
+    submitted = st.form_submit_button("🔍 Assess Risk", use_container_width=True)
+    
+    if submitted:
+        # Calculate symptom score
+        primary_symptoms = sum([fever, cough, breathing, taste_smell])
+        other_symptoms = sum([fatigue, body_aches, sore_throat, headache, congestion, nausea, diarrhea])
+        total_symptoms = primary_symptoms + other_symptoms
+        
+        # Risk assessment logic
+        high_risk = False
+        moderate_risk = False
+        
+        # High risk criteria
+        if breathing or (taste_smell and fever):
+            high_risk = True
+        elif primary_symptoms >= 2 and exposure == "Yes, within last 14 days":
+            high_risk = True
+        elif total_symptoms >= 4:
+            high_risk = True
+        # Moderate risk criteria
+        elif primary_symptoms >= 1 or total_symptoms >= 2:
+            moderate_risk = True
+        elif exposure == "Yes, within last 14 days":
+            moderate_risk = True
+        
+        st.divider()
+        
+        # Display results
+        if high_risk:
+            st.error("""
+            ### 🚨 HIGH RISK ASSESSMENT
+            
+            Based on your symptoms, you may have COVID-19. Please take the following steps:
+            
+            **Immediate Actions:**
+            1. ✅ **Get tested immediately** - Find testing locations below
+            2. 🏠 **Self-isolate** - Stay away from others, including household members
+            3. 😷 **Wear a mask** if you must be around others
+            4. 📞 **Contact your healthcare provider** if symptoms worsen
+            
+            **Seek Emergency Care if you experience:**
+            - Trouble breathing
+            - Persistent chest pain or pressure
+            - New confusion
+            - Inability to wake or stay awake
+            - Pale, gray, or blue-colored skin, lips, or nail beds
+            """)
+            
+        elif moderate_risk:
+            st.warning("""
+            ### ⚠️ MODERATE RISK ASSESSMENT
+            
+            You have some symptoms that could indicate COVID-19.
+            
+            **Recommended Actions:**
+            1. ✅ **Get tested** - Schedule a COVID-19 test
+            2. 🏠 **Stay home** - Avoid contact with others until you get tested
+            3. 😷 **Wear a mask** around others
+            4. 👁️ **Monitor symptoms** - Watch for worsening symptoms
+            5. 📞 **Contact your healthcare provider** if symptoms worsen
+            """)
+            
+        else:
+            st.success("""
+            ### ✅ LOW RISK ASSESSMENT
+            
+            Based on your responses, you currently have a low risk for COVID-19.
+            
+            **Continue Preventive Measures:**
+            - 💉 Stay up-to-date with vaccinations
+            - 😷 Wear masks in crowded indoor spaces
+            - 👐 Wash hands frequently
+            - 📏 Maintain social distance when possible
+            - 👁️ Monitor for new symptoms
+            
+            **Note:** This assessment is based on current symptoms only. Get tested if you develop new symptoms or have known exposure.
+            """)
+        
+        st.divider()
+        
+        # Testing locations and resources
+        st.subheader("🔬 Find COVID-19 Testing Locations")
+        
+        testing_col1, testing_col2 = st.columns(2)
+        
+        with testing_col1:
+            st.markdown("""
+            **India:**
+            - [ICMR Testing Centers](https://www.icmr.gov.in/)
+            - [MyGov India COVID Testing](https://www.mygov.in/covid-19)
+            - Call: **1075** (COVID-19 Helpline)
+            
+            **United States:**
+            - [COVID.gov Testing Locator](https://www.covid.gov/tests)
+            - [HHS Testing Sites](https://www.hhs.gov/coronavirus/community-based-testing-sites/)
+            - Call: **211** for local resources
+            """)
+        
+        with testing_col2:
+            st.markdown("""
+            **United Kingdom:**
+            - [NHS COVID-19 Testing](https://www.nhs.uk/conditions/coronavirus-covid-19/testing/)
+            - Call: **119** (COVID-19 Helpline)
+            
+            **Global Resources:**
+            - [WHO COVID-19 Resources](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
+            - Contact your local health department
+            - Visit your nearest hospital emergency dept for urgent care
+            """)
+        
+        st.info("💡 **Tip:** Many pharmacies and clinics offer rapid testing. Check with your local pharmacy for availability.")
+
 # Footer
 st.divider()
 st.markdown("""
@@ -509,3 +676,4 @@ st.markdown("""
     <p>Built with ❤️ using Streamlit • Prophet • Plotly</p>
 </div>
 """, unsafe_allow_html=True)
+
