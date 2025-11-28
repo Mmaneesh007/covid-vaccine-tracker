@@ -629,5 +629,205 @@ KNOWLEDGE_BASE = [
         "responses": [
             "COVID-19 vaccines were developed by teams of scientists at pharmaceutical companies and research institutions. Key developers include BioNTech/Pfizer (Uğur Şahin, Özlem Türeci), Moderna, Oxford/AstraZeneca (Sarah Gilbert), and Johnson & Johnson. The mRNA technology was pioneered by scientists like Katalin Karikó and Drew Weissman."
         ]
+    },
+    {
+        "intent": "virology_structure",
+        "patterns": [
+            "Structure of the virus", "What does the virus look like?", "Is it an RNA virus?",
+            "SARS-CoV-2 structure", "Spike protein function", "Viral envelope"
+        ],
+        "responses": [
+            "SARS-CoV-2 is a positive-sense single-stranded RNA virus. It has four structural proteins: spike (S), envelope (E), membrane (M), and nucleocapsid (N). The spike protein gives it a crown-like appearance (corona) and allows it to enter human cells."
+        ]
+    },
+    {
+        "intent": "ace2_receptor",
+        "patterns": [
+            "How does it enter cells?", "ACE2 receptor", "Mechanism of infection",
+            "How does covid infect?", "Cell entry"
+        ],
+        "responses": [
+            "The virus enters human cells by binding its Spike protein to the Angiotensin-Converting Enzyme 2 (ACE2) receptor, which is found on the surface of cells in the lungs, heart, kidneys, and intestines."
+        ]
+    },
+    {
+        "intent": "r0_reproduction",
+        "patterns": [
+            "How contagious is it?", "What is the R0?", "Reproduction number",
+            "R-naught", "How many people does one person infect?"
+        ],
+        "responses": [
+            "The basic reproduction number (R0) varies by variant. The original strain had an R0 of 2-3, Delta was around 5-7, and Omicron variants are even higher (often 10+), making it one of the most contagious viruses known."
+        ]
+    },
+    {
+        "intent": "incubation_period",
+        "patterns": [
+            "Incubation period", "How long until symptoms show?", "Time from infection to symptoms",
+            "Latent period"
+        ],
+        "responses": [
+            "The incubation period is typically 2 to 14 days, with an average of about 5 days. However, with newer variants like Omicron, symptoms often appear faster, usually within 2 to 4 days."
+        ]
+    },
+    {
+        "intent": "diagnosis_methods",
+        "patterns": [
+            "How is it diagnosed?", "Diagnostic tests", "CT scan for covid",
+            "Chest X-ray covid", "Ground glass opacities"
+        ],
+        "responses": [
+            "COVID-19 is diagnosed via RT-PCR (the gold standard) or rapid antigen tests. Chest CT scans can also detect characteristic signs like 'ground-glass opacities' in the lungs, even before a test result is available."
+        ]
+    },
+    {
+        "intent": "cytokine_storm",
+        "patterns": [
+            "What is a cytokine storm?", "Immune system overreaction", "Severe covid mechanism",
+            "Why do people die from covid?"
+        ],
+        "responses": [
+            "A 'cytokine storm' is a severe immune reaction where the body releases too many inflammatory signals (cytokines). This can damage the body's own tissues and organs, leading to respiratory failure and multi-organ failure."
+        ]
+    },
+    {
+        "intent": "prone_positioning",
+        "patterns": [
+            "Prone positioning", "Lying on stomach", "Why lie on stomach?",
+            "Proning for covid"
+        ],
+        "responses": [
+            "Prone positioning (lying on the stomach) helps improve oxygen levels in patients with severe respiratory distress. It reduces pressure on the lungs and helps open up more air sacs (alveoli) for breathing."
+        ]
+    },
+    {
+        "intent": "dexamethasone",
+        "patterns": [
+            "Dexamethasone", "Steroids for covid", "Corticosteroids",
+            "Drugs for severe covid"
+        ],
+        "responses": [
+            "Dexamethasone is a corticosteroid that has been proven to reduce mortality in critically ill COVID-19 patients requiring oxygen or ventilation. It works by suppressing the harmful overreaction of the immune system."
+        ]
+    },
+    {
+        "intent": "comorbidities",
+        "patterns": [
+            "Risk factors", "Who is at high risk?", "Comorbidities",
+            "Diabetes and covid", "Obesity and covid", "Hypertension and covid"
+        ],
+        "responses": [
+            "People with underlying medical conditions (comorbidities) are at higher risk for severe illness. Major risk factors include age (65+), obesity, diabetes, hypertension, cardiovascular disease, and chronic lung diseases."
+        ]
+    },
+    {
+        "intent": "mortality_rate",
+        "patterns": [
+            "What is the death rate?", "Mortality rate", "Case fatality rate",
+            "Infection fatality rate", "How deadly is it?"
+        ],
+        "responses": [
+            "The mortality rate varies greatly by age and vaccination status. The Case Fatality Rate (CFR) varies by country (often 1-3%). The Infection Fatality Rate (IFR) is lower (estimated 0.15-1%) because many mild cases go undetected. Vaccination drastically reduces this risk."
+        ]
+    },
+    {
+        "intent": "patient_zero",
+        "patterns": [
+            "Who was patient zero?", "First person to get covid", "Index case",
+            "Huanan Seafood Market"
+        ],
+        "responses": [
+            "The exact 'Patient Zero' has not been conclusively identified. Early cases were linked to the Huanan Seafood Wholesale Market in Wuhan, but some earlier cases had no link to the market, suggesting the virus may have been circulating silently before."
+        ]
+    },
+    {
+        "intent": "economic_impact",
+        "patterns": [
+            "Economic impact of covid", "Recession caused by covid", "Financial cost of pandemic",
+            "Supply chain disruption"
+        ],
+        "responses": [
+            "The pandemic caused the largest global economic recession since the Great Depression. It disrupted supply chains, caused massive unemployment, closed businesses, and increased global poverty and inequality."
+        ]
+    },
+    {
+        "intent": "social_stigma",
+        "patterns": [
+            "Social stigma", "Discrimination against asians", "Xenophobia covid",
+            "Stigma against healthcare workers"
+        ],
+        "responses": [
+            "The pandemic led to increased social stigma and xenophobia, particularly against people of Asian descent. Healthcare workers and survivors of the disease also faced discrimination and isolation in some communities."
+        ]
+    },
+    {
+        "intent": "environmental_impact",
+        "patterns": [
+            "Environmental impact", "Pollution reduction covid", "Nature healing",
+            "Carbon emissions drop"
+        ],
+        "responses": [
+            "Lockdowns temporarily reduced global carbon emissions and air pollution due to reduced travel and industry. However, the pandemic also created massive plastic waste from disposable masks, gloves, and PPE."
+        ]
+    },
+    {
+        "intent": "mental_health",
+        "patterns": [
+            "Mental health impact", "Depression during pandemic", "Anxiety covid",
+            "Loneliness lockdowns"
+        ],
+        "responses": [
+            "The pandemic triggered a global mental health crisis, with rates of anxiety and depression increasing by 25% worldwide (WHO). Factors included isolation, fear of infection, grief, and financial stress."
+        ]
+    },
+    {
+        "intent": "education_impact",
+        "patterns": [
+            "Impact on education", "School closures", "Online learning",
+            "Learning loss"
+        ],
+        "responses": [
+            "School closures affected over 1.6 billion students globally. The shift to remote learning highlighted the 'digital divide,' as many students lacked internet access, leading to significant learning losses."
+        ]
+    },
+    {
+        "intent": "zoonosis",
+        "patterns": [
+            "Is it a zoonotic disease?", "Did it come from animals?", "Animal to human transmission",
+            "Intermediate host"
+        ],
+        "responses": [
+            "Yes, COVID-19 is a zoonotic disease, meaning it jumped from animals to humans. The closest known relative is a bat coronavirus (RaTG13), but an intermediate host (like pangolins) may have been involved."
+        ]
+    },
+    {
+        "intent": "ventilation",
+        "patterns": [
+            "Importance of ventilation", "Airflow", "Open windows",
+            "HEPA filters", "Indoor transmission"
+        ],
+        "responses": [
+            "Good ventilation is crucial because the virus accumulates in stagnant indoor air. Opening windows, using fans, and installing HEPA filters significantly reduce the risk of airborne transmission."
+        ]
+    },
+    {
+        "intent": "hand_hygiene",
+        "patterns": [
+            "Hand washing", "Sanitizer vs soap", "How to wash hands",
+            "Does soap kill the virus?"
+        ],
+        "responses": [
+            "Soap destroys the virus's lipid (fatty) envelope, effectively killing it. Washing hands with soap and water for 20 seconds is more effective than sanitizer, though alcohol-based sanitizer (60%+) is a good alternative."
+        ]
+    },
+    {
+        "intent": "asymptomatic_transmission",
+        "patterns": [
+            "Can you spread it without symptoms?", "Asymptomatic carriers", "Silent spreaders",
+            "Pre-symptomatic transmission"
+        ],
+        "responses": [
+            "Yes, infected people can spread the virus 1-3 days before symptoms appear (pre-symptomatic) or even if they never develop symptoms (asymptomatic). This 'silent spread' makes controlling the virus very difficult."
+        ]
     }
 ]
