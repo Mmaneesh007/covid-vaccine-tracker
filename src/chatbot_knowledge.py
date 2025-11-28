@@ -410,5 +410,29 @@ KNOWLEDGE_BASE = [
         "responses": [
             "Yes, you can get a COVID-19 vaccine and a flu shot at the same visit. It is safe and convenient."
         ]
+    },
+    {
+        "intent": "covid_history",
+        "patterns": [
+            "When did covid start?", "When was the first case?", "History of covid",
+            "Start date of pandemic", "How long has covid been around?", "When was covid discovered?",
+            "First outbreak", "When did it begin?"
+        ],
+        "responses": [
+            "COVID-19 was first identified in Wuhan, China, in December 2019. The World Health Organization (WHO) declared it a Public Health Emergency of International Concern on January 30, 2020, and a pandemic on March 11, 2020."
+        ]
+    },
+    {
+        "intent": "vaccine_inventor",
+        "patterns": [
+            "Who invented the vaccine?", "Who made the vaccine?", "Creator of covid vaccine",
+            "Who developed Pfizer?", "Who developed Moderna?", "Scientists behind the vaccine",
+            "Did one person invent it?", "Companies that made vaccines",
+            "Who made Pfizer?", "Who made Moderna?", "Who made Johnson and Johnson?",
+            "Who made AstraZeneca?", "Who created the vaccine?"
+        ],
+        "responses": [
+            "COVID-19 vaccines were developed by teams of scientists at pharmaceutical companies and research institutions. Key developers include BioNTech/Pfizer (Uğur Şahin, Özlem Türeci), Moderna, Oxford/AstraZeneca (Sarah Gilbert), and Johnson & Johnson. The mRNA technology was pioneered by scientists like Katalin Karikó and Drew Weissman."
+        ]
     }
 ]
