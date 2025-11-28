@@ -1352,5 +1352,70 @@ KNOWLEDGE_BASE = [
         "responses": [
             "Coronaviruses are a large family of viruses that can cause illnesses ranging from the common cold to more severe diseases like SARS (Severe Acute Respiratory Syndrome) and MERS (Middle East Respiratory Syndrome). SARS-CoV-2, which causes COVID-19, is a coronavirus similar to the one that caused SARS. Many coronaviruses are zoonotic, meaning they transmit from animals to humans."
         ]
+    },
+    {
+        "intent": "feeling_angry",
+        "patterns": [
+            "I'm angry", "I am angry", "This makes me angry", "I'm mad", "I am mad",
+            "So angry", "Really angry", "This is frustrating", "I'm frustrated", "I am frustrated",
+            "So frustrated", "Furious", "Annoyed", "Irritated", "This irritates me",
+            "Makes me mad", "I hate this", "This sucks", "Infuriating"
+        ],
+        "responses": [
+            "I understand your frustration. The pandemic has been difficult for everyone. Let me help you find the information you need.",
+            "I hear your frustration. It's completely understandable to feel this way. How can I assist you with your COVID-19 questions?"
+        ]
+    },
+    {
+        "intent": "feeling_scared",
+        "patterns": [
+            "I'm scared", "I am scared", "I'm afraid", "I am afraid", "Scared about",
+            "Afraid of", "Terrified", "Frightened", "Worried", "I'm worried", "I am worried",
+            "So worried", "Nervous", "I'm nervous", "Anxious", "I'm anxious",
+            "This scares me", "This worries me", "What if", "Fear", "Fearful"
+        ],
+        "responses": [
+            "It's completely natural to feel worried or scared. Many people share your concerns. Let me provide you with accurate information to help ease your worries.",
+            "I understand your concerns. It's normal to feel anxious about health matters. I'm here to give you reliable, fact-based answers."
+        ]
+    },
+    {
+        "intent": "feeling_bored",
+        "patterns": [
+            "I'm bored", "I am bored", "This is boring", "So boring", "Too long",
+            "TLDR", "Too much info", "Too much information", "Short answer", "Quick answer",
+            "Make it short", "Brief answer", "Be brief", "Tired of this", "Fed up",
+            "Keep it simple", "Summarize", "In short"
+        ],
+        "responses": [
+            "I'll keep this brief. What specific question can I answer for you?",
+            "Let me give you a quick answer. What would you like to know?"
+        ]
+    },
+    {
+        "intent": "feeling_confused",
+        "patterns": [
+            "I'm confused", "I am confused", "Don't understand", "I don't understand",
+            "Confused about", "This is confusing", "So confusing", "Not clear", "Unclear",
+            "Lost", "I'm lost", "Can't follow", "Don't get it", "I don't get it",
+            "Explain better", "Explain again", "What does that mean", "Clarify"
+        ],
+        "responses": [
+            "Let me explain this more clearly. Which part would you like me to clarify?",
+            "I understand this can be confusing. Let me break it down for you in simpler terms. What specifically confuses you?"
+        ]
+    },
+    {
+        "intent": "feeling_sad",
+        "patterns": [
+            "I'm sad", "I am sad", "Depressed", "I'm depressed", "Feeling down",
+            "So sad", "This makes me sad", "Upset", "I'm upset", "Crying",
+            "Devastated", "Heartbroken", "Miserable", "Unhappy", "Feeling low"
+        ],
+        "responses": [
+            "I'm sorry you're feeling this way. While I'm here for health information, if you're experiencing depression or persistent sadness, please consider reaching out to a mental health professional or support hotline.",
+            "I hear that you're going through a difficult time. Remember, it's important to take care of your mental health too. How can I help with your COVID-19 questions?"
+        ]
     }
 ]
+

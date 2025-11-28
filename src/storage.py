@@ -35,24 +35,16 @@ def get_latest_by_country(limit=100):
     engine = sa.create_engine(DB_URL)
     
     query = """
-    SELECT 
-        location, 
-        date, 
-        total_vaccinations, 
-        people_vaccinated, 
-        people_fully_vaccinated, 
-        daily_vaccinations_7d, 
-        pct_vaccinated,
-        pct_fully_vaccinated,
-        new_deaths_smoothed_per_million,
-        new_cases_smoothed_per_million
-    FROM countries_vaccinations
-    WHERE (location, date) IN (
-        SELECT location, MAX(date) 
-        FROM countries_vaccinations 
+    WITH latest_dates AS (
+        SELECT location, MAX(date) as max_date
+        FROM countries_vaccinations
+        WHERE total_vaccinations IS NOT NULL
         GROUP BY location
     )
-    ORDER BY pct_vaccinated DESC
+    SELECT t1.*
+    FROM countries_vaccinations t1
+    JOIN latest_dates t2 ON t1.location = t2.location AND t1.date = t2.max_date
+    ORDER BY t1.pct_vaccinated DESC
     LIMIT :limit
     """
     
@@ -79,6 +71,18 @@ def get_country_timeseries(country_name):
     
     return pd.read_sql_query(query, engine, params={"country": country_name}, 
                              parse_dates=["date"])
+
+def get_all_countries():
+    """
+    Get a list of all unique countries in the database.
+    
+    Returns:
+        list: List of country names
+    """
+    engine = sa.create_engine(DB_URL)
+    query = "SELECT DISTINCT location FROM countries_vaccinations ORDER BY location"
+    df = pd.read_sql_query(query, engine)
+    return df["location"].tolist()
 
 if __name__ == "__main__":
     # Test database operations

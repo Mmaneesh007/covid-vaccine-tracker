@@ -5,6 +5,7 @@ streamlit
 plotly
 prophet
 scikit-learn
+textblob
 pytest
 gunicorn
 reportlab
