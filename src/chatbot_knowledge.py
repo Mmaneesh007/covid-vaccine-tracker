@@ -829,5 +829,374 @@ KNOWLEDGE_BASE = [
         "responses": [
             "Yes, infected people can spread the virus 1-3 days before symptoms appear (pre-symptomatic) or even if they never develop symptoms (asymptomatic). This 'silent spread' makes controlling the virus very difficult."
         ]
+    },
+    {
+        "intent": "glossary_ace2",
+        "patterns": [
+            "What is ACE2?", "Define ACE2", "ACE2 receptor meaning", "Explain ACE2"
+        ],
+        "responses": [
+            "ACE2 (Angiotensin-Converting Enzyme 2) is a protein on the surface of cells in the lungs, heart, and other organs. The coronavirus uses this receptor as an entry point to infect human cells."
+        ]
+    },
+    {
+        "intent": "glossary_antibody",
+        "patterns": [
+            "What are antibodies?", "Define antibodies", "Antibody meaning", "Explain antibodies"
+        ],
+        "responses": [
+            "Antibodies are proteins produced by the immune system to neutralize foreign invaders (like viruses). They recognize and bind to specific parts of the pathogen, marking it for destruction."
+        ]
+    },
+    {
+        "intent": "glossary_antigen",
+        "patterns": [
+            "What is an antigen?", "Define antigen", "Antigen meaning", "Antigen test"
+        ],
+        "responses": [
+            "An antigen is a foreign substance (like a piece of virus) that triggers an immune response. Rapid antigen tests detect viral proteins to diagnose COVID-19."
+        ]
+    },
+    {
+        "intent": "glossary_asymptomatic",
+        "patterns": [
+            "What does asymptomatic mean?", "Define asymptomatic", "Asymptomatic meaning"
+        ],
+        "responses": [
+            "Asymptomatic means infected with a virus but showing no symptoms. Asymptomatic individuals can still spread COVID-19 to others."
+        ]
+    },
+    {
+        "intent": "glossary_comorbidity",
+        "patterns": [
+            "What is a comorbidity?", "Define comorbidity", "Comorbidity meaning"
+        ],
+        "responses": [
+            "A comorbidity is a pre-existing medical condition (like diabetes or heart disease) that exists alongside another disease. Comorbidities increase the risk of severe COVID-19."
+        ]
+    },
+    {
+        "intent": "glossary_contact_tracing",
+        "patterns": [
+            "What is contact tracing?", "Define contact tracing", "Contact tracing meaning"
+        ],
+        "responses": [
+            "Contact tracing is the process of identifying people who have been in close contact with an infected person. It helps prevent further spread by alerting contacts to quarantine and get tested."
+        ]
+    },
+    {
+        "intent": "glossary_ct_value",
+        "patterns": [
+            "What is CT value?", "Define CT value", "Cycle threshold", "CT in PCR"
+        ],
+        "responses": [
+            "CT (Cycle Threshold) value indicates the number of PCR cycles needed to detect the virus. A lower CT value means higher viral load (more virus in the sample)."
+        ]
+    },
+    {
+        "intent": "glossary_epidemiology",
+        "patterns": [
+            "What is epidemiology?", "Define epidemiology", "Epidemiology meaning"
+        ],
+        "responses": [
+            "Epidemiology is the study of how diseases spread in populations. Epidemiologists track infection rates, identify risk factors, and inform public health decisions."
+        ]
+    },
+    {
+        "intent": "glossary_droplet",
+        "patterns": [
+            "What are respiratory droplets?", "Define droplet transmission", "Droplets meaning"
+        ],
+        "responses": [
+            "Respiratory droplets are small liquid particles expelled when a person coughs, sneezes, talks, or breathes. COVID-19 can spread through these droplets."
+        ]
+    },
+    {
+        "intent": "glossary_aerosol",
+        "patterns": [
+            "What are aerosols?", "Define aerosol transmission", "Aerosol meaning"
+        ],
+        "responses": [
+            "Aerosols are tiny airborne particles that can remain suspended in the air for hours. COVID-19 can spread via aerosols, especially in poorly ventilated indoor spaces."
+        ]
+    },
+    {
+        "intent": "glossary_fomite",
+        "patterns": [
+            "What is a fomite?", "Define fomite", "Fomite transmission"
+        ],
+        "responses": [
+            "A fomite is an object or surface (like a doorknob or phone) that can carry infectious particles. COVID-19 can survive on fomites, though this is not the primary mode of transmission."
+        ]
+    },
+    {
+        "intent": "glossary_genome",
+        "patterns": [
+            "What is a genome?", "Define genome", "Viral genome"
+        ],
+        "responses": [
+            "A genome is the complete set of genetic material in an organism. SARS-CoV-2 has an RNA genome containing about 30,000 genetic letters (nucleotides)."
+        ]
+    },
+    {
+        "intent": "glossary_herd_immunity_def",
+        "patterns": [
+            "Define herd immunity", "What is herd immunity?", "Herd immunity meaning"
+        ],
+        "responses": [
+            "Herd immunity occurs when enough people in a community are immune (through vaccination or prior infection) to make disease spread unlikely, protecting those who aren't immune."
+        ]
+    },
+    {
+        "intent": "glossary_hypoxia",
+        "patterns": [
+            "What is hypoxia?", "Define hypoxia", "Hypoxia meaning", "Silent hypoxia"
+        ],
+        "responses": [
+            "Hypoxia is a condition where the body or tissues don't get enough oxygen. 'Silent hypoxia' in COVID-19 patients means dangerously low oxygen levels without noticeable breathlessness."
+        ]
+    },
+    {
+        "intent": "glossary_immunocompromised",
+        "patterns": [
+            "What does immunocompromised mean?", "Define immunocompromised", "Immunocompromised meaning"
+        ],
+        "responses": [
+            "Immunocompromised means having a weakened immune system due to disease, medication, or medical treatment. These individuals are at higher risk for severe COVID-19."
+        ]
+    },
+    {
+        "intent": "glossary_incubation",
+        "patterns": [
+            "What is incubation period?", "Define incubation", "Incubation meaning"
+        ],
+        "responses": [
+            "The incubation period is the time between infection and the appearance of symptoms. For COVID-19, it's typically 2-14 days, with an average of 5 days."
+        ]
+    },
+    {
+        "intent": "glossary_intubation",
+        "patterns": [
+            "What is intubation?", "Define intubation", "Intubation meaning"
+        ],
+        "responses": [
+            "Intubation is inserting a tube through the mouth into the airway to help a patient breathe. It's used for severe COVID-19 patients who need mechanical ventilation."
+        ]
+    },
+    {
+        "intent": "glossary_mrna",
+        "patterns": [
+            "What is mRNA?", "Define mRNA", "Messenger RNA", "mRNA meaning"
+        ],
+        "responses": [
+            "mRNA (messenger RNA) carries genetic instructions from DNA to cells to make proteins. mRNA vaccines use this to teach cells to make the virus's spike protein, triggering immunity."
+        ]
+    },
+    {
+        "intent": "glossary_neutralizing_antibody",
+        "patterns": [
+            "What are neutralizing antibodies?", "Define neutralizing antibodies"
+        ],
+        "responses": [
+            "Neutralizing antibodies block the virus from entering cells, preventing infection. They are a key measure of vaccine effectiveness and natural immunity."
+        ]
+    },
+    {
+        "intent": "glossary_pandemic",
+        "patterns": [
+            "What is a pandemic?", "Define pandemic", "Pandemic vs epidemic"
+        ],
+        "responses": [
+            "A pandemic is a disease outbreak that spreads across multiple countries or continents. COVID-19 was declared a pandemic by the WHO on March 11, 2020."
+        ]
+    },
+    {
+        "intent": "glossary_pcr",
+        "patterns": [
+            "What is PCR?", "Define PCR", "PCR test meaning", "RT-PCR"
+        ],
+        "responses": [
+            "PCR (Polymerase Chain Reaction) is a lab technique that amplifies viral genetic material to detect infection. RT-PCR is the gold standard test for diagnosing COVID-19."
+        ]
+    },
+    {
+        "intent": "glossary_pneumonia",
+        "patterns": [
+            "What is pneumonia?", "Define pneumonia", "COVID pneumonia"
+        ],
+        "responses": [
+            "Pneumonia is lung inflammation where air sacs fill with fluid or pus. COVID-19 can cause viral pneumonia, leading to breathing difficulties and requiring hospitalization."
+        ]
+    },
+    {
+        "intent": "glossary_quarantine",
+        "patterns": [
+            "What is quarantine?", "Define quarantine", "Quarantine vs isolation"
+        ],
+        "responses": [
+            "Quarantine separates people who were exposed to a disease but aren't yet sick. Isolation separates people who are already infected. Both prevent disease spread."
+        ]
+    },
+    {
+        "intent": "glossary_r0_def",
+        "patterns": [
+            "What is R0?", "Define R0", "R-naught meaning", "Basic reproduction number"
+        ],
+        "responses": [
+            "R0 (basic reproduction number) is the average number of people an infected person will infect. An R0 above 1 means the outbreak is growing; below 1 means it's shrinking."
+        ]
+    },
+    {
+        "intent": "glossary_seroprevalence",
+        "patterns": [
+            "What is seroprevalence?", "Define seroprevalence", "Seroprevalence meaning"
+        ],
+        "responses": [
+            "Seroprevalence is the percentage of people in a population who have antibodies to a disease. It indicates how many people have been infected or vaccinated."
+        ]
+    },
+    {
+        "intent": "glossary_spike_protein",
+        "patterns": [
+            "What is spike protein?", "Define spike protein", "Spike protein meaning"
+        ],
+        "responses": [
+            "The spike protein is a structure on the virus surface that allows it to enter human cells. Vaccines train the immune system to recognize and attack this protein."
+        ]
+    },
+    {
+        "intent": "glossary_t_cell",
+        "patterns": [
+            "What are T-cells?", "Define T-cells", "T-cell immunity"
+        ],
+        "responses": [
+            "T-cells are white blood cells that help the immune system. Some kill infected cells (killer T-cells), while others coordinate the immune response (helper T-cells). They provide long-lasting immunity."
+        ]
+    },
+    {
+        "intent": "glossary_thrombosis",
+        "patterns": [
+            "What is thrombosis?", "Define thrombosis", "Blood clots COVID"
+        ],
+        "responses": [
+            "Thrombosis is the formation of blood clots inside blood vessels. COVID-19 can increase clotting risk, leading to complications like pulmonary embolism or stroke."
+        ]
+    },
+    {
+        "intent": "glossary_vaccine_efficacy",
+        "patterns": [
+            "What is vaccine efficacy?", "Define vaccine efficacy", "Efficacy vs effectiveness"
+        ],
+        "responses": [
+            "Vaccine efficacy measures how well a vaccine works in controlled trials. Effectiveness measures real-world performance. A 95% efficacy means 95% reduction in disease among vaccinated people."
+        ]
+    },
+    {
+        "intent": "glossary_ventilator",
+        "patterns": [
+            "What is a ventilator?", "Define ventilator", "Mechanical ventilation"
+        ],
+        "responses": [
+            "A ventilator is a machine that helps patients breathe when they can't do so on their own. Severe COVID-19 patients may need ventilation due to respiratory failure."
+        ]
+    },
+    {
+        "intent": "glossary_viral_load",
+        "patterns": [
+            "What is viral load?", "Define viral load", "Viral load meaning"
+        ],
+        "responses": [
+            "Viral load is the amount of virus in a sample (blood, saliva, etc.). Higher viral load generally means more infectious and potentially more severe illness."
+        ]
+    },
+    {
+        "intent": "glossary_zoonotic_def",
+        "patterns": [
+            "What does zoonotic mean?", "Define zoonotic", "Zoonotic disease"
+        ],
+        "responses": [
+            "Zoonotic means a disease that can jump from animals to humans. COVID-19 is believed to be zoonotic, likely originating from bats."
+        ]
+    },
+    {
+        "intent": "glossary_anosmia",
+        "patterns": [
+            "What is anosmia?", "Define anosmia", "Loss of smell"
+        ],
+        "responses": [
+            "Anosmia is the loss of the sense of smell. It's a distinctive symptom of COVID-19, often occurring without nasal congestion."
+        ]
+    },
+    {
+        "intent": "glossary_dyspnea",
+        "patterns": [
+            "What is dyspnea?", "Define dyspnea", "Shortness of breath medical term"
+        ],
+        "responses": [
+            "Dyspnea is the medical term for shortness of breath or difficulty breathing. It's a common symptom of severe COVID-19."
+        ]
+    },
+    {
+        "intent": "glossary_cytokine",
+        "patterns": [
+            "What are cytokines?", "Define cytokines", "Cytokine meaning"
+        ],
+        "responses": [
+            "Cytokines are signaling proteins that regulate immune and inflammatory responses. In severe COVID-19, excessive cytokine release (cytokine storm) can cause tissue damage."
+        ]
+    },
+    {
+        "intent": "glossary_convalescent_plasma",
+        "patterns": [
+            "What is convalescent plasma?", "Define convalescent plasma", "Plasma therapy"
+        ],
+        "responses": [
+            "Convalescent plasma is blood plasma from recovered COVID-19 patients containing antibodies. It was used as a treatment early in the pandemic, though evidence of effectiveness is mixed."
+        ]
+    },
+    {
+        "intent": "glossary_ecmo",
+        "patterns": [
+            "What is ECMO?", "Define ECMO", "ECMO meaning"
+        ],
+        "responses": [
+            "ECMO (Extracorporeal Membrane Oxygenation) is a machine that oxygenates blood outside the body. It's used as a last resort for critically ill COVID-19 patients when ventilators aren't enough."
+        ]
+    },
+    {
+        "intent": "glossary_monoclonal",
+        "patterns": [
+            "What are monoclonal antibodies?", "Define monoclonal antibodies", "Antibody therapy"
+        ],
+        "responses": [
+            "Monoclonal antibodies are lab-made proteins that mimic natural antibodies. They can bind to the virus and prevent it from infecting cells, used as a COVID-19 treatment."
+        ]
+    },
+    {
+        "intent": "glossary_remdesivir",
+        "patterns": [
+            "What is remdesivir?", "Define remdesivir", "Remdesivir drug"
+        ],
+        "responses": [
+            "Remdesivir is an antiviral medication that inhibits viral replication. It's approved for treating hospitalized COVID-19 patients and can shorten recovery time."
+        ]
+    },
+    {
+        "intent": "glossary_flattening_curve",
+        "patterns": [
+            "What does flatten the curve mean?", "Flatten the curve meaning", "Define flatten the curve"
+        ],
+        "responses": [
+            "Flattening the curve means slowing the spread of disease to prevent healthcare systems from being overwhelmed. Measures like social distancing help spread cases over a longer period."
+        ]
+    },
+    {
+        "intent": "glossary_super_spreader",
+        "patterns": [
+            "What is a super spreader?", "Define super spreader", "Super spreader event"
+        ],
+        "responses": [
+            "A super spreader is a person who infects an unusually large number of others. A super spreader event is a gathering where many people get infected at once."
+        ]
     }
 ]
