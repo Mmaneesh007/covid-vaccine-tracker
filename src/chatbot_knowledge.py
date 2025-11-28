@@ -1198,5 +1198,149 @@ KNOWLEDGE_BASE = [
         "responses": [
             "A super spreader is a person who infects an unusually large number of others. A super spreader event is a gathering where many people get infected at once."
         ]
+    },
+    {
+        "intent": "niv_india",
+        "patterns": [
+            "What is NIV?", "National Institute of Virology", "NIV Pune",
+            "BSL-4 lab India", "Who sequences virus in India?"
+        ],
+        "responses": [
+            "The National Institute of Virology (NIV) in Pune is India's premier virology lab. It has a Bio-Safety Level-4 (BSL-4) facility to culture novel viruses and sequence viral genomes. NIV sequenced SARS-CoV-2 from Indian patients."
+        ]
+    },
+    {
+        "intent": "lopinavir_ritonavir",
+        "patterns": [
+            "What is Lopinavir?", "Lopinavir-Ritonavir", "Anti-HIV drugs for COVID",
+            "India treatment protocol"
+        ],
+        "responses": [
+            "Lopinavir and Ritonavir are anti-HIV drugs that were used early in the pandemic for high-risk COVID-19 patients (elderly, diabetic, immunocompromised). However, evidence of effectiveness was limited and they can cause significant side effects."
+        ]
+    },
+    {
+        "intent": "thermal_scanners",
+        "patterns": [
+            "Do thermal scanners work?", "Temperature screening", "Airport screening effective?",
+            "Thermal cameras COVID"
+        ],
+        "responses": [
+            "Thermal scanners can detect fever (high temperature) but cannot detect people who are infected but not yet sick. Since incubation is 2-14 days, many infected people pass through without fever."
+        ]
+    },
+    {
+        "intent": "swimming_pool_safety",
+        "patterns": [
+            "Can I get COVID from swimming pool?", "Swimming pool transmission", "Chlorine kills virus?",
+            "Is pool safe?"
+        ],
+        "responses": [
+            "Highly unlikely. COVID-19 is a respiratory droplet infection, not waterborne. Chlorination of swimming pools to recommended levels can inactivate the virus."
+        ]
+    },
+    {
+        "intent": "meat_safety",
+        "patterns": [
+            "Is eating chicken safe?", "Can I eat meat?", "Food transmission COVID",
+            "Is it a foodborne virus?"
+        ],
+        "responses": [
+            "Yes, it's safe to eat meat. COVID-19 is a respiratory virus, not a foodborne one. There's no evidence of transmission through food, including chicken, mutton, or any meat products."
+        ]
+    },
+    {
+        "intent": "myth_hot_climate",
+        "patterns": [
+            "Can heat kill COVID?", "Does hot weather stop COVID?", "Summer and coronavirus",
+            "Tropical countries immune?"
+        ],
+        "responses": [
+            "Myth: This is FALSE. COVID-19 can be transmitted in ALL climates, including hot and humid areas. Climate does not prevent transmission. Protection measures (masks, hand hygiene) are needed everywhere."
+        ]
+    },
+    {
+        "intent": "myth_mosquito",
+        "patterns": [
+            "Can mosquitoes spread COVID?", "Mosquito transmission", "Is it like malaria?"
+        ],
+        "responses": [
+            "Myth: This is FALSE. There is no evidence that mosquitoes can transmit COVID-19. It spreads through respiratory droplets, not insect bites."
+        ]
+    },
+    {
+        "intent": "myth_garlic",
+        "patterns": [
+            "Does garlic cure COVID?", "Home remedies COVID", "Garlic prevent coronavirus?",
+            "Natural cures"
+        ],
+        "responses": [
+            "Myth: While garlic is healthy and has some antimicrobial properties, there is NO evidence it can prevent or treat COVID-19. Rely on proven measures like vaccination and hygiene."
+        ]
+    },
+    {
+        "intent": "myth_pneumonia_vaccine",
+        "patterns": [
+            "Does pneumonia vaccine protect against COVID?", "Pneumococcal vaccine", "Hib vaccine COVID"
+        ],
+        "responses": [
+            "No. Pneumonia vaccines (pneumococcal, Hib) do NOT protect against COVID-19. The virus is so new it needs its own vaccine. However, these vaccines are still recommended for overall respiratory health."
+        ]
+    },
+    {
+        "intent": "flu_vs_covid_symptoms",
+        "patterns": [
+            "Difference between flu and COVID?", "Is it flu or COVID?", "How to tell them apart?"
+        ],
+        "responses": [
+            "Cough and cold alone could be an allergy. Fever with cough/cold suggests flu. Fever with cough AND breathlessness is a key COVID-19 symptom. Get tested if you have trouble breathing."
+        ]
+    },
+    {
+        "intent": "sari_definition",
+        "patterns": [
+            "What is SARI?", "Define SARI", "Severe Acute Respiratory Infection"
+        ],
+        "responses": [
+            "SARI (Severe Acute Respiratory Infection) is a clinical term for severe respiratory illness. COVID-19 patients often present with SARI, which includes severe pneumonia, ARDS (Acute Respiratory Distress Syndrome), sepsis, or septic shock."
+        ]
+    },
+    {
+        "intent": "india_testing_labs",
+        "patterns": [
+            "Where to get tested in India?", "COVID labs India", "ICMR labs", "NCDC labs"
+        ],
+        "responses": [
+            "In India, you can get tested at 52 ICMR (Indian Council of Medical Research) labs, 10 NCDC (National Centre for Disease Control) labs, and the NIV in Pune. Private labs are also authorized."
+        ]
+    },
+    {
+        "intent": "respiratory_hygiene",
+        "patterns": [
+            "How to cough safely?", "Respiratory hygiene", "Cough etiquette",
+            "How to sneeze properly?"
+        ],
+        "responses": [
+            "Cover your mouth and nose with your bent elbow or a tissue when coughing or sneezing. Dispose of used tissues immediately in a closed bin. Then wash your hands."
+        ]
+    },
+    {
+        "intent": "lipid_envelope_detail",
+        "patterns": [
+            "How does soap kill virus?", "Lipid envelope explanation", "Why soap works",
+            "Soap science"
+        ],
+        "responses": [
+            "Soap molecules have a water-loving head and an oil-loving tail. The tail inserts into the virus's fatty (lipid) envelope and breaks it apart like a crowbar. This dissolves the virus, which is then washed away by water."
+        ]
+    },
+    {
+        "intent": "ards_definition",
+        "patterns": [
+            "What is ARDS?", "Define ARDS", "Acute Respiratory Distress Syndrome"
+        ],
+        "responses": [
+            "ARDS (Acute Respiratory Distress Syndrome) is a life-threatening condition where fluid builds up in the lungs' air sacs, preventing oxygen from reaching the bloodstream. Severe COVID-19 can cause ARDS, requiring ventilation."
+        ]
     }
 ]
