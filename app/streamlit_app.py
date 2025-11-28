@@ -582,65 +582,9 @@ with st.form("symptom_checker"):
         elif exposure == "Yes, within last 14 days":
             moderate_risk = True
         
-        st.divider()
-        
-        # Display results
-        if high_risk:
-            st.error("""
-            ### 🚨 HIGH RISK ASSESSMENT
-            
-            Based on your symptoms, you may have COVID-19. Please take the following steps:
-            
-            **Immediate Actions:**
-            1. ✅ **Get tested immediately** - Find testing locations below
-            2. 🏠 **Self-isolate** - Stay away from others, including household members
-            3. 😷 **Wear a mask** if you must be around others
-            4. 📞 **Contact your healthcare provider** if symptoms worsen
-            
-            **Seek Emergency Care if you experience:**
-            - Trouble breathing
-            - Persistent chest pain or pressure
-            - New confusion
-            - Inability to wake or stay awake
-            - Pale, gray, or blue-colored skin, lips, or nail beds
-            """)
-            
-        elif moderate_risk:
-            st.warning("""
-            ### ⚠️ MODERATE RISK ASSESSMENT
-            
-            You have some symptoms that could indicate COVID-19.
-            
-            **Recommended Actions:**
-            1. ✅ **Get tested** - Schedule a COVID-19 test
-            2. 🏠 **Stay home** - Avoid contact with others until you get tested
-            3. 😷 **Wear a mask** around others
-            4. 👁️ **Monitor symptoms** - Watch for worsening symptoms
-            5. 📞 **Contact your healthcare provider** if symptoms worsen
-            """)
-            
-        else:
-            st.success("""
-            ### ✅ LOW RISK ASSESSMENT
-            
-            Based on your responses, you currently have a low risk for COVID-19.
-            
-            **Continue Preventive Measures:**
-            - 💉 Stay up-to-date with vaccinations
-            - 😷 Wear masks in crowded indoor spaces
-            - 👐 Wash hands frequently
-            - 📏 Maintain social distance when possible
-            - 👁️ Monitor for new symptoms
-            
-            **Note:** This assessment is based on current symptoms only. Get tested if you develop new symptoms or have known exposure.
-            """)
-        
-        # Generate PDF Report Button
-        st.divider()
-        st.subheader("📄 Download Your Assessment Report")
-        
-        # Prepare symptoms data for PDF
-        symptoms_data = {
+        # Store results in session state
+        st.session_state['assessment_complete'] = True
+        st.session_state['symptoms_data'] = {
             'fever': fever,
             'cough': cough,
             'breathing': breathing,
@@ -653,46 +597,116 @@ with st.form("symptom_checker"):
             'nausea': nausea,
             'diarrhea': diarrhea
         }
+        st.session_state['risk_high'] = high_risk
+        st.session_state['risk_moderate'] = moderate_risk
+        st.session_state['exposure'] = exposure
+        st.session_state['vaccination_status'] = vaccinated
+
+# Display results OUTSIDE the form
+if st.session_state.get('assessment_complete', False):
+    st.divider()
+    
+    # Retrieve stored values
+    high_risk = st.session_state['risk_high']
+    moderate_risk = st.session_state['risk_moderate']
+    exposure = st.session_state['exposure']
+    vaccinated = st.session_state['vaccination_status']
+    symptoms_data = st.session_state['symptoms_data']
+    
+    # Display results
+    if high_risk:
+        st.error("""
+        ### 🚨 HIGH RISK ASSESSMENT
         
-        # Determine risk level string
-        if high_risk:
-            risk_level_str = "HIGH"
-        elif moderate_risk:
-            risk_level_str = "MODERATE"
-        else:
-            risk_level_str = "LOW"
+        Based on your symptoms, you may have COVID-19. Please take the following steps:
         
-        try:
-            # Generate PDF
-            pdf_bytes = create_symptom_assessment_pdf(
-                symptoms_data=symptoms_data,
-                risk_level=risk_level_str,
-                exposure=exposure,
-                vaccination_status=vaccinated
-            )
-            
-            # Generate filename with timestamp
-            from datetime import datetime
-            filename = f"COVID19_Assessment_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
-            
-            # Download button
-            st.download_button(
-                label="📥 Download PDF Report",
-                data=pdf_bytes,
-                file_name=filename,
-                mime="application/pdf",
-                use_container_width=True,
-                help="Download a detailed PDF report of your symptom assessment to share with your healthcare provider"
-            )
-            
-            st.info("💡 **This report can be shared with your healthcare provider for better consultation.**")
-            
-        except Exception as e:
-            st.error(f"Error generating PDF: {str(e)}")
+        **Immediate Actions:**
+        1. ✅ **Get tested immediately** - Find testing locations below
+        2. 🏠 **Self-isolate** - Stay away from others, including household members
+        3. 😷 **Wear a mask** if you must be around others
+        4. 📞 **Contact your healthcare provider** if symptoms worsen
         
-        st.divider()
+        **Seek Emergency Care if you experience:**
+        - Trouble breathing
+        - Persistent chest pain or pressure
+        - New confusion
+        - Inability to wake or stay awake
+        - Pale, gray, or blue-colored skin, lips, or nail beds
+        """)
         
-        # Testing locations and resources
+    elif moderate_risk:
+        st.warning("""
+        ### ⚠️ MODERATE RISK ASSESSMENT
+        
+        You have some symptoms that could indicate COVID-19.
+        
+        **Recommended Actions:**
+        1. ✅ **Get tested** - Schedule a COVID-19 test
+        2. 🏠 **Stay home** - Avoid contact with others until you get tested
+        3. 😷 **Wear a mask** around others
+        4. 👁️ **Monitor symptoms** - Watch for worsening symptoms
+        5. 📞 **Contact your healthcare provider** if symptoms worsen
+        """)
+        
+    else:
+        st.success("""
+        ### ✅ LOW RISK ASSESSMENT
+        
+        Based on your responses, you currently have a low risk for COVID-19.
+        
+        **Continue Preventive Measures:**
+        - 💉 Stay up-to-date with vaccinations
+        - 😷 Wear masks in crowded indoor spaces
+        - 👐 Wash hands frequently
+        - 📏 Maintain social distance when possible
+        - 👁️ Monitor for new symptoms
+        
+        **Note:** This assessment is based on current symptoms only. Get tested if you develop new symptoms or have known exposure.
+        """)
+    
+    # Generate PDF Report Button (OUTSIDE FORM)
+    st.divider()
+    st.subheader("📄 Download Your Assessment Report")
+    
+    # Determine risk level string
+    if high_risk:
+        risk_level_str = "HIGH"
+    elif moderate_risk:
+        risk_level_str = "MODERATE"
+    else:
+        risk_level_str = "LOW"
+    
+    try:
+        # Generate PDF
+        pdf_bytes = create_symptom_assessment_pdf(
+            symptoms_data=symptoms_data,
+            risk_level=risk_level_str,
+            exposure=exposure,
+            vaccination_status=vaccinated
+        )
+        
+        # Generate filename with timestamp
+        from datetime import datetime
+        filename = f"COVID19_Assessment_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+        
+        # Download button (NOW OUTSIDE THE FORM)
+        st.download_button(
+            label="📥 Download PDF Report",
+            data=pdf_bytes,
+            file_name=filename,
+            mime="application/pdf",
+            use_container_width=True,
+            help="Download a detailed PDF report of your symptom assessment to share with your healthcare provider"
+        )
+        
+        st.info("💡 **This report can be shared with your healthcare provider for better consultation.**")
+        
+    except Exception as e:
+        st.error(f"Error generating PDF: {str(e)}")
+    
+    st.divider()
+    
+    # Testing locations and resources
         st.subheader("🔬 Find COVID-19 Testing Locations")
         
         testing_col1, testing_col2 = st.columns(2)
