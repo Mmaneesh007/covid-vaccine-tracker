@@ -1,11 +1,13 @@
 pandas
+pandas
 requests
 sqlalchemy
 streamlit
 plotly
 prophet
 scikit-learn
-textblob
+textblob==0.17.1
+deep-translator==1.11.4
 pytest
 gunicorn
 reportlab

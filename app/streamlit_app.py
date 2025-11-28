@@ -18,6 +18,7 @@ from src.forecast import forecast_country_with_history
 from src.utils import format_metric
 from src.pdf_generator import create_symptom_assessment_pdf
 from src.chatbot import get_chatbot_response
+from src.translations import t, SUPPORTED_LANGUAGES
 
 # Page configuration
 st.set_page_config(
@@ -26,6 +27,10 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Initialize language in session state if not present
+if 'language' not in st.session_state:
+    st.session_state.language = 'en'
 
 # Custom CSS for better aesthetics
 st.markdown("""
@@ -82,23 +87,18 @@ def refresh_data():
 
 def show_chatbot():
     """Display the AI Health Assistant interface"""
-    st.markdown('<p class="main-title">🤖 AI Health Assistant</p>', unsafe_allow_html=True)
-    st.markdown("### Your smart companion for COVID-19 information")
+    st.markdown(f'<p class="main-title">{t("chatbot_title")}</p>', unsafe_allow_html=True)
+    st.markdown(f"### {t('chatbot_subtitle')}")
     
-    st.info("""
-    **How can I help?**
-    I can answer questions about:
-    - 💉 **Vaccines** (safety, side effects, boosters)
-    - 🦠 **Variants** (Omicron, Delta)
-    - 🩺 **Symptoms** & Testing
-    - 😷 **Safety Guidelines** (masks, isolation)
-    - 🤰 **Special Groups** (children, pregnancy)
+    st.info(f"""
+    **{t('chatbot_help_title')}**
+    {t('chatbot_help_desc')}
     """)
     
     # Initialize chat history
     if "messages" not in st.session_state:
         st.session_state.messages = [
-            {"role": "assistant", "content": "Hello! 👋 I am your COVID-19 Health Assistant. How can I help you today?"}
+            {"role": "assistant", "content": t('chatbot_welcome')}
         ]
 
     # Display chat messages from history on app rerun
@@ -107,7 +107,7 @@ def show_chatbot():
             st.markdown(message["content"])
 
     # React to user input
-    if prompt := st.chat_input("Type your question here..."):
+    if prompt := st.chat_input(t('chatbot_placeholder')):
         # Display user message in chat message container
         st.chat_message("user").markdown(prompt)
         # Add user message to chat history
@@ -115,8 +115,9 @@ def show_chatbot():
 
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
-            with st.spinner("Thinking..."):
-                response = get_chatbot_response(prompt)
+            with st.spinner(t('chatbot_thinking')):
+                # Pass current language to chatbot
+                response = get_chatbot_response(prompt, lang=st.session_state.language)
                 st.markdown(response)
         
         # Add assistant response to chat history
@@ -125,14 +126,14 @@ def show_chatbot():
 def show_dashboard():
     """Display the main dashboard"""
     # Header
-    st.markdown('<p class="main-title">💉 COVID-19 Vaccine Tracker</p>', unsafe_allow_html=True)
-    st.markdown("### Real-time global vaccination monitoring and forecasting")
+    st.markdown(f'<p class="main-title">{t("dashboard_title")}</p>', unsafe_allow_html=True)
+    st.markdown(f"### {t('dashboard_subtitle')}")
 
     try:
         df = load_vaccination_data()
         
         # Global Overview
-        st.header("🌍 Global Overview")
+        st.header(t('global_overview'))
         
         # Get latest stats
         latest_date = df['date'].max()
@@ -149,33 +150,33 @@ def show_dashboard():
         
         with col1:
             st.metric(
-                "Total Doses",
+                t('total_doses'),
                 f"{total_vaccinations / 1e9:.2f}B" if pd.notna(total_vaccinations) else "N/A"
             )
         
         with col2:
             st.metric(
-                "People Vaccinated",
+                t('people_vaccinated'),
                 f"{total_people_vaccinated / 1e9:.2f}B" if pd.notna(total_people_vaccinated) else "N/A"
             )
         
         with col3:
             st.metric(
-                "Fully Vaccinated",
+                t('fully_vaccinated'),
                 f"{total_fully_vaccinated / 1e9:.2f}B" if pd.notna(total_fully_vaccinated) else "N/A"
             )
         
         with col4:
             pct_vaccinated = (total_people_vaccinated / total_population * 100) if pd.notna(total_population) and total_population > 0 else 0
             st.metric(
-                "Global Coverage",
+                t('global_coverage'),
                 f"{pct_vaccinated:.1f}%" if pct_vaccinated > 0 else "N/A"
             )
         
         st.divider()
         
         # Country Selection
-        st.header("📊 Country Analysis")
+        st.header(t('country_analysis'))
         
         # Filter out aggregated regions (they usually contain spaces or special chars)
         countries = sorted([c for c in df['location'].unique() if pd.notna(c)])
@@ -185,10 +186,9 @@ def show_dashboard():
         default_selection = [c for c in default_countries if c in countries]
         
         selected_countries = st.multiselect(
-            "Select countries to compare:",
+            t('select_countries'),
             options=countries,
-            default=default_selection[:3] if default_selection else countries[:3],
-            help="Choose up to 5 countries for comparison"
+            default=default_selection[:3] if default_selection else countries[:3]
         )
         
         if selected_countries:
@@ -196,9 +196,9 @@ def show_dashboard():
             country_data = df[df['location'].isin(selected_countries)].copy()
             
             # Time Series Visualizations
-            st.subheader("📈 Vaccination Trends")
+            st.subheader(t('vaccination_trends'))
             
-            tab1, tab2, tab3 = st.tabs(["Daily Vaccinations", "Cumulative Progress", "Population Coverage"])
+            tab1, tab2, tab3 = st.tabs([t('tab_daily'), t('tab_cumulative'), t('tab_coverage')])
             
             with tab1:
                 # Daily vaccinations with 7-day average
@@ -207,8 +207,8 @@ def show_dashboard():
                     x='date',
                     y='daily_vaccinations_7d',
                     color='location',
-                    title='Daily Vaccinations (7-day average)',
-                    labels={'daily_vaccinations_7d': 'Daily Vaccinations', 'date': 'Date', 'location': 'Country'},
+                    title=t('daily_vax_chart'),
+                    labels={'daily_vaccinations_7d': t('daily_vaccinations'), 'date': 'Date', 'location': 'Country'},
                     template='plotly_white'
                 )
                 fig.update_layout(
@@ -224,8 +224,8 @@ def show_dashboard():
                     x='date',
                     y='total_vaccinations',
                     color='location',
-                    title='Cumulative Vaccination Doses',
-                    labels={'total_vaccinations': 'Total Vaccinations', 'date': 'Date', 'location': 'Country'},
+                    title=t('cumulative_vax_chart'),
+                    labels={'total_vaccinations': t('total_doses'), 'date': 'Date', 'location': 'Country'},
                     template='plotly_white'
                 )
                 fig.update_layout(
@@ -241,8 +241,8 @@ def show_dashboard():
                     x='date',
                     y='pct_vaccinated',
                     color='location',
-                    title='Percentage of Population Vaccinated',
-                    labels={'pct_vaccinated': 'Population Vaccinated (%)', 'date': 'Date', 'location': 'Country'},
+                    title=t('pct_vax_chart'),
+                    labels={'pct_vaccinated': t('population_coverage'), 'date': 'Date', 'location': 'Country'},
                     template='plotly_white'
                 )
                 fig.update_layout(
@@ -255,14 +255,13 @@ def show_dashboard():
             st.divider()
 
             # Impact Analysis Section
-            st.header("📉 Impact Analysis: Vaccines vs. Deaths")
-            st.markdown("Visualizing the correlation between rising vaccination rates and falling death rates.")
+            st.header(t('impact_analysis'))
+            st.markdown(t('impact_description'))
 
             impact_country = st.selectbox(
-                "Select country for impact analysis:",
+                t('select_impact_country'),
                 options=selected_countries,
-                key="impact_country",
-                help="Compare vaccination progress with mortality trends"
+                key="impact_country"
             )
 
             if impact_country:
@@ -280,7 +279,7 @@ def show_dashboard():
                         country_impact_data['new_deaths_smoothed_per_million'] = (
                             country_impact_data['new_deaths_smoothed'] / country_impact_data['population'] * 1_000_000
                         )
-                        st.info("Calculated deaths per million from raw data.")
+                        st.info(t('calc_deaths'))
                 
                 # Final check for valid data and filter to usable rows
                 required_cols = ['pct_vaccinated', 'new_deaths_smoothed_per_million']
@@ -289,7 +288,7 @@ def show_dashboard():
                 valid_data = country_impact_data.dropna(subset=required_cols)
                 
                 if len(valid_data) == 0:
-                    st.warning(f"No overlapping data available for {impact_country}. The vaccination data and death data may not cover the same time period.")
+                    st.warning(t('no_overlap').format(country=impact_country))
                 else:
                     # Create dual-axis chart
                     fig = go.Figure()
@@ -298,7 +297,7 @@ def show_dashboard():
                     fig.add_trace(go.Scatter(
                         x=valid_data['date'],
                         y=valid_data['pct_vaccinated'],
-                        name='Vaccination Rate (%)',
+                        name=t('pct_vax_chart'),
                         mode='lines',
                         line=dict(color='#667eea', width=3),
                         yaxis='y1'
@@ -320,7 +319,7 @@ def show_dashboard():
                         title=f'{impact_country}: Vaccination Effect on Mortality',
                         xaxis=dict(title='Date'),
                         yaxis=dict(
-                            title=dict(text='Vaccinated Population (%)', font=dict(color='#667eea')),
+                            title=dict(text=t('pct_vax_chart'), font=dict(color='#667eea')),
                             tickfont=dict(color='#667eea'),
                             range=[0, 100]
                         ),
@@ -337,20 +336,19 @@ def show_dashboard():
 
                     st.plotly_chart(fig, use_container_width=True)
                     
-                    st.info(f"💡 **Insight:** Observe how the red line (deaths) tends to flatten or decline as the blue line (vaccinations) rises.")
+                    st.info(t('insight_impact'))
 
             st.divider()
             
             # Forecasting Section
-            st.header("🔮 Vaccination Forecast")
+            st.header(t('forecast_title'))
             
             forecast_country = st.selectbox(
-                "Select a country for 30-day forecast:",
-                options=selected_countries,
-                help="Generate Prophet-based predictions"
+                t('select_forecast_country'),
+                options=selected_countries
             )
             
-            if st.button("Generate Forecast"):
+            if st.button(t('generate_forecast')):
                 with st.spinner(f"Generating forecast for {forecast_country}..."):
                     try:
                         # Get country data
@@ -419,27 +417,27 @@ def show_dashboard():
                             # Show forecast summary
                             col1, col2, col3 = st.columns(3)
                             with col1:
-                                st.metric("Forecast Period", "30 days")
+                                st.metric(t('forecast_period'), t('forecast_days'))
                             with col2:
                                 avg_forecast = future['yhat'].mean()
-                                st.metric("Avg. Daily Forecast", f"{avg_forecast:,.0f}")
+                                st.metric(t('avg_daily_forecast'), f"{avg_forecast:,.0f}")
                             with col3:
                                 total_forecast = future['yhat'].sum()
-                                st.metric("Total Expected", f"{total_forecast / 1e6:.2f}M doses")
+                                st.metric(t('total_expected'), f"{total_forecast / 1e6:.2f}M {t('forecast_doses')}")
                             
                         else:
-                            st.warning(f"Insufficient data for {forecast_country}. Need at least 30 days of history.")
+                            st.warning(t('insufficient_data').format(country=forecast_country))
                     
                     except Exception as e:
                         st.error(f"Error generating forecast: {str(e)}")
         
         else:
-            st.info("👆 Please select at least one country to view visualizations")
+            st.info(t('select_one_country'))
         
         st.divider()
         
         # Global Map
-        st.header("🗺️ Global Vaccination Map")
+        st.header(t('global_map'))
         
         # Get latest data for each country
         latest_by_country = df[df['date'] == latest_date].copy()
@@ -457,7 +455,7 @@ def show_dashboard():
                 'people_vaccinated': ':,.0f'
             },
             color_continuous_scale='Viridis',
-            title='Vaccination Coverage by Country (%)',
+            title=t('pct_vax_chart'),
             labels={'pct_vaccinated': 'Vaccinated (%)'}
         )
         
@@ -469,7 +467,7 @@ def show_dashboard():
         st.plotly_chart(fig, use_container_width=True)
         
         # Top performers table
-        st.subheader("🏆 Top Performing Countries")
+        st.subheader(t('top_performers'))
         
         # Ensure numeric types for sorting and formatting
         numeric_cols = ['pct_vaccinated', 'pct_fully_vaccinated', 'total_vaccinations', 'daily_vaccinations_7d']
@@ -499,7 +497,7 @@ def show_dashboard():
             
             st.dataframe(top_countries, use_container_width=True, hide_index=True)
         else:
-            st.info("No data available for the latest date.")
+            st.info(t('no_data_latest'))
 
     except Exception as e:
         st.error(f"Error loading dashboard: {str(e)}")
@@ -508,59 +506,55 @@ def show_dashboard():
 
     # COVID-19 Symptom Checker
     st.divider()
-    st.header("🩺 COVID-19 Symptom Self-Assessment")
+    st.header(t('symptom_checker_title'))
 
     # Medical Disclaimer
-    st.warning("""
-    ⚠️ **MEDICAL DISCLAIMER**  
-    This is NOT a diagnostic tool and does not replace professional medical advice, diagnosis, or treatment. 
-    If you have symptoms, please consult a healthcare provider and get tested for COVID-19.
+    st.warning(f"""
+    ⚠️ **{t('medical_disclaimer_title')}**  
+    {t('medical_disclaimer_text')}
     """)
 
-    st.markdown("""
-    This assessment is based on symptoms recognized by the **WHO** and **CDC**. 
-    It helps you understand if you should get tested, but it cannot confirm or rule out COVID-19.
-    """)
+    st.markdown(t('symptom_intro'))
 
     # Symptom Checker Form
     with st.form("symptom_checker"):
-        st.subheader("📋 Check Your Symptoms")
+        st.subheader(t('check_symptoms'))
         
         col1, col2 = st.columns(2)
         
         with col1:
-            st.markdown("**Primary Symptoms:**")
-            fever = st.checkbox("🌡️ Fever (>100.4°F / 38°C)")
-            cough = st.checkbox("🤧 New continuous cough")
-            breathing = st.checkbox("😮‍💨 Difficulty breathing / shortness of breath")
-            taste_smell = st.checkbox("👃 Loss of taste or smell")
+            st.markdown(f"**{t('primary_symptoms')}**")
+            fever = st.checkbox(t('sym_fever'))
+            cough = st.checkbox(t('sym_cough'))
+            breathing = st.checkbox(t('sym_breathing'))
+            taste_smell = st.checkbox(t('sym_taste_smell'))
         
         with col2:
-            st.markdown("**Other Symptoms:**")
-            fatigue = st.checkbox("😴 Unusual tiredness / fatigue")
-            body_aches = st.checkbox("💪 Muscle or body aches")
-            sore_throat = st.checkbox("🗣️ Sore throat")
-            headache = st.checkbox("🤕 Headache")
-            congestion = st.checkbox("🤧 Nasal congestion or runny nose")
-            nausea = st.checkbox("🤢 Nausea or vomiting")
-            diarrhea = st.checkbox("🚽 Diarrhea")
+            st.markdown(f"**{t('other_symptoms')}**")
+            fatigue = st.checkbox(t('sym_fatigue'))
+            body_aches = st.checkbox(t('sym_body_aches'))
+            sore_throat = st.checkbox(t('sym_sore_throat'))
+            headache = st.checkbox(t('sym_headache'))
+            congestion = st.checkbox(t('sym_congestion'))
+            nausea = st.checkbox(t('sym_nausea'))
+            diarrhea = st.checkbox(t('sym_diarrhea'))
         
         st.divider()
         
         col1, col2 = st.columns(2)
         with col1:
             exposure = st.radio(
-                "Have you been in close contact with someone who tested positive for COVID-19?",
-                ["No", "Yes, within last 14 days", "Unsure"]
+                t('q_exposure'),
+                [t('ans_no'), t('ans_yes_14'), t('ans_unsure')]
             )
         
         with col2:
             vaccinated = st.radio(
-                "Vaccination Status:",
-                ["Unvaccinated", "Partially Vaccinated", "Fully Vaccinated", "Boosted"]
+                t('q_vaccination'),
+                [t('vax_unvaccinated'), t('vax_partially'), t('vax_fully'), t('vax_boosted')]
             )
         
-        submitted = st.form_submit_button("🔍 Assess Risk", use_container_width=True)
+        submitted = st.form_submit_button(t('assess_risk'), use_container_width=True)
         
         if submitted:
             # Calculate symptom score
@@ -575,14 +569,14 @@ def show_dashboard():
             # High risk criteria
             if breathing or (taste_smell and fever):
                 high_risk = True
-            elif primary_symptoms >= 2 and exposure == "Yes, within last 14 days":
+            elif primary_symptoms >= 2 and exposure == t('ans_yes_14'):
                 high_risk = True
             elif total_symptoms >= 4:
                 high_risk = True
             # Moderate risk criteria
             elif primary_symptoms >= 1 or total_symptoms >= 2:
                 moderate_risk = True
-            elif exposure == "Yes, within last 14 days":
+            elif exposure == t('ans_yes_14'):
                 moderate_risk = True
             
             # Store results in session state
@@ -618,58 +612,26 @@ def show_dashboard():
         
         # Display results
         if high_risk:
-            st.error("""
-            ### 🚨 HIGH RISK ASSESSMENT
-            
-            Based on your symptoms, you may have COVID-19. Please take the following steps:
-            
-            **Immediate Actions:**
-            1. ✅ **Get tested immediately** - Find testing locations below
-            2. 🏠 **Self-isolate** - Stay away from others, including household members
-            3. 😷 **Wear a mask** if you must be around others
-            4. 📞 **Contact your healthcare provider** if symptoms worsen
-            
-            **Seek Emergency Care if you experience:**
-            - Trouble breathing
-            - Persistent chest pain or pressure
-            - New confusion
-            - Inability to wake or stay awake
-            - Pale, gray, or blue-colored skin, lips, or nail beds
+            st.error(f"""
+            ### {t('high_risk_title')}
+            {t('high_risk_text')}
             """)
             
         elif moderate_risk:
-            st.warning("""
-            ### ⚠️ MODERATE RISK ASSESSMENT
-            
-            You have some symptoms that could indicate COVID-19.
-            
-            **Recommended Actions:**
-            1. ✅ **Get tested** - Schedule a COVID-19 test
-            2. 🏠 **Stay home** - Avoid contact with others until you get tested
-            3. 😷 **Wear a mask** around others
-            4. 👁️ **Monitor symptoms** - Watch for worsening symptoms
-            5. 📞 **Contact your healthcare provider** if symptoms worsen
+            st.warning(f"""
+            ### {t('moderate_risk_title')}
+            {t('moderate_risk_text')}
             """)
             
         else:
-            st.success("""
-            ### ✅ LOW RISK ASSESSMENT
-            
-            Based on your responses, you currently have a low risk for COVID-19.
-            
-            **Continue Preventive Measures:**
-            - 💉 Stay up-to-date with vaccinations
-            - 😷 Wear masks in crowded indoor spaces
-            - 👐 Wash hands frequently
-            - 📏 Maintain social distance when possible
-            - 👁️ Monitor for new symptoms
-            
-            **Note:** This assessment is based on current symptoms only. Get tested if you develop new symptoms or have known exposure.
+            st.success(f"""
+            ### {t('low_risk_title')}
+            {t('low_risk_text')}
             """)
         
         # Generate PDF Report Button (OUTSIDE FORM)
         st.divider()
-        st.subheader("📄 Download Your Assessment Report")
+        st.subheader(t('download_pdf'))
         
         # Determine risk level string
         if high_risk:
@@ -694,15 +656,15 @@ def show_dashboard():
             
             # Download button (NOW OUTSIDE THE FORM)
             st.download_button(
-                label="📥 Download PDF Report",
+                label=t('download_pdf'),
                 data=pdf_bytes,
                 file_name=filename,
                 mime="application/pdf",
                 use_container_width=True,
-                help="Download a detailed PDF report of your symptom assessment to share with your healthcare provider"
+                help=t('pdf_help')
             )
             
-            st.info("💡 **This report can be shared with your healthcare provider for better consultation.**")
+            st.info(t('pdf_info'))
             
         except Exception as e:
             st.error(f"Error generating PDF: {str(e)}")
@@ -710,7 +672,7 @@ def show_dashboard():
         st.divider()
         
         # Testing locations and resources
-        st.subheader("🔬 Find COVID-19 Testing Locations")
+        st.subheader(t('find_testing'))
         
         testing_col1, testing_col2 = st.columns(2)
         
@@ -739,62 +701,68 @@ def show_dashboard():
             - Visit your nearest hospital emergency dept for urgent care
             """)
         
-        st.info("💡 **Tip:** Many pharmacies and clinics offer rapid testing. Check with your local pharmacy for availability.")
+        st.info(t('testing_tip'))
 
     # Footer
     st.divider()
-    st.markdown("""
+    st.markdown(f"""
     <div style='text-align: center; color: #666; padding: 1rem;'>
-        <p>Data source: <a href='https://ourworldindata.org/' target='_blank'>Our World in Data</a></p>
-        <p>Built with ❤️ using Streamlit • Prophet • Plotly</p>
+        <p>{t('data_source')}: <a href='https://ourworldindata.org/' target='_blank'>Our World in Data</a></p>
+        <p>{t('built_with')}</p>
     </div>
     """, unsafe_allow_html=True)
 
 # Sidebar Navigation
 with st.sidebar:
-    st.header("📍 Navigation")
-    page = st.radio("Go to:", ["Dashboard", "AI Health Assistant"])
+    st.header(t('nav_title'))
+    
+    # Language Selector
+    lang_code = st.selectbox(
+        "Language / भाषा / ভাষা / மொழி / భాష / Langue",
+        options=list(SUPPORTED_LANGUAGES.keys()),
+        format_func=lambda x: SUPPORTED_LANGUAGES[x],
+        index=list(SUPPORTED_LANGUAGES.keys()).index(st.session_state.language)
+    )
+    
+    # Update session state if language changed
+    if lang_code != st.session_state.language:
+        st.session_state.language = lang_code
+        st.rerun()
+        
+    st.divider()
+    
+    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot')])
     
     st.divider()
     
-    st.header("⚙️ Settings")
+    st.header(t('nav_settings'))
     
     # Data refresh button
-    if st.button("🔄 Refresh Data", help="Download latest vaccination data"):
+    if st.button(t('refresh_data')):
         with st.spinner("Downloading and processing latest data..."):
             df = refresh_data()
-            st.success("Data updated successfully!")
+            st.success(t('refresh_success'))
     
     st.divider()
     
     # About section
-    st.markdown("### About")
-    st.info("""
-    This dashboard tracks global COVID-19 vaccination progress using data from 
-    [Our World in Data](https://ourworldindata.org/).
-    
-    **Features:**
-    - 📊 Interactive visualizations
-    - 🌍 Global vaccination map
-    - 📈 30-day forecasts
-    - 🔄 Daily data updates
-    - 🤖 AI Health Assistant
-    """)
+    st.markdown(f"### {t('nav_about')}")
+    st.info(t('about_text'))
     
     st.divider()
     
     # Data info
     try:
         df = load_vaccination_data()
-        st.markdown("### 📅 Data Info")
-        st.metric("Last Updated", df['date'].max().strftime("%Y-%m-%d"))
-        st.metric("Countries", df['location'].nunique())
-        st.metric("Total Records", f"{len(df):,}")
+        st.markdown(f"### {t('data_info')}")
+        st.metric(t('last_updated'), df['date'].max().strftime("%Y-%m-%d"))
+        st.metric(t('countries_count'), df['location'].nunique())
+        st.metric(t('total_records'), f"{len(df):,}")
     except Exception as e:
         st.error("Error loading data info")
 
 # Main execution
-if page == "Dashboard":
+if page == t('nav_dashboard'):
     show_dashboard()
 else:
     show_chatbot()

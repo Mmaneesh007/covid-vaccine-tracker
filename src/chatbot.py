@@ -7,7 +7,9 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from textblob import TextBlob
+from deep_translator import GoogleTranslator
 from src.chatbot_knowledge import KNOWLEDGE_BASE
+from src.chatbot_translations import KNOWLEDGE_BASE_TRANSLATIONS
 from src.storage import get_all_countries, get_latest_by_country, get_country_timeseries
 
 class Chatbot:
@@ -185,7 +187,7 @@ class Chatbot:
 
         return "I'm not sure how to answer that data question."
 
-    def get_response(self, user_input, threshold=0.3):
+    def get_response(self, user_input, lang='en', threshold=0.3):
         """
         Get the best response for the user input.
         """
@@ -253,31 +255,115 @@ class Chatbot:
             
             # Find response for intent
             response = None
-            for item in KNOWLEDGE_BASE:
-                if item['intent'] == matched_intent:
-                    response = random.choice(item['responses'])
-                    break
+            
+            # 1. Try Dictionary Translation First (Fast & Accurate for static content)
+            if lang != 'en' and lang in KNOWLEDGE_BASE_TRANSLATIONS:
+                if matched_intent in KNOWLEDGE_BASE_TRANSLATIONS[lang]:
+                    response = random.choice(KNOWLEDGE_BASE_TRANSLATIONS[lang][matched_intent])
+            
+            # 2. Fallback to English Logic (for dynamic data or missing translations)
+            if not response:
+                for item in KNOWLEDGE_BASE:
+                    if item['intent'] == matched_intent:
+                        response = random.choice(item['responses'])
+                        break
             
             if not response:
                 response = "I'm having trouble retrieving the answer right now."
+
+            # 3. If response is still in English but user wants another language, use Deep Translator
+            # (This handles dynamic data responses and intents not in our dictionary)
+            if lang != 'en' and response and not self._is_response_translated(response, lang):
+                try:
+                    # Use Google Translator for dynamic translation
+                    translator = GoogleTranslator(source='auto', target=lang)
+                    response = translator.translate(response)
+                except Exception as e:
+                    print(f"Translation error: {e}")
+                    # Fallback: append a small note in English if translation fails
+                    response += " (Sorry, I couldn't translate this part.)"
         
         # 4. Add empathetic prefix/suffix based on sentiment and emotion
-        return self._add_empathy(response, sentiment, emotion)
+        return self._add_empathy(response, sentiment, emotion, lang)
 
-    def _add_empathy(self, response, sentiment, emotion=None):
+    def _is_response_translated(self, response, lang):
+        """Helper to check if response came from our dictionary"""
+        if lang not in KNOWLEDGE_BASE_TRANSLATIONS:
+            return False
+        # Check if this response string exists in any of the intent lists for this language
+        for intent_responses in KNOWLEDGE_BASE_TRANSLATIONS[lang].values():
+            if response in intent_responses:
+                return True
+        return False
+
+    def _add_empathy(self, response, sentiment, emotion=None, lang='en'):
         """
         Add empathetic tone to response based on user's sentiment and detected emotion.
         """
-        # If specific emotion keyword detected, prioritize that
-        if emotion:
-            emotion_prefixes = {
+        # Empathy translations
+        empathy_map = {
+            'en': {
                 'anger': "I understand your frustration. ",
                 'fear': "It's natural to feel worried. Let me help ease your concerns. ",
                 'boredom': "I'll keep this brief. ",
                 'confusion': "Let me explain this more clearly. ",
-                'sadness': "I'm sorry you're going through this. "
+                'sadness': "I'm sorry you're going through this. ",
+                'negative': "I'm sorry to hear you're feeling that way. ",
+                'positive': " Glad to help!"
+            },
+            'hi': {
+                'anger': "मैं आपकी हताशा समझता हूँ। ",
+                'fear': "चिंतित होना स्वाभाविक है। ",
+                'boredom': "मैं इसे संक्षेप में रखूँगा। ",
+                'confusion': "मैं इसे और स्पष्ट रूप से समझाता हूँ। ",
+                'sadness': "मुझे यह जानकर खेद है। ",
+                'negative': "यह सुनकर दुख हुआ। ",
+                'positive': " मदद करके खुशी हुई!"
+            },
+            'bn': {
+                'anger': "আমি আপনার হতাশা বুঝতে পারছি। ",
+                'fear': "চিন্তিত হওয়া স্বাভাবিক। ",
+                'boredom': "আমি সংক্ষেপে বলছি। ",
+                'confusion': "আমি আরও স্পষ্টভাবে বুঝিয়ে বলছি। ",
+                'sadness': "আমি দুঃখিত যে আপনি এর মধ্য দিয়ে যাচ্ছেন। ",
+                'negative': "শুনে খারাপ লাগল। ",
+                'positive': " সাহায্য করতে পেরে ভালো লাগল!"
+            },
+            'ta': {
+                'anger': "உங்கள் விரக்தியை நான் புரிந்துகொள்கிறேன். ",
+                'fear': "கவலைப்படுவது இயல்பு. ",
+                'boredom': "நான் சுருக்கமாக சொல்கிறேன். ",
+                'confusion': "நான் இன்னும் தெளிவாக விளக்குகிறேன். ",
+                'sadness': "நீங்கள் படும் கஷ்டத்திற்கு வருந்துகிறேன். ",
+                'negative': "அதை கேட்டு வருந்துகிறேன். ",
+                'positive': " உதவியதில் மகிழ்ச்சி!"
+            },
+            'te': {
+                'anger': "మీ నిరాశను నేను అర్థం చేసుకోగలను. ",
+                'fear': "ఆందోళన చెందడం సహజం. ",
+                'boredom': "నేను క్లుప్తంగా చెబుతాను. ",
+                'confusion': "నేను మరింత స్పష్టంగా వివరిస్తాను. ",
+                'sadness': "మీరు పడుతున్న ఇబ్బందికి చింతిస్తున్నాను. ",
+                'negative': "అది విన్నందుకు బాధగా ఉంది. ",
+                'positive': " సహాయం చేయడం ఆనందంగా ఉంది!"
+            },
+            'fr': {
+                'anger': "Je comprends votre frustration. ",
+                'fear': "Il est naturel de s'inquiéter. ",
+                'boredom': "Je vais faire court. ",
+                'confusion': "Laissez-moi vous expliquer plus clairement. ",
+                'sadness': "Je suis désolé de ce que vous traversez. ",
+                'negative': "Je suis désolé d'entendre cela. ",
+                'positive': " Heureux de pouvoir aider !"
             }
-            prefix = emotion_prefixes.get(emotion, "")
+        }
+
+        # Default to English if lang not found
+        current_empathy = empathy_map.get(lang, empathy_map['en'])
+
+        # If specific emotion keyword detected, prioritize that
+        if emotion:
+            prefix = current_empathy.get(emotion, "")
             if prefix:
                 return prefix + response
         
@@ -286,12 +372,13 @@ class Chatbot:
         
         # Negative/Frustrated (polarity < -0.3)
         if polarity < -0.3:
-            empathy_prefix = "I'm sorry to hear you're feeling that way. "
+            empathy_prefix = current_empathy.get('negative', "")
             return empathy_prefix + response
         
         # Positive/Happy (polarity > 0.5)
         elif polarity > 0.5:
-            return response + " Glad to help!"
+            suffix = current_empathy.get('positive', "")
+            return response + suffix
         
         # Neutral or slightly emotional
         else:
@@ -300,5 +387,5 @@ class Chatbot:
 # Singleton instance
 chatbot_instance = Chatbot()
 
-def get_chatbot_response(user_input):
-    return chatbot_instance.get_response(user_input)
+def get_chatbot_response(user_input, lang='en'):
+    return chatbot_instance.get_response(user_input, lang=lang)
