@@ -707,36 +707,36 @@ if st.session_state.get('assessment_complete', False):
     st.divider()
     
     # Testing locations and resources
-        st.subheader("🔬 Find COVID-19 Testing Locations")
+    st.subheader("🔬 Find COVID-19 Testing Locations")
+    
+    testing_col1, testing_col2 = st.columns(2)
+    
+    with testing_col1:
+        st.markdown("""
+        **India:**
+        - [ICMR Testing Centers](https://www.icmr.gov.in/)
+        - [MyGov India COVID Testing](https://www.mygov.in/covid-19)
+        - Call: **1075** (COVID-19 Helpline)
         
-        testing_col1, testing_col2 = st.columns(2)
+        **United States:**
+        - [COVID.gov Testing Locator](https://www.covid.gov/tests)
+        - [HHS Testing Sites](https://www.hhs.gov/coronavirus/community-based-testing-sites/)
+        - Call: **211** for local resources
+        """)
+    
+    with testing_col2:
+        st.markdown("""
+        **United Kingdom:**
+        - [NHS COVID-19 Testing](https://www.nhs.uk/conditions/coronavirus-covid-19/testing/)
+        - Call: **119** (COVID-19 Helpline)
         
-        with testing_col1:
-            st.markdown("""
-            **India:**
-            - [ICMR Testing Centers](https://www.icmr.gov.in/)
-            - [MyGov India COVID Testing](https://www.mygov.in/covid-19)
-            - Call: **1075** (COVID-19 Helpline)
-            
-            **United States:**
-            - [COVID.gov Testing Locator](https://www.covid.gov/tests)
-            - [HHS Testing Sites](https://www.hhs.gov/coronavirus/community-based-testing-sites/)
-            - Call: **211** for local resources
-            """)
-        
-        with testing_col2:
-            st.markdown("""
-            **United Kingdom:**
-            - [NHS COVID-19 Testing](https://www.nhs.uk/conditions/coronavirus-covid-19/testing/)
-            - Call: **119** (COVID-19 Helpline)
-            
-            **Global Resources:**
-            - [WHO COVID-19 Resources](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
-            - Contact your local health department
-            - Visit your nearest hospital emergency dept for urgent care
-            """)
-        
-        st.info("💡 **Tip:** Many pharmacies and clinics offer rapid testing. Check with your local pharmacy for availability.")
+        **Global Resources:**
+        - [WHO COVID-19 Resources](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
+        - Contact your local health department
+        - Visit your nearest hospital emergency dept for urgent care
+        """)
+    
+    st.info("💡 **Tip:** Many pharmacies and clinics offer rapid testing. Check with your local pharmacy for availability.")
 
 # Footer
 st.divider()
