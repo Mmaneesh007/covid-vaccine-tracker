@@ -16,6 +16,7 @@ from src.clean import clean_vax
 from src.storage import save_df_to_db, get_country_timeseries, DB_PATH
 from src.forecast import forecast_country_with_history
 from src.utils import format_metric
+from src.pdf_generator import create_symptom_assessment_pdf
 
 # Page configuration
 st.set_page_config(
@@ -633,6 +634,61 @@ with st.form("symptom_checker"):
             
             **Note:** This assessment is based on current symptoms only. Get tested if you develop new symptoms or have known exposure.
             """)
+        
+        # Generate PDF Report Button
+        st.divider()
+        st.subheader("📄 Download Your Assessment Report")
+        
+        # Prepare symptoms data for PDF
+        symptoms_data = {
+            'fever': fever,
+            'cough': cough,
+            'breathing': breathing,
+            'taste_smell': taste_smell,
+            'fatigue': fatigue,
+            'body_aches': body_aches,
+            'sore_throat': sore_throat,
+            'headache': headache,
+            'congestion': congestion,
+            'nausea': nausea,
+            'diarrhea': diarrhea
+        }
+        
+        # Determine risk level string
+        if high_risk:
+            risk_level_str = "HIGH"
+        elif moderate_risk:
+            risk_level_str = "MODERATE"
+        else:
+            risk_level_str = "LOW"
+        
+        try:
+            # Generate PDF
+            pdf_bytes = create_symptom_assessment_pdf(
+                symptoms_data=symptoms_data,
+                risk_level=risk_level_str,
+                exposure=exposure,
+                vaccination_status=vaccinated
+            )
+            
+            # Generate filename with timestamp
+            from datetime import datetime
+            filename = f"COVID19_Assessment_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+            
+            # Download button
+            st.download_button(
+                label="📥 Download PDF Report",
+                data=pdf_bytes,
+                file_name=filename,
+                mime="application/pdf",
+                use_container_width=True,
+                help="Download a detailed PDF report of your symptom assessment to share with your healthcare provider"
+            )
+            
+            st.info("💡 **This report can be shared with your healthcare provider for better consultation.**")
+            
+        except Exception as e:
+            st.error(f"Error generating PDF: {str(e)}")
         
         st.divider()
         
