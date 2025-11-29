@@ -759,7 +759,7 @@ with st.sidebar:
         st.cache_data.clear()
         st.rerun()
         
-    st.caption("App Version: v4.0 (New Module)")
+    st.caption("App Version: v4.1 (Fixed Navigation)")
     
     # Check for country query param from Geolocation
     # st.query_params is the new way in recent Streamlit versions

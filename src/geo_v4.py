@@ -1,9 +1,10 @@
 import streamlit.components.v1 as components
+import streamlit as st
 
 def geolocation_button_v4():
     """
-    Renders a button that gets the user's location and reloads the page with query params.
-    Version 4.0 - New file to bypass cache.
+    Renders a button that gets the user's location and returns the country to Python.
+    Version 4.1 - Uses Streamlit component communication instead of direct navigation.
     """
     html_code = """
     <div id="geo-container-v4" style="margin-bottom: 10px; padding: 10px; border: 1px dashed #ccc; border-radius: 5px;">
@@ -23,7 +24,7 @@ def geolocation_button_v4():
         ">
             📍 Auto-Detect My Location (v4)
         </button>
-        <p id="status" style="font-size: 12px; color: #333; margin-top: 5px; font-weight: bold;">v4.0 - System Ready</p>
+        <p id="status" style="font-size: 12px; color: #333; margin-top: 5px; font-weight: bold;">v4.1 - System Ready</p>
     </div>
 
     <script>
@@ -63,7 +64,7 @@ def geolocation_button_v4():
             })
             .then(data => {
                 if (!data.countryName) throw new Error("No country in Primary data");
-                redirect(data.countryName);
+                sendCountryToPython(data.countryName);
             })
             .catch(err1 => {
                 console.warn("Primary API failed, trying fallback...", err1);
@@ -77,7 +78,7 @@ def geolocation_button_v4():
                     })
                     .then(data => {
                         if (!data.address || !data.address.country) throw new Error("No country in Fallback data");
-                        redirect(data.address.country);
+                        sendCountryToPython(data.address.country);
                     })
                     .catch(err2 => {
                         status.innerHTML = "v4 ERROR: " + err2.message;
@@ -88,12 +89,15 @@ def geolocation_button_v4():
             });
     }
 
-    function redirect(country) {
+    function sendCountryToPython(country) {
         const status = document.getElementById("status");
-        status.innerHTML = "v4 Success! Redirecting to " + country + "...";
-        const currentUrl = new URL(window.parent.location.href);
-        currentUrl.searchParams.set('country', country);
-        window.parent.location.href = currentUrl.toString();
+        status.innerHTML = "v4 Success! Found: " + country;
+        // Send country back to Streamlit Python
+        window.parent.postMessage({
+            isStreamlitMessage: true,
+            type: "streamlit:setComponentValue",
+            value: country
+        }, "*");
     }
 
     function error(err) {
@@ -120,4 +124,11 @@ def geolocation_button_v4():
     }
     </script>
     """
-    components.html(html_code, height=150)
+    
+    # Render the component and get the returned value
+    detected_country = components.html(html_code, height=150)
+    
+    # If country was detected, update query params and reload
+    if detected_country:
+        st.query_params["country"] = detected_country
+        st.rerun()
