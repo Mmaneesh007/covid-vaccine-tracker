@@ -125,7 +125,7 @@ def show_particle_background():
                 const speed = Math.min(5, Math.hypot(this.vx, this.vy));
                 const alpha = 0.08 + Math.min(0.12, speed * 0.05);
                 ctx.beginPath();
-                ctx.fillStyle = `hsla(${this.h}, 80%, 50%, ${alpha})`;
+                ctx.fillStyle = `hsla(${this.h}, 35%, 65%, ${alpha})`;
                 ctx.ellipse(this.x, this.y, this.size, this.size*0.9, 0, 0, Math.PI*2);
                 ctx.fill();
             }
