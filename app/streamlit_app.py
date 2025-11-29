@@ -20,7 +20,7 @@ from src.pdf_generator import create_symptom_assessment_pdf
 from src.chatbot import get_chatbot_response
 from src.translations import t, SUPPORTED_LANGUAGES
 from src.js_components import text_to_speech_button
-from src.geo_v5 import geolocation_button_v5
+from src.location_maps import show_my_location_button
 
 # Page configuration
 st.set_page_config(
@@ -750,15 +750,10 @@ with st.sidebar:
         
     st.divider()
 
-    # Geolocation Feature (Temporarily Disabled - Technical Issues)
-    # st.markdown(f"**{t('nav_title')} (Beta)**")
-    # geolocation_button_v5()
+    # Location Feature - Opens Google Maps
+    show_my_location_button()
     
-    # Debug: Clear Cache Button (Temporary)
-    if st.button("🔄 Reset App Cache"):
-        st.cache_data.clear()
-        st.session_state['geo_refresh'] = st.session_state.get('geo_refresh', 0) + 1
-        st.rerun()
+    st.divider()
     
     # Check for country query param from Geolocation
     # st.query_params is the new way in recent Streamlit versions
