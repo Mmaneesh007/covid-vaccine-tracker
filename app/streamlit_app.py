@@ -757,6 +757,8 @@ with st.sidebar:
     if st.button("🔄 Reset App Cache"):
         st.cache_data.clear()
         st.rerun()
+        
+    st.caption("App Version: v3.2 (Live)")
     
     # Check for country query param from Geolocation
     # st.query_params is the new way in recent Streamlit versions
