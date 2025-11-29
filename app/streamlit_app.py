@@ -36,7 +36,7 @@ st.set_page_config(
 if 'language' not in st.session_state:
     st.session_state.language = 'en'
 
-# Custom CSS - Google Antigravity Inspired
+# Custom CSS - Google Antigravity Inspired (Light Theme)
 st.markdown("""
 <style>
     /* Import Google Sans Display for that premium Google feel */
@@ -47,21 +47,18 @@ st.markdown("""
         font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
     
-    /* Subtle Dark Background with Grain Texture */
+    /* Clean White Background with Subtle Gradient */
     .stApp {
-        background: #0a0a0a;
-        background-image: 
-            radial-gradient(at 40% 20%, rgba(102, 126, 234, 0.08) 0px, transparent 50%),
-            radial-gradient(at 80% 80%, rgba(118, 75, 162, 0.08) 0px, transparent 50%),
-            radial-gradient(at 0% 50%, rgba(75, 123, 236, 0.06) 0px, transparent 50%);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        background-attachment: fixed;
     }
     
-    /* Elegant Title - Subtle Gradient */
+    /* Elegant Title - Gradient Text */
     .main-title {
         font-family: 'Google Sans Display', sans-serif;
         font-size: 3.2rem;
         font-weight: 500;
-        background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -75,75 +72,73 @@ st.markdown("""
         to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Minimal Glass Cards - Very Subtle */
+    /* Clean Card Design */
     .stMetric {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: #ffffff;
         border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(0, 0, 0, 0.06);
         padding: 1.5rem;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .stMetric:hover {
-        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
         border-color: rgba(102, 126, 234, 0.2);
         transform: translateY(-2px);
     }
     
     /* Clean Metric Values */
     div[data-testid="stMetricValue"] {
-        color: #ffffff;
+        color: #1a1a1a;
         font-size: 2rem;
         font-weight: 700;
         letter-spacing: -0.5px;
     }
     
     div[data-testid="stMetricLabel"] {
-        color: rgba(255, 255, 255, 0.6);
+        color: #5f6368;
         font-size: 0.875rem;
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     
-    /* Minimal Chart Containers */
+    /* Clean Chart Containers */
     .stPlotlyChart {
-        background: rgba(255, 255, 255, 0.02);
-        backdrop-filter: blur(20px);
+        background: #ffffff;
         border-radius: 20px;
         padding: 1.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         transition: all 0.3s ease;
     }
     
     .stPlotlyChart:hover {
-        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
     
-    /* Clean Sidebar */
+    /* Light Sidebar */
     section[data-testid="stSidebar"] {
-        background: rgba(10, 10, 10, 0.98);
-        backdrop-filter: blur(20px);
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        background: #f8f9fa;
+        border-right: 1px solid rgba(0, 0, 0, 0.08);
     }
     
-    /* Minimal Buttons */
+    /* Clean Buttons */
     .stButton > button {
-        background: rgba(255, 255, 255, 0.08);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #ffffff;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: none;
         border-radius: 12px;
         padding: 0.625rem 1.5rem;
         font-weight: 500;
         transition: all 0.2s ease;
         font-size: 0.875rem;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25);
     }
     
     .stButton > button:hover {
-        background: rgba(255, 255, 255, 0.12);
-        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35);
         transform: translateY(-1px);
     }
     
@@ -151,12 +146,12 @@ st.markdown("""
     .stTabs [data-baseweb="tab-list"] {
         gap: 4px;
         background: transparent;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
     
     .stTabs [data-baseweb="tab"] {
         background: transparent;
-        color: rgba(255, 255, 255, 0.5);
+        color: #5f6368;
         border-radius: 0;
         padding: 0.75rem 1rem;
         border-bottom: 2px solid transparent;
@@ -166,39 +161,40 @@ st.markdown("""
     
     .stTabs [aria-selected="true"] {
         background: transparent;
-        color: #ffffff;
+        color: #667eea;
         border-bottom-color: #667eea;
     }
     
     /* Typography - Clean & Readable */
     h1, h2, h3, h4, h5, h6 {
-        color: #ffffff;
+        color: #1a1a1a;
         font-weight: 500;
         letter-spacing: -0.3px;
     }
     
     h1 { font-size: 2.5rem; }
-    h2 { font-size: 2rem; opacity: 0.95; }
-    h3 { font-size: 1.5rem; opacity: 0.9; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
     
     /* Text */
     p, span, div, label {
-        color: rgba(255, 255, 255, 0.8);
+        color: #3c4043;
         line-height: 1.6;
     }
     
-    /* Minimal Expanders */
+    /* Clean Expanders */
     .streamlit-expanderHeader {
-        background: rgba(255, 255, 255, 0.03);
+        background: #ffffff;
         border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        color: #1a1a1a;
         transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
     
     .streamlit-expanderHeader:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.1);
+        background: #f8f9fa;
+        border-color: rgba(102, 126, 234, 0.3);
     }
     
     /* Minimal Scrollbar */
@@ -208,30 +204,30 @@ st.markdown("""
     }
     
     ::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.02);
+        background: #f1f3f4;
     }
     
     ::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.1);
+        background: #dadce0;
         border-radius: 4px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.15);
+        background: #bdc1c6;
     }
     
     /* Clean Input Fields */
     input, textarea, select {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        background: #ffffff !important;
+        border: 1px solid #dadce0 !important;
         border-radius: 12px !important;
-        color: white !important;
+        color: #1a1a1a !important;
         transition: all 0.2s ease !important;
     }
     
     input:focus, textarea:focus, select:focus {
-        border-color: rgba(102, 126, 234, 0.3) !important;
-        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: #667eea !important;
+        background: #ffffff !important;
         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
     }
     
@@ -239,7 +235,7 @@ st.markdown("""
     hr {
         border: none;
         height: 1px;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(0, 0, 0, 0.08);
         margin: 2rem 0;
     }
     
@@ -250,21 +246,29 @@ st.markdown("""
     
     /* Chat Messages - Clean */
     .stChatMessage {
-        background: rgba(255, 255, 255, 0.03);
+        background: #ffffff;
         border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
     
     /* Select Box Dropdown */
     div[data-baseweb="select"] > div {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-color: rgba(255, 255, 255, 0.1) !important;
+        background: #ffffff !important;
+        border-color: #dadce0 !important;
     }
     
-    /* Multiselect */
+    /* Multiselect Tags */
     div[data-baseweb="tag"] {
-        background: rgba(102, 126, 234, 0.2) !important;
+        background: rgba(102, 126, 234, 0.1) !important;
         border-color: rgba(102, 126, 234, 0.3) !important;
+        color: #667eea !important;
+    }
+    
+    /* Info/Warning/Error Boxes */
+    .stAlert {
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
     }
 </style>
 """, unsafe_allow_html=True)
