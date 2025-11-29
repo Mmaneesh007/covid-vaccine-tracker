@@ -133,11 +133,11 @@ def geolocation_button_v5():
     </script>
     """
     
-    # Render component with unique key
-    refresh_count = st.session_state['geo_refresh']
-    detected_country = components.html(html_code, height=160, key=f"geo_v5_{refresh_count}")
+    # Render component
+    detected_country = components.html(html_code, height=160)
     
     # If country was detected, store in session state and show success
     if detected_country and detected_country != st.session_state['geo_detected_country']:
         st.session_state['geo_detected_country'] = detected_country
+        st.session_state['geo_refresh'] = st.session_state.get('geo_refresh', 0) + 1
         st.success(f"📍 **Detected:** {detected_country}  \nPlease select it from the 'Select countries to compare' dropdown below.", icon="🌍")
