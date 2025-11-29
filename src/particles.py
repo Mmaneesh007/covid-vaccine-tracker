@@ -77,7 +77,7 @@ def show_particle_background():
                 this.y = y;
                 this.vx = (Math.random()-0.5)*0.5; 
                 this.vy = (Math.random()-0.5)*0.5;
-                this.size = 1 + Math.random()*2.5;
+                this.size = 0.5 + Math.random()*1.5;
                 this.h = 210 + Math.random()*80; // Blue-Purple Hue (210-290)
             }
             
