@@ -94,6 +94,18 @@ The system follows a modern, modular architecture designed for scalability and m
 - Generates downloadable PDF health reports.
 - Provides WHO-aligned guidance.
 
+### 5. 📰 Live News Feed
+
+- Real-time COVID-19 news from WHO and Google News RSS feeds.
+- Displays 20-25 latest headlines with clickable links.
+- Manual refresh button to fetch fresh news updates.
+
+### 6. ⭐ User Feedback System
+
+- Star rating widget (1-5 stars) for user satisfaction.
+- Optional comment submission for detailed feedback.
+- Feedback stored locally in CSV format for analytics.
+
 ---
 
 ## 🚀 Getting Started

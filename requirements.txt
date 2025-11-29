@@ -1,5 +1,4 @@
 pandas
-pandas
 requests
 sqlalchemy
 streamlit
@@ -11,3 +10,4 @@ deep-translator==1.11.4
 pytest
 gunicorn
 reportlab
+feedparser
