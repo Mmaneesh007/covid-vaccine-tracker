@@ -38,71 +38,108 @@ def fetch_news_headlines(source='Google News', limit=25):
         st.error(f"Failed to fetch news: {str(e)}")
         return []
 
-def display_news_feed(source='Google News', limit=25):
+def display_news_feed_dashboard(source='Google News', limit=6):
     """
-    Display news feed in Streamlit sidebar with refresh capability.
-    
-    Args:
-        source (str): News source
-        limit (int): Number of headlines to display
+    Display news feed in the main dashboard with premium card styling.
     """
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("### 📰 Latest COVID-19 News")
+    st.markdown("### 📰 Global Health Updates")
     
-    # Initialize refresh counter in session state
+    # Initialize refresh counter
     if 'news_refresh_count' not in st.session_state:
         st.session_state.news_refresh_count = 0
-    
-    # News source selector
-    selected_source = st.sidebar.selectbox(
-        "News Source",
-        options=list(NEWS_FEEDS.keys()),
-        index=list(NEWS_FEEDS.keys()).index(source)
-    )
-    
-    # Refresh button
-    col1, col2 = st.sidebar.columns([3, 1])
+        
+    # Controls row
+    col1, col2 = st.columns([4, 1])
+    with col1:
+        selected_source = st.selectbox(
+            "Source",
+            options=list(NEWS_FEEDS.keys()),
+            index=list(NEWS_FEEDS.keys()).index(source),
+            label_visibility="collapsed"
+        )
     with col2:
-        if st.button("🔄", help="Refresh news"):
-            # Increment refresh counter to bust cache
+        if st.button("🔄 Refresh", use_container_width=True):
             st.session_state.news_refresh_count += 1
             st.rerun()
-    
-    # Fetch and display news
-    with st.sidebar:
-        with st.spinner("Loading news..."):
-            # Use cache but allow manual refresh via button (refresh_count busts cache)
-            headlines = fetch_news_cached(selected_source, limit, st.session_state.news_refresh_count)
-            
-            if headlines:
-                st.caption(f"Showing {len(headlines)} latest headlines")
-                
-                # Display headlines in an expander to save space
-                with st.expander("📋 View Headlines", expanded=True):
-                    for i, headline in enumerate(headlines, 1):
-                        # Format published date if available
-                        try:
-                            pub_date = datetime.strptime(
-                                headline['published'], 
-                                '%a, %d %b %Y %H:%M:%S %Z'
-                            ).strftime('%b %d, %Y')
-                        except:
-                            pub_date = headline['published']
-                        
-                        # Display headline with link
-                        st.markdown(
-                            f"**{i}.** [{headline['title']}]({headline['link']})",
-                            unsafe_allow_html=True
-                        )
-                        st.caption(f"🕒 {pub_date}")
-                        
-                        if i < len(headlines):
-                            st.markdown("---")
-            else:
-                st.warning("No news available at the moment.")
 
-@st.cache_data(ttl=3600)  # Cache for 1 hour
-def fetch_news_cached(source, limit, refresh_count=0):
-    """Cached version of fetch_news_headlines with cache-busting parameter"""
-    # refresh_count changes on each manual refresh, forcing cache invalidation
-    return fetch_news_headlines(source, limit)
+    # Fetch news (uncached for freshness or using session state counter)
+    headlines = fetch_news_headlines(selected_source, limit)
+    
+    if headlines:
+        # Display in a grid of cards
+        for i in range(0, len(headlines), 2):
+            c1, c2 = st.columns(2)
+            
+            # Card 1
+            if i < len(headlines):
+                with c1:
+                    item = headlines[i]
+                    st.markdown(
+                        f"""
+                        <div style="
+                            background: rgba(255,255,255,0.8);
+                            padding: 20px;
+                            border-radius: 16px;
+                            border: 1px solid rgba(0,0,0,0.05);
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                            height: 100%;
+                            transition: transform 0.2s;
+                        ">
+                            <div style="font-size: 0.8rem; color: #667eea; font-weight: 600; margin-bottom: 8px;">
+                                {item.get('published', 'Just now')}
+                            </div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; line-height: 1.4;">
+                                {item['title']}
+                            </div>
+                            <a href="{item['link']}" target="_blank" style="
+                                display: inline-block;
+                                text-decoration: none;
+                                color: #764ba2;
+                                font-weight: 500;
+                                font-size: 0.9rem;
+                            ">
+                                Read Article →
+                            </a>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+                    st.write("") # Spacer
+            
+            # Card 2
+            if i + 1 < len(headlines):
+                with c2:
+                    item = headlines[i+1]
+                    st.markdown(
+                        f"""
+                        <div style="
+                            background: rgba(255,255,255,0.8);
+                            padding: 20px;
+                            border-radius: 16px;
+                            border: 1px solid rgba(0,0,0,0.05);
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                            height: 100%;
+                            transition: transform 0.2s;
+                        ">
+                            <div style="font-size: 0.8rem; color: #667eea; font-weight: 600; margin-bottom: 8px;">
+                                {item.get('published', 'Just now')}
+                            </div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; line-height: 1.4;">
+                                {item['title']}
+                            </div>
+                            <a href="{item['link']}" target="_blank" style="
+                                display: inline-block;
+                                text-decoration: none;
+                                color: #764ba2;
+                                font-weight: 500;
+                                font-size: 0.9rem;
+                            ">
+                                Read Article →
+                            </a>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+                    st.write("") # Spacer
+    else:
+        st.warning("Unable to fetch news at this time.")
