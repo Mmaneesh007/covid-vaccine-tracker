@@ -19,23 +19,8 @@ from src.utils import format_metric
 from src.pdf_generator import create_symptom_assessment_pdf
 from src.chatbot import get_chatbot_response
 from src.translations import t, SUPPORTED_LANGUAGES
+from src.js_components import text_to_speech_button
 from src.geo_v4 import geolocation_button_v4
-
-# ... (rest of imports)
-
-# ... (inside show_dashboard)
-
-    # Geolocation Feature
-    st.markdown(f"**{t('nav_title')} (Beta)**")
-    geolocation_button_v4()
-    
-    # Debug: Clear Cache Button (Temporary)
-    if st.button("🔄 Reset App Cache"):
-        st.cache_data.clear()
-        st.rerun()
-        
-    st.caption("App Version: v4.0 (New Module)")
-
 
 # Page configuration
 st.set_page_config(
@@ -767,14 +752,14 @@ with st.sidebar:
 
     # Geolocation Feature
     st.markdown(f"**{t('nav_title')} (Beta)**")
-    geolocation_button()
+    geolocation_button_v4()
     
     # Debug: Clear Cache Button (Temporary)
     if st.button("🔄 Reset App Cache"):
         st.cache_data.clear()
         st.rerun()
         
-    st.caption("App Version: v3.2 (Live)")
+    st.caption("App Version: v4.0 (New Module)")
     
     # Check for country query param from Geolocation
     # st.query_params is the new way in recent Streamlit versions
