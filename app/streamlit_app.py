@@ -750,9 +750,10 @@ with st.sidebar:
         
     st.divider()
 
-    # Geolocation Feature
-    st.markdown(f"**{t('nav_title')} (Beta)**")
-    geolocation_button_v5()
+    # Geolocation Feature (Temporarily Disabled - Technical Issues)
+    # st.markdown(f"**{t('nav_title')} (Beta)**")
+    # geolocation_button_v5()
+    st.info("📍 **Auto-Location Feature**: Temporarily disabled due to technical issues. Will be back soon!")
     
     # Debug: Clear Cache Button (Temporary)
     if st.button("🔄 Reset App Cache"):
@@ -760,7 +761,7 @@ with st.sidebar:
         st.session_state['geo_refresh'] = st.session_state.get('geo_refresh', 0) + 1
         st.rerun()
         
-    st.caption("App Version: v5.0 (Simplified)")
+    st.caption("App Version: v5.1 (Geolocation Disabled)")
     
     # Check for country query param from Geolocation
     # st.query_params is the new way in recent Streamlit versions
