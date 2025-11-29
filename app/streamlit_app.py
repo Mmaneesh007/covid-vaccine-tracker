@@ -21,7 +21,7 @@ from src.chatbot import get_chatbot_response
 from src.translations import t, SUPPORTED_LANGUAGES
 from src.js_components import text_to_speech_button
 from src.location_maps import show_my_location_button
-from src.news_feed import display_news_feed_dashboard
+from src.news_feed import render_news_dashboard
 from src.feedback import display_feedback_form
 from src.particles import show_particle_background
 
@@ -1061,6 +1061,10 @@ def show_dashboard():
         
         st.info(t('testing_tip'))
 
+    # News Feed Dashboard
+    st.divider()
+    render_news_dashboard(limit=6)
+
     # Footer
     st.divider()
     st.markdown(f"""
@@ -1137,8 +1141,8 @@ with st.sidebar:
     except Exception as e:
         st.error("Error loading data info")
     
-    # News Feed Widget
-    display_news_feed(source='Google News', limit=25)
+    # News Feed Widget (Moved to Dashboard)
+    # render_news_dashboard(limit=6)
     
     # Feedback Form Widget
     display_feedback_form()
