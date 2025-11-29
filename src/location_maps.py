@@ -8,7 +8,7 @@ def show_my_location_button():
     html_code = """
     <div style="margin-bottom: 10px;">
         <button id="location-btn" onclick="showMyLocation()" style="
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
             color: white;
             padding: 10px 20px;
@@ -18,9 +18,11 @@ def show_my_location_button():
             font-size: 16px;
             margin: 4px 2px;
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 12px;
             width: 100%;
             font-weight: 500;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25);
+            transition: all 0.2s ease;
         ">
             📍 Show My Location
         </button>
