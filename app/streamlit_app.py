@@ -36,7 +36,7 @@ st.set_page_config(
 if 'language' not in st.session_state:
     st.session_state.language = 'en'
 
-# Custom CSS - Google Antigravity Inspired (Light Theme)
+# Custom CSS - Google Antigravity Inspired (Light Theme) with Elegant Animations
 st.markdown("""
 <style>
     /* Import Google Sans Display for that premium Google feel */
@@ -47,13 +47,20 @@ st.markdown("""
         font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
     
-    /* Clean White Background with Subtle Gradient */
+    /* Clean White Background with Subtle Animated Gradient */
     .stApp {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
+        background-size: 200% 200%;
         background-attachment: fixed;
+        animation: subtleBackgroundShift 20s ease infinite;
     }
     
-    /* Elegant Title - Gradient Text */
+    @keyframes subtleBackgroundShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+    
+    /* Elegant Title - Gradient Text with Entrance Animation */
     .main-title {
         font-family: 'Google Sans Display', sans-serif;
         font-size: 3.2rem;
@@ -64,36 +71,66 @@ st.markdown("""
         background-clip: text;
         margin-bottom: 0.5rem;
         letter-spacing: -0.5px;
-        animation: subtleFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: elegantFadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    @keyframes subtleFadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+    @keyframes elegantFadeInUp {
+        from { 
+            opacity: 0; 
+            transform: translateY(30px);
+        }
+        to { 
+            opacity: 1; 
+            transform: translateY(0);
+        }
     }
     
-    /* Clean Card Design */
+    /* Staggered Card Entrance Animations */
     .stMetric {
         background: #ffffff;
         border-radius: 16px;
         border: 1px solid rgba(0, 0, 0, 0.06);
         padding: 1.5rem;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: slideInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+    }
+    
+    /* Stagger effect for multiple cards */
+    .stMetric:nth-child(1) { animation-delay: 0.1s; }
+    .stMetric:nth-child(2) { animation-delay: 0.2s; }
+    .stMetric:nth-child(3) { animation-delay: 0.3s; }
+    .stMetric:nth-child(4) { animation-delay: 0.4s; }
+    
+    @keyframes slideInScale {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
     }
     
     .stMetric:hover {
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-        border-color: rgba(102, 126, 234, 0.2);
-        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+        border-color: rgba(102, 126, 234, 0.3);
+        transform: translateY(-4px) scale(1.02);
     }
     
-    /* Clean Metric Values */
+    /* Animated Metric Values with Counter Effect */
     div[data-testid="stMetricValue"] {
         color: #1a1a1a;
         font-size: 2rem;
         font-weight: 700;
         letter-spacing: -0.5px;
+        animation: pulseGlow 3s ease-in-out infinite;
+    }
+    
+    @keyframes pulseGlow {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.9; }
     }
     
     div[data-testid="stMetricLabel"] {
@@ -104,27 +141,52 @@ st.markdown("""
         letter-spacing: 0.5px;
     }
     
-    /* Clean Chart Containers */
+    /* Animated Chart Containers */
     .stPlotlyChart {
         background: #ffffff;
         border-radius: 20px;
         padding: 1.5rem;
         border: 1px solid rgba(0, 0, 0, 0.06);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
+        transition: all 0.4s ease;
+        animation: fadeInUp 0.8s ease backwards;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     .stPlotlyChart:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
     }
     
-    /* Light Sidebar */
+    /* Light Sidebar with Slide In */
     section[data-testid="stSidebar"] {
         background: #f8f9fa;
         border-right: 1px solid rgba(0, 0, 0, 0.08);
+        animation: slideInLeft 0.5s ease;
     }
     
-    /* Clean Buttons */
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    /* Animated Buttons with Ripple Effect */
     .stButton > button {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #ffffff;
@@ -132,21 +194,33 @@ st.markdown("""
         border-radius: 12px;
         padding: 0.625rem 1.5rem;
         font-weight: 500;
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-size: 0.875rem;
         box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25);
+        position: relative;
+        overflow: hidden;
     }
     
     .stButton > button:hover {
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35);
-        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        transform: translateY(-2px) scale(1.02);
     }
     
-    /* Clean Tabs */
+    .stButton > button:active {
+        transform: translateY(0) scale(0.98);
+    }
+    
+    /* Clean Tabs with Smooth Transitions */
     .stTabs [data-baseweb="tab-list"] {
         gap: 4px;
         background: transparent;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        animation: fadeIn 0.6s ease;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
     
     .stTabs [data-baseweb="tab"] {
@@ -155,8 +229,13 @@ st.markdown("""
         border-radius: 0;
         padding: 0.75rem 1rem;
         border-bottom: 2px solid transparent;
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-weight: 500;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        color: #667eea;
+        background: rgba(102, 126, 234, 0.05);
     }
     
     .stTabs [aria-selected="true"] {
@@ -165,39 +244,42 @@ st.markdown("""
         border-bottom-color: #667eea;
     }
     
-    /* Typography - Clean & Readable */
+    /* Typography - Animated Headers */
     h1, h2, h3, h4, h5, h6 {
         color: #1a1a1a;
         font-weight: 500;
         letter-spacing: -0.3px;
+        animation: fadeInUp 0.6s ease backwards;
     }
     
-    h1 { font-size: 2.5rem; }
-    h2 { font-size: 2rem; }
-    h3 { font-size: 1.5rem; }
+    h1 { font-size: 2.5rem; animation-delay: 0.1s; }
+    h2 { font-size: 2rem; animation-delay: 0.15s; }
+    h3 { font-size: 1.5rem; animation-delay: 0.2s; }
     
-    /* Text */
+    /* Text with Subtle Fade In */
     p, span, div, label {
         color: #3c4043;
         line-height: 1.6;
     }
     
-    /* Clean Expanders */
+    /* Animated Expanders */
     .streamlit-expanderHeader {
         background: #ffffff;
         border-radius: 12px;
         border: 1px solid rgba(0, 0, 0, 0.08);
         color: #1a1a1a;
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
     
     .streamlit-expanderHeader:hover {
         background: #f8f9fa;
         border-color: rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        transform: translateY(-1px);
     }
     
-    /* Minimal Scrollbar */
+    /* Smooth Scrollbar */
     ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
@@ -208,68 +290,116 @@ st.markdown("""
     }
     
     ::-webkit-scrollbar-thumb {
-        background: #dadce0;
+        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
         border-radius: 4px;
+        transition: all 0.3s ease;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: #bdc1c6;
+        background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
     }
     
-    /* Clean Input Fields */
+    /* Animated Input Fields */
     input, textarea, select {
         background: #ffffff !important;
         border: 1px solid #dadce0 !important;
         border-radius: 12px !important;
         color: #1a1a1a !important;
-        transition: all 0.2s ease !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     
     input:focus, textarea:focus, select:focus {
         border-color: #667eea !important;
         background: #ffffff !important;
         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        transform: scale(1.01);
     }
     
-    /* Subtle Divider */
+    /* Animated Divider */
     hr {
         border: none;
-        height: 1px;
-        background: rgba(0, 0, 0, 0.08);
+        height: 2px;
+        background: linear-gradient(90deg, transparent 0%, #667eea 50%, transparent 100%);
         margin: 2rem 0;
+        animation: fadeIn 0.8s ease;
     }
     
-    /* Loading Spinner */
+    /* Spinning Loading Indicator */
     .stSpinner > div {
         border-top-color: #667eea !important;
+        animation: spin 0.8s linear infinite;
     }
     
-    /* Chat Messages - Clean */
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    /* Animated Chat Messages */
     .stChatMessage {
         background: #ffffff;
         border-radius: 16px;
         border: 1px solid rgba(0, 0, 0, 0.08);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        animation: slideInScale 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s ease;
     }
     
-    /* Select Box Dropdown */
+    .stChatMessage:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Select Box with Animation */
     div[data-baseweb="select"] > div {
         background: #ffffff !important;
         border-color: #dadce0 !important;
+        transition: all 0.3s ease !important;
     }
     
-    /* Multiselect Tags */
+    div[data-baseweb="select"] > div:hover {
+        border-color: #667eea !important;
+    }
+    
+    /* Animated Multiselect Tags */
     div[data-baseweb="tag"] {
         background: rgba(102, 126, 234, 0.1) !important;
         border-color: rgba(102, 126, 234, 0.3) !important;
         color: #667eea !important;
+        animation: popIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.2s ease;
     }
     
-    /* Info/Warning/Error Boxes */
+    @keyframes popIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    div[data-baseweb="tag"]:hover {
+        background: rgba(102, 126, 234, 0.2) !important;
+        transform: scale(1.05);
+    }
+    
+    /* Info/Warning/Error Boxes with Entrance */
     .stAlert {
         border-radius: 12px;
         border: 1px solid rgba(0, 0, 0, 0.08);
+        animation: slideInScale 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    
+    /* Columns with Stagger Effect */
+    [data-testid="column"] {
+        animation: fadeInUp 0.6s ease backwards;
+    }
+    
+    [data-testid="column"]:nth-child(1) { animation-delay: 0.1s; }
+    [data-testid="column"]:nth-child(2) { animation-delay: 0.2s; }
+    [data-testid="column"]:nth-child(3) { animation-delay: 0.3s; }
+    [data-testid="column"]:nth-child(4) { animation-delay: 0.4s; }
 </style>
 """, unsafe_allow_html=True)
 
