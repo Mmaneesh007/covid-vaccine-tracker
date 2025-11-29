@@ -15,6 +15,50 @@ from src.etl import load_data
 from src.clean import clean_vax
 from src.storage import save_df_to_db, get_country_timeseries, DB_PATH
 from src.forecast import forecast_country_with_history
+from src.utils import format_metric
+from src.pdf_generator import create_symptom_assessment_pdf
+from src.chatbot import get_chatbot_response
+from src.translations import t, SUPPORTED_LANGUAGES
+from src.js_components import text_to_speech_button
+from src.location_maps import show_my_location_button
+from src.news_feed import display_news_feed_dashboard
+from src.feedback import display_feedback_form
+from src.particles import show_particle_background
+
+# Page configuration
+st.set_page_config(
+    page_title="COVID-19 Vaccine Tracker",
+    page_icon="💉",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Initialize language in session state if not present
+if 'language' not in st.session_state:
+    st.session_state.language = 'en'
+
+# Render Particle Background
+show_particle_background()
+
+# Custom CSS - Google Antigravity Inspired (Light Theme) with Elegant Animations
+st.markdown("""
+<style>
+    /* Import Google Sans Display for that premium Google feel */
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Display:wght@400;500&display=swap');
+    
+    /* Global Styling - Clean & Minimal */
+    * {
+        font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    /* Transparent Background to show Particles */
+    .stApp {
+        background: transparent !important;
+    }
+    
+    /* Elegant Title - Gradient Text with Entrance Animation */
+    .main-title {
+        font-family: 'Google Sans Display', sans-serif;
         font-size: 3.2rem;
         font-weight: 500;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
