@@ -38,7 +38,7 @@ def fetch_news_headlines(source='Google News', limit=25):
         st.error(f"Failed to fetch news: {str(e)}")
         return []
 
-def display_news_feed_dashboard(source='Google News', limit=6):
+def render_news_dashboard(source='Google News', limit=6):
     """
     Display news feed in the main dashboard with premium card styling.
     """
