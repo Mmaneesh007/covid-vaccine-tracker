@@ -36,225 +36,235 @@ st.set_page_config(
 if 'language' not in st.session_state:
     st.session_state.language = 'en'
 
-# Custom CSS for PREMIUM aesthetics
+# Custom CSS - Google Antigravity Inspired
 st.markdown("""
 <style>
-    /* Import Premium Font */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+    /* Import Google Sans Display for that premium Google feel */
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Display:wght@400;500&display=swap');
     
-    /* Global Styling */
+    /* Global Styling - Clean & Minimal */
     * {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
     
-    /* Animated Gradient Background */
+    /* Subtle Dark Background with Grain Texture */
     .stApp {
-        background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
+        background: #0a0a0a;
+        background-image: 
+            radial-gradient(at 40% 20%, rgba(102, 126, 234, 0.08) 0px, transparent 50%),
+            radial-gradient(at 80% 80%, rgba(118, 75, 162, 0.08) 0px, transparent 50%),
+            radial-gradient(at 0% 50%, rgba(75, 123, 236, 0.06) 0px, transparent 50%);
     }
     
-    @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    
-    /* Main Title with Liquid Gradient */
+    /* Elegant Title - Subtle Gradient */
     .main-title {
-        font-size: 3.5rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-        background-size: 200% 200%;
+        font-family: 'Google Sans Display', sans-serif;
+        font-size: 3.2rem;
+        font-weight: 500;
+        background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         margin-bottom: 0.5rem;
-        animation: liquidGradient 8s ease infinite, fadeIn 1s ease;
-        text-shadow: 0 0 40px rgba(102, 126, 234, 0.3);
-        letter-spacing: -1px;
+        letter-spacing: -0.5px;
+        animation: subtleFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    @keyframes liquidGradient {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-    }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-20px); }
+    @keyframes subtleFadeIn {
+        from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Glassmorphism Cards */
-    .stMetric, div[data-testid="stMetricValue"] {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Minimal Glass Cards - Very Subtle */
+    .stMetric {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
         padding: 1.5rem;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        animation: slideUp 0.6s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .stMetric:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 12px 40px 0 rgba(102, 126, 234, 0.5);
-        border-color: rgba(102, 126, 234, 0.5);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(102, 126, 234, 0.2);
+        transform: translateY(-2px);
     }
     
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Premium Metric Values */
+    /* Clean Metric Values */
     div[data-testid="stMetricValue"] {
-        color: #fff;
+        color: #ffffff;
         font-size: 2rem;
         font-weight: 700;
-        text-shadow: 0 2px 10px rgba(102, 126, 234, 0.5);
+        letter-spacing: -0.5px;
     }
     
-    /* Chart Containers with Glow */
+    div[data-testid="stMetricLabel"] {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Minimal Chart Containers */
     .stPlotlyChart {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(20px);
         border-radius: 20px;
         padding: 1.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
-                    0 0 40px rgba(102, 126, 234, 0.2);
-        transition: all 0.4s ease;
-        animation: fadeIn 0.8s ease;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
     }
     
     .stPlotlyChart:hover {
-        box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4),
-                    0 0 60px rgba(102, 126, 234, 0.4);
-        transform: scale(1.01);
+        border-color: rgba(255, 255, 255, 0.08);
     }
     
-    /* Sidebar Styling */
+    /* Clean Sidebar */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.95) 100%);
-        backdrop-filter: blur(10px);
-        border-right: 1px solid rgba(102, 126, 234, 0.3);
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
     
-    /* Buttons with Premium Glow */
+    /* Minimal Buttons */
     .stButton > button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        padding: 0.75rem 2rem;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 0.625rem 1.5rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        font-size: 0.875rem;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
-        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
     }
     
-    /* Tabs with Neon Effect */
+    /* Clean Tabs */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 10px;
-        padding: 0.5rem;
+        gap: 4px;
+        background: transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     
     .stTabs [data-baseweb="tab"] {
         background: transparent;
-        color: rgba(255, 255, 255, 0.7);
-        border-radius: 8px;
-        padding: 0.75rem 1.5rem;
-        transition: all 0.3s ease;
+        color: rgba(255, 255, 255, 0.5);
+        border-radius: 0;
+        padding: 0.75rem 1rem;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s ease;
+        font-weight: 500;
     }
     
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        background: transparent;
+        color: #ffffff;
+        border-bottom-color: #667eea;
     }
     
-    /* Headers with Glow */
-    h1, h2, h3 {
-        color: #fff;
-        font-weight: 700;
-        text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
-        animation: fadeIn 0.6s ease;
+    /* Typography - Clean & Readable */
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff;
+        font-weight: 500;
+        letter-spacing: -0.3px;
     }
     
-    /* Text Colors */
-    p, span, div {
-        color: rgba(255, 255, 255, 0.9);
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; opacity: 0.95; }
+    h3 { font-size: 1.5rem; opacity: 0.9; }
+    
+    /* Text */
+    p, span, div, label {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
     }
     
-    /* Expander with Premium Style */
+    /* Minimal Expanders */
     .streamlit-expanderHeader {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.9);
+        transition: all 0.2s ease;
     }
     
     .streamlit-expanderHeader:hover {
-        background: rgba(102, 126, 234, 0.2);
-        border-color: rgba(102, 126, 234, 0.5);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
     }
     
-    /* Scrollbar Styling */
+    /* Minimal Scrollbar */
     ::-webkit-scrollbar {
-        width: 10px;
+        width: 8px;
+        height: 8px;
     }
     
     ::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(255, 255, 255, 0.02);
     }
     
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
+        background: rgba(255, 255, 255, 0.15);
     }
     
-    /* Input Fields */
+    /* Clean Input Fields */
     input, textarea, select {
-        background: rgba(255, 255, 255, 0.1) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 12px !important;
         color: white !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.2s ease !important;
     }
     
     input:focus, textarea:focus, select:focus {
-        border-color: rgba(102, 126, 234, 0.6) !important;
-        box-shadow: 0 0 20px rgba(102, 126, 234, 0.3) !important;
+        border-color: rgba(102, 126, 234, 0.3) !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
     }
     
-    /* Premium Loading Indicator */
+    /* Subtle Divider */
+    hr {
+        border: none;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        margin: 2rem 0;
+    }
+    
+    /* Loading Spinner */
     .stSpinner > div {
         border-top-color: #667eea !important;
     }
     
-    /* Divider with Gradient */
-    hr {
-        border: none;
-        height: 2px;
-        background: linear-gradient(90deg, transparent 0%, #667eea 50%, transparent 100%);
-        margin: 2rem 0;
+    /* Chat Messages - Clean */
+    .stChatMessage {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    
+    /* Select Box Dropdown */
+    div[data-baseweb="select"] > div {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* Multiselect */
+    div[data-baseweb="tag"] {
+        background: rgba(102, 126, 234, 0.2) !important;
+        border-color: rgba(102, 126, 234, 0.3) !important;
     }
 </style>
 """, unsafe_allow_html=True)
