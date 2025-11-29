@@ -7,9 +7,11 @@ def geolocation_button_v5():
     Version 5.0 - Simplified approach: display detected country, let user select it manually.
     """
     
-    # Check if we have a detected country in session state
+    # Initialize session states
     if 'geo_detected_country' not in st.session_state:
         st.session_state['geo_detected_country'] = None
+    if 'geo_refresh' not in st.session_state:
+        st.session_state['geo_refresh'] = 0
     
     html_code = """
     <div id="geo-container-v5" style="margin-bottom: 10px; padding: 10px; background: #f0f8ff; border: 1px solid #4682b4; border-radius: 5px;">
@@ -131,10 +133,11 @@ def geolocation_button_v5():
     </script>
     """
     
-    # Render component with unique key to force refresh
-    detected_country = components.html(html_code, height=160, key=f"geo_v5_{st.session_state.get('geo_refresh', 0)}")
+    # Render component with unique key
+    refresh_count = st.session_state['geo_refresh']
+    detected_country = components.html(html_code, height=160, key=f"geo_v5_{refresh_count}")
     
-    # If country was detected, store in session state
+    # If country was detected, store in session state and show success
     if detected_country and detected_country != st.session_state['geo_detected_country']:
         st.session_state['geo_detected_country'] = detected_country
         st.success(f"📍 **Detected:** {detected_country}  \nPlease select it from the 'Select countries to compare' dropdown below.", icon="🌍")
