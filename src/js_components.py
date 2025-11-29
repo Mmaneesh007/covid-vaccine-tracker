@@ -66,6 +66,7 @@ def geolocation_button():
     """
     Renders a button that gets the user's location and reloads the page with query params.
     """
+    html_code = """
     <div id="geo-container-v3-2" style="margin-bottom: 10px;">
         <button id="geo-btn" onclick="getLocation()" style="
             background-color: #008CBA;
