@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-> **A full-stack data analytics platform featuring real-time vaccination tracking, ML-based forecasting, and an accessible AI chatbot with voice interaction in 6 languages.**
+> **A full-stack data analytics platform featuring real-time vaccination tracking, ML-based forecasting, and an accessible AI chatbot with voice interaction in 5 languages.**
 
 ---
 
@@ -17,7 +17,7 @@ It combines robust data engineering (ETL pipelines) with modern frontend technol
 
 ### 🌟 Key Differentiators
 
-- **🗣️ Voice-Enabled AI Chatbot**: Ask questions naturally in 6 languages (English, Hindi, Bengali, Tamil, Telugu, French).
+- **🗣️ Voice-Enabled AI Chatbot**: Ask questions naturally in 5 languages (English, Hindi, Bengali, Tamil, Telugu).
 - **🔮 ML Forecasting**: Predicts future vaccination trends using Facebook Prophet.
 - **♿ Accessibility First**: Built-in Text-to-Speech and high-contrast visualizations.
 - **📍 Smart Location Services**: Auto-detects user location for personalized data views.
@@ -79,7 +79,7 @@ The system follows a modern, modular architecture designed for scalability and m
 
 ### 2. 🤖 AI Health Assistant
 
-- **Multi-Language**: Fluent in 6 major languages.
+- **Multi-Language**: Fluent in 5 major languages.
 - **Voice Output**: Reads responses aloud for accessibility.
 - **Context Aware**: Understands health queries and provides empathetic responses.
 

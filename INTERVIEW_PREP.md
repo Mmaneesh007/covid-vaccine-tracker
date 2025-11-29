@@ -6,7 +6,7 @@ This document is designed to help you confidently discuss your project in techni
 
 ## 🗣️ The "Elevator Pitch" (30 Seconds)
 
-> "I built a full-stack COVID-19 Vaccine Tracker that solves the problem of information accessibility. It aggregates data from 190+ countries and uses an AI chatbot to answer health queries in 6 languages.
+> "I built a full-stack COVID-19 Vaccine Tracker that solves the problem of information accessibility. It aggregates data from 190+ countries and uses an AI chatbot to answer health queries in 5 languages.
 >
 > I used **Python** and **Streamlit** for the core application, **Facebook Prophet** for forecasting vaccination trends, and **NLP** for the chatbot. The project is deployed on the cloud and features accessibility tools like Voice-to-Text and geolocation, making critical health data available to a wider audience."
 
@@ -23,7 +23,7 @@ This document is designed to help you confidently discuss your project in techni
 
 2. **Backend Logic:**
     - "**Forecasting:** I implemented time-series forecasting using **Facebook Prophet** to predict future vaccination rates based on historical trends."
-    - "**Chatbot:** I built a retrieval-based chatbot using **TF-IDF** and **Cosine Similarity** for intent matching. It supports 6 languages using a hybrid approach of dictionary lookups and the **Google Translate API**."
+    - "**Chatbot:** I built a retrieval-based chatbot using **TF-IDF** and **Cosine Similarity** for intent matching. It supports 5 languages using a hybrid approach of dictionary lookups and the **Google Translate API**."
 
 3. **Frontend (Streamlit):**
     - "I chose **Streamlit** for rapid development of interactive data visualizations. I optimized performance using `@st.cache_data` to prevent redundant computations."

@@ -187,51 +187,5 @@ KNOWLEDGE_BASE_TRANSLATIONS = {
             "భయపడాల్సిన పనిలేదు. సరైన సమాచారం భయాన్ని పోగొడుతుంది.",
             "మీరు ఒంటరిగా లేరు. కోట్లాది మంది సురక్షితంగా టీకాలు వేయించుకున్నారు."
         ]
-    },
-    'fr': {
-        'greeting': [
-            "Bonjour ! Comment puis-je vous aider ?",
-            "Salut ! Je suis un assistant santé IA. Vous pouvez me poser des questions sur le COVID-19.",
-            "Bonjour ! Restez en sécurité. Que puis-je faire pour vous aujourd'hui ?"
-        ],
-        'thanks': [
-            "Je vous en prie ! Restez en sécurité.",
-            "De rien ! Heureux de pouvoir aider.",
-            "Avec plaisir ! N'hésitez pas si vous avez d'autres questions."
-        ],
-        'identity': [
-            "Je suis un assistant santé IA conçu pour fournir des informations sur le COVID-19.",
-            "Je suis un chatbot qui répond aux questions sur les vaccins et la sécurité sanitaire."
-        ],
-        'vaccine_safety': [
-            "Oui, les vaccins sont sûrs. Des milliards de personnes dans le monde ont été vaccinées en toute sécurité.",
-            "Les vaccins subissent des tests de sécurité rigoureux avant d'être approuvés. Les effets secondaires graves sont extrêmement rares.",
-            "Le risque lié au COVID-19 est bien plus élevé que celui de tout effet secondaire rare du vaccin."
-        ],
-        'side_effects': [
-            "Les effets secondaires courants incluent une douleur au point d'injection, de la fatigue, des maux de tête ou une légère fièvre.",
-            "La plupart des effets secondaires sont légers et disparaissent en un ou deux jours.",
-            "Certaines personnes peuvent avoir des frissons ou des nausées, mais c'est temporaire."
-        ],
-        'effectiveness': [
-            "Les vaccins COVID-19 sont très efficaces pour prévenir les maladies graves, les hospitalisations et les décès.",
-            "Bien qu'aucun vaccin ne soit efficace à 100 %, les personnes vaccinées présentent généralement des symptômes beaucoup plus légers.",
-            "La vaccination est le meilleur moyen de vous protéger, vous et votre communauté."
-        ],
-        'symptoms': [
-            "Les symptômes courants du COVID-19 incluent la fièvre, la toux, la fatigue et la perte du goût ou de l'odorat.",
-            "Un essoufflement, des maux de gorge et des courbatures peuvent également survenir.",
-            "Si vous avez du mal à respirer, consultez immédiatement un médecin."
-        ],
-        'feeling_angry': [
-            "Je comprends votre frustration. C'est une période difficile.",
-            "Il est naturel d'être en colère. Je suis là pour aider avec des informations.",
-            "Restez calme. Nous sommes tous dans le même bateau."
-        ],
-        'feeling_scared': [
-            "Il est naturel de s'inquiéter. Je peux aider à apaiser vos craintes.",
-            "Il n'y a pas de quoi avoir peur. Les bonnes informations peuvent dissiper la peur.",
-            "Vous n'êtes pas seul. Des milliards de personnes ont été vaccinées en toute sécurité."
-        ]
     }
 }

@@ -347,15 +347,6 @@ class Chatbot:
                 'negative': "అది విన్నందుకు బాధగా ఉంది. ",
                 'positive': " సహాయం చేయడం ఆనందంగా ఉంది!"
             },
-            'fr': {
-                'anger': "Je comprends votre frustration. ",
-                'fear': "Il est naturel de s'inquiéter. ",
-                'boredom': "Je vais faire court. ",
-                'confusion': "Laissez-moi vous expliquer plus clairement. ",
-                'sadness': "Je suis désolé de ce que vous traversez. ",
-                'negative': "Je suis désolé d'entendre cela. ",
-                'positive': " Heureux de pouvoir aider !"
-            }
         }
 
         # Default to English if lang not found

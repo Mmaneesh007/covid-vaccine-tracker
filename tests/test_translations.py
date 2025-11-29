@@ -7,8 +7,8 @@ class TestTranslations:
         """Test that supported languages are defined correctly"""
         assert 'en' in SUPPORTED_LANGUAGES
         assert 'hi' in SUPPORTED_LANGUAGES
-        assert 'fr' in SUPPORTED_LANGUAGES
-        assert len(SUPPORTED_LANGUAGES) >= 6
+
+        assert len(SUPPORTED_LANGUAGES) >= 5
 
     def test_translation_function_english(self):
         """Test translation function for English (default)"""
@@ -59,5 +59,4 @@ class TestTranslations:
         # Hindi
         assert 'कोविड' in UI_TRANSLATIONS['hi']['page_title'] or 'COVID' in UI_TRANSLATIONS['hi']['page_title']
         
-        # French
-        assert 'Vaccins' in UI_TRANSLATIONS['fr']['page_title'] or 'Suivi' in UI_TRANSLATIONS['fr']['page_title']
+        # French test removed
