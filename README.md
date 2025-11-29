@@ -1,144 +1,178 @@
-# COVID-19 Vaccine Tracker
+# 🌍 COVID-19 Vaccine Tracker & AI Assistant
 
-A comprehensive vaccination tracking system with data ingestion, ETL pipeline, time series forecasting, and interactive dashboard.
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://covid-vaccine-tracker-hifycegebbt5evg4gq48dw.streamlit.app/)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-## Features
+> **A full-stack data analytics platform featuring real-time vaccination tracking, ML-based forecasting, and an accessible AI chatbot with voice interaction in 6 languages.**
 
-- **Automated Data Ingestion**: Downloads latest vaccination data from Our World in Data
-- **ETL Pipeline**: Cleans and transforms raw data with rolling averages and vaccination percentages
-- **SQLite Database**: Efficient local storage for processed vaccination data
-- **Interactive Dashboard**: Streamlit web app with country comparisons, time series plots, and global maps
-- **Forecasting**: Prophet-based time series predictions for 30-day vaccination trends
+---
 
-## Data Source
+## 🚀 Project Overview
 
-This project uses the [Our World in Data COVID-19 Vaccination Dataset](https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations), which aggregates global vaccination statistics from official sources.
+The **COVID-19 Vaccine Tracker** is a comprehensive web application designed to democratize access to critical health data. Unlike standard dashboards, this platform integrates **Artificial Intelligence** and **Accessibility** features to serve a global audience.
 
-## Installation
+It combines robust data engineering (ETL pipelines) with modern frontend technologies and machine learning to provide actionable insights and personalized health information.
+
+### 🌟 Key Differentiators
+
+- **🗣️ Voice-Enabled AI Chatbot**: Ask questions naturally in 6 languages (English, Hindi, Bengali, Tamil, Telugu, French).
+- **🔮 ML Forecasting**: Predicts future vaccination trends using Facebook Prophet.
+- **♿ Accessibility First**: Built-in Text-to-Speech and high-contrast visualizations.
+- **📍 Smart Location Services**: Auto-detects user location for personalized data views.
+
+---
+
+## 🏗️ Architecture
+
+The system follows a modern, modular architecture designed for scalability and maintainability.
+
+![System Architecture](assets/architecture_diagram.png)
+
+### Data Flow
+
+1. **Ingestion**: Automated ETL pipeline fetches raw data from OWID (Our World in Data).
+2. **Processing**: Data is cleaned, normalized, and stored in a local SQLite database.
+3. **Analysis**: Prophet models generate forecasts; Pandas handles aggregations.
+4. **Presentation**: Streamlit renders the interactive UI; Plotly handles visualizations.
+5. **Interaction**: NLP engine processes user queries and routes them to the appropriate response handler.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend & UI
+
+- **Streamlit**: For rapid, interactive web application development.
+- **Plotly**: For interactive, publication-quality graphs.
+- **HTML/CSS/JS**: Custom components for voice and location features.
+
+### Backend & Logic
+
+- **Python 3.9+**: Core logic and orchestration.
+- **Pandas & NumPy**: High-performance data manipulation.
+- **Facebook Prophet**: Time-series forecasting.
+- **TextBlob & NLTK**: Natural Language Processing for the chatbot.
+- **Google Translate API**: Real-time translation services.
+
+### Data Engineering
+
+- **SQLite**: Lightweight, serverless database engine.
+- **Automated ETL**: Custom Python scripts for data refresh.
+
+### DevOps
+
+- **Git & GitHub**: Version control.
+- **Streamlit Cloud**: CI/CD and hosting.
+- **Docker**: Containerization support (optional).
+
+---
+
+## ✨ Key Features
+
+### 1. 📊 Interactive Dashboard
+
+- Global and country-specific vaccination metrics.
+- Interactive choropleth maps and time-series charts.
+- "Top Performing Countries" analysis.
+
+### 2. 🤖 AI Health Assistant
+
+- **Multi-Language**: Fluent in 6 major languages.
+- **Voice Output**: Reads responses aloud for accessibility.
+- **Context Aware**: Understands health queries and provides empathetic responses.
+
+### 3. 🔮 Predictive Analytics
+
+- Forecasts vaccination coverage for the next 30 days.
+- Visualizes trends and potential plateaus.
+
+### 4. 🏥 Symptom Checker
+
+- Interactive self-assessment tool.
+- Generates downloadable PDF health reports.
+- Provides WHO-aligned guidance.
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Python 3.11 or higher
-- pip package manager
+- Python 3.9 or higher
+- Git
 
-### Setup
+### Installation
 
-1. Clone or download this project
+1. **Clone the repository**
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   git clone https://github.com/Mmaneesh007/covid-vaccine-tracker.git
+   cd covid-vaccine-tracker
+   ```
 
-> **Note**: Prophet may require compilation tools. On Windows, you may need to install Microsoft C++ Build Tools. If you encounter issues, consider using simpler forecasting methods.
+2. **Create a virtual environment**
 
-## Usage
+   ```bash
+   python -m venv venv
+   # Windows
+   venv\Scripts\activate
+   # macOS/Linux
+   source venv/bin/activate
+   ```
 
-### Run Complete ETL Pipeline
+3. **Install dependencies**
 
-Execute the full data download, cleaning, and database update:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-python run_all.py
-```
+4. **Initialize the database**
 
-### Launch Dashboard
+   ```bash
+   python src/etl.py
+   ```
 
-Start the Streamlit web application:
+5. **Run the application**
 
-```bash
-streamlit run app/streamlit_app.py
-```
+   ```bash
+   streamlit run app/streamlit_app.py
+   ```
 
-The dashboard will open in your browser at `http://localhost:8501`
+---
 
-### Individual Modules
+## 🧪 Running Tests
 
-**Download data only:**
-```bash
-python src/etl.py
-```
-
-**Test forecasting for a country:**
-```python
-from src.etl import load_data
-from src.clean import clean_vax
-from src.forecast import fit_prophet_for_country
-
-df = clean_vax(load_data())
-forecast = fit_prophet_for_country(df[df.location=='India'], periods=30)
-print(forecast.tail())
-```
-
-## Project Structure
-
-```
-COVID-19 vaccine tracker/
-├── data/                    # Cached data and SQLite database
-│   ├── vaccinations.csv     # Downloaded OWID data
-│   └── vax_tracker.db       # SQLite database
-├── src/                     # Source code modules
-│   ├── etl.py              # Data download and loading
-│   ├── clean.py            # Data cleaning and transformations
-│   ├── storage.py          # Database operations
-│   └── forecast.py         # Time series forecasting
-├── app/                     # Streamlit application
-│   └── streamlit_app.py    # Main dashboard
-├── tests/                   # Unit and integration tests
-│   └── test_etl.py         # ETL pipeline tests
-├── run_all.py              # End-to-end automation script
-├── requirements.txt        # Python dependencies
-├── Dockerfile             # Container definition
-└── README.md              # This file
-```
-
-## Testing
-
-Run unit tests:
+This project uses `pytest` for unit testing.
 
 ```bash
-pytest tests/ -v
+# Run all tests
+pytest
+
+# Run with coverage report
+pytest --cov=src tests/
 ```
 
-## Deployment
+---
 
-### Docker
+## 🔮 Future Roadmap
 
-Build and run the containerized application:
+- [ ] **Mobile App**: Develop a React Native version for mobile.
+- [ ] **Real-time Alerts**: Email/SMS notifications for vaccination slots.
+- [ ] **API Endpoint**: Expose data via a RESTful API using FastAPI.
+- [ ] **Community Forum**: Add a discussion board for users.
 
-```bash
-docker build -t vaccine-tracker .
-docker run -p 8501:8501 vaccine-tracker
-```
+---
 
-### Streamlit Cloud
+## 👨‍💻 Author
 
-1. Push this repository to GitHub
-2. Visit [Streamlit Cloud](https://streamlit.io/cloud)
-3. Connect your repository and deploy
+**Manish**  
+*Full Stack Developer & Data Enthusiast*
 
-### Scheduled Updates
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://linkedin.com/in/your-profile)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black)](https://github.com/Mmaneesh007)
 
-To automatically update data daily, set up a cron job:
+---
 
-```bash
-# Run ETL pipeline daily at 2 AM
-0 2 * * * cd /path/to/project && python run_all.py
-```
-
-## License
-
-This project uses public data from Our World in Data. Please review their [data license](https://github.com/owid/covid-19-data/blob/master/LICENSE) for usage terms.
-
-## Contributing
-
-Contributions are welcome! Potential enhancements:
-- Additional data sources (WHO, national health authorities)
-- More sophisticated forecasting models (ARIMA, XGBoost)
-- Enhanced dashboard features (date range filters, export capabilities)
-- API endpoints for programmatic access
-
-## Acknowledgments
-
-- [Our World in Data](https://ourworldindata.org/) for providing comprehensive vaccination data
-- [Facebook Prophet](https://facebook.github.io/prophet/) for time series forecasting capabilities
+*Disclaimer: This application is for informational purposes only. Always consult a medical professional for health advice.*

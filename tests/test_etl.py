@@ -15,6 +15,31 @@ from src.etl import download_csv, load_data, CSV_PATH
 from src.clean import clean_vax
 from src.storage import save_df_to_db, get_latest_by_country, get_country_timeseries, DB_PATH
 from src.forecast import fit_prophet_for_country, forecast_country_with_history
+from unittest.mock import patch
+import tempfile
+
+@pytest.fixture(scope="function")
+def temp_db():
+    """Create a temporary database for testing"""
+    # Create a temporary file
+    fd, path = tempfile.mkstemp(suffix=".db")
+    os.close(fd)
+    
+    # URL for sqlite
+    # Fix for Windows paths in sqlalchemy
+    db_url = f"sqlite:///{path}"
+    
+    # Patch the DB_URL in src.storage
+    with patch("src.storage.DB_URL", db_url):
+        yield path
+        
+    # Cleanup
+    if os.path.exists(path):
+        try:
+            os.unlink(path)
+        except PermissionError:
+            pass
+
 
 
 class TestETL:
@@ -148,14 +173,14 @@ class TestStorage:
             'population': [10000] * 10
         })
     
-    def test_save_df_to_db(self, sample_clean_data):
+    def test_save_df_to_db(self, sample_clean_data, temp_db):
         """Test saving DataFrame to database"""
         save_df_to_db(sample_clean_data, table_name="test_vaccinations")
         
         # Check database file exists
-        assert os.path.exists(DB_PATH), "Database file should exist"
+        assert os.path.exists(temp_db), "Database file should exist"
     
-    def test_get_latest_by_country(self, sample_clean_data):
+    def test_get_latest_by_country(self, sample_clean_data, temp_db):
         """Test querying latest stats by country"""
         # Save test data
         save_df_to_db(sample_clean_data)
@@ -169,7 +194,7 @@ class TestStorage:
         # Should have unique countries
         assert latest['location'].nunique() == len(latest)
     
-    def test_get_country_timeseries(self, sample_clean_data):
+    def test_get_country_timeseries(self, sample_clean_data, temp_db):
         """Test querying country time series"""
         # Save test data
         save_df_to_db(sample_clean_data)
@@ -241,7 +266,7 @@ class TestForecasting:
 class TestIntegration:
     """Integration tests for complete pipeline"""
     
-    def test_complete_pipeline(self):
+    def test_complete_pipeline(self, temp_db):
         """Test complete ETL pipeline end-to-end"""
         # Load data
         df = load_data()
@@ -253,7 +278,7 @@ class TestIntegration:
         
         # Save to database
         save_df_to_db(df_clean)
-        assert os.path.exists(DB_PATH)
+        assert os.path.exists(temp_db)
         
         # Query data
         latest = get_latest_by_country(limit=5)
