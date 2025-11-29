@@ -49,6 +49,10 @@ def display_news_feed(source='Google News', limit=25):
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 📰 Latest COVID-19 News")
     
+    # Initialize refresh counter in session state
+    if 'news_refresh_count' not in st.session_state:
+        st.session_state.news_refresh_count = 0
+    
     # News source selector
     selected_source = st.sidebar.selectbox(
         "News Source",
@@ -60,15 +64,15 @@ def display_news_feed(source='Google News', limit=25):
     col1, col2 = st.sidebar.columns([3, 1])
     with col2:
         if st.button("🔄", help="Refresh news"):
-            # Clear cache to fetch fresh news
-            st.cache_data.clear()
+            # Increment refresh counter to bust cache
+            st.session_state.news_refresh_count += 1
             st.rerun()
     
     # Fetch and display news
     with st.sidebar:
         with st.spinner("Loading news..."):
-            # Use cache but allow manual refresh via button
-            headlines = fetch_news_cached(selected_source, limit)
+            # Use cache but allow manual refresh via button (refresh_count busts cache)
+            headlines = fetch_news_cached(selected_source, limit, st.session_state.news_refresh_count)
             
             if headlines:
                 st.caption(f"Showing {len(headlines)} latest headlines")
@@ -98,6 +102,7 @@ def display_news_feed(source='Google News', limit=25):
                 st.warning("No news available at the moment.")
 
 @st.cache_data(ttl=3600)  # Cache for 1 hour
-def fetch_news_cached(source, limit):
-    """Cached version of fetch_news_headlines"""
+def fetch_news_cached(source, limit, refresh_count=0):
+    """Cached version of fetch_news_headlines with cache-busting parameter"""
+    # refresh_count changes on each manual refresh, forcing cache invalidation
     return fetch_news_headlines(source, limit)
