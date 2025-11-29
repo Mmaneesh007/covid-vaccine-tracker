@@ -47,7 +47,7 @@ def show_particle_background():
         resizeCanvas();
 
         // Configuration
-        const particleCount = 200;
+        const particleCount = 80;
         const speedFactor = 1.6;
         
         // Mouse state
@@ -77,7 +77,7 @@ def show_particle_background():
                 this.y = y;
                 this.vx = (Math.random()-0.5)*0.5; 
                 this.vy = (Math.random()-0.5)*0.5;
-                this.size = 0.5 + Math.random()*1.5;
+                this.size = 0.3 + Math.random()*0.8;
                 this.h = 210 + Math.random()*80; // Blue-Purple Hue (210-290)
             }
             
@@ -123,7 +123,7 @@ def show_particle_background():
             
             draw(ctx) {
                 const speed = Math.min(5, Math.hypot(this.vx, this.vy));
-                const alpha = 0.04 + Math.min(0.06, speed * 0.03);
+                const alpha = 0.01 + Math.min(0.02, speed * 0.01);
                 ctx.beginPath();
                 ctx.fillStyle = `hsla(${this.h}, 35%, 65%, ${alpha})`;
                 ctx.ellipse(this.x, this.y, this.size, this.size*0.9, 0, 0, Math.PI*2);
@@ -144,7 +144,7 @@ def show_particle_background():
             last = now;
 
             // Trails effect
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
             ctx.fillRect(0, 0, W, H);
 
             // Dot grid
