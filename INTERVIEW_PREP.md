@@ -26,7 +26,11 @@ This document is designed to help you confidently discuss your project in techni
     - "**Chatbot:** I built a retrieval-based chatbot using **TF-IDF** and **Cosine Similarity** for intent matching. It supports 5 languages using a hybrid approach of dictionary lookups and the **Google Translate API**."
 
 3. **Frontend (Streamlit):**
-    - "I chose **Streamlit** for rapid development of interactive data visualizations. I optimized performance using `@st.cache_data` to prevent redundant computations."
+    - "I chose **Streamlit** for rapid development but customized it heavily to achieve a **premium, modern aesthetic**."
+    - "**UI/UX:** I implemented a custom CSS system featuring a clean light theme with purple gradient accents, glassmorphism effects on cards, and elegant entrance animations using CSS keyframes to create a polished, professional user experience."
+    - "**Interactive Particle Background:** I built a custom **HTML5 Canvas** particle system using JavaScript. It implements a **flow field algorithm** where 150 particles move according to calculated noise functions and react to mouse movements in real-time. This was challenging because I had to inject the JavaScript into Streamlit's parent window to make it work globally across the app."
+    - "**Performance:** The particle system is optimized with delta-time-based animation loops and aggressive trail fading to maintain 60 FPS even on lower-end devices."
+    - "**Interactivity:** Added real-time feedback forms and a dynamic news feed to keep users engaged."
 
 ---
 

@@ -19,6 +19,7 @@ It combines robust data engineering (ETL pipelines) with modern frontend technol
 
 - **🗣️ Voice-Enabled AI Chatbot**: Ask questions naturally in 5 languages (English, Hindi, Bengali, Tamil, Telugu).
 - **🔮 ML Forecasting**: Predicts future vaccination trends using Facebook Prophet.
+- **🌌 Interactive Particle Background**: Dynamic flow field visualization that responds to mouse movements.
 - **♿ Accessibility First**: Built-in Text-to-Speech and high-contrast visualizations.
 - **📍 Smart Location Services**: Auto-detects user location for personalized data views.
 
@@ -100,7 +101,14 @@ The system follows a modern, modular architecture designed for scalability and m
 - Displays 20-25 latest headlines with clickable links.
 - Manual refresh button to fetch fresh news updates.
 
-### 6. ⭐ User Feedback System
+### 6. 🌌 Interactive Particle Background
+
+- Custom HTML5 Canvas implementation with flow field algorithm.
+- 150 responsive particles that react to mouse/touch input.
+- Optimized for performance with minimal impact on UX.
+- Subtle beige color scheme for readability.
+
+### 7. ⭐ User Feedback System
 
 - Star rating widget (1-5 stars) for user satisfaction.
 - Optional comment submission for detailed feedback.
