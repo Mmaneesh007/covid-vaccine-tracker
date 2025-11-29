@@ -753,6 +753,11 @@ with st.sidebar:
     st.markdown(f"**{t('nav_title')} (Beta)**")
     geolocation_button()
     
+    # Debug: Clear Cache Button (Temporary)
+    if st.button("🔄 Reset App Cache"):
+        st.cache_data.clear()
+        st.rerun()
+    
     # Check for country query param from Geolocation
     # st.query_params is the new way in recent Streamlit versions
     query_params = st.query_params

@@ -67,7 +67,7 @@ def geolocation_button():
     Renders a button that gets the user's location and reloads the page with query params.
     """
     html_code = """
-    <div style="margin-bottom: 10px;">
+    <div id="geo-container-v3" style="margin-bottom: 10px;">
         <button id="geo-btn" onclick="getLocation()" style="
             background-color: #008CBA;
             border: none;
@@ -84,7 +84,7 @@ def geolocation_button():
         ">
             📍 Auto-Detect My Location
         </button>
-        <p id="status" style="font-size: 12px; color: #666; margin-top: 5px;"></p>
+        <p id="status" style="font-size: 12px; color: #666; margin-top: 5px;">v3.1 - Ready (Cache Cleared)</p>
     </div>
 
     <script>
@@ -97,7 +97,7 @@ def geolocation_button():
             return;
         }
 
-        status.innerHTML = "Locating...";
+        status.innerHTML = "Locating... (Please allow permission)";
         btn.disabled = true;
         btn.style.opacity = "0.7";
 
@@ -109,36 +109,57 @@ def geolocation_button():
         const longitude = position.coords.longitude;
         const status = document.getElementById("status");
         
-        status.innerHTML = "Found you! Finding country...";
+        status.innerHTML = "Found coordinates! Identifying country...";
+        console.log("Lat:", latitude, "Long:", longitude);
 
-        // Use OpenStreetMap (Nominatim) for reverse geocoding (Free, No Key)
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
-            .then(response => response.json())
-            .then(data => {
-                const country = data.address.country;
-                status.innerHTML = "Redirecting to " + country + "...";
-                
-                // Reload page with country query param
-                // We use window.parent.location because Streamlit runs in an iframe
-                const currentUrl = new URL(window.parent.location.href);
-                currentUrl.searchParams.set('country', country);
-                window.parent.location.href = currentUrl.toString();
+        // Try Primary API (BigDataCloud)
+        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+            .then(response => {
+                if (!response.ok) throw new Error("Primary API failed");
+                return response.json();
             })
-            .catch(e => {
-                status.innerHTML = "Error finding country.";
-                console.error(e);
-                btn.disabled = false;
-                btn.style.opacity = "1";
+            .then(data => {
+                if (!data.countryName) throw new Error("No country in Primary data");
+                redirect(data.countryName);
+            })
+            .catch(err1 => {
+                console.warn("Primary API failed, trying fallback...", err1);
+                status.innerHTML = "Primary failed. Trying fallback...";
+                
+                // Try Fallback API (Nominatim)
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error("Fallback API failed");
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (!data.address || !data.address.country) throw new Error("No country in Fallback data");
+                        redirect(data.address.country);
+                    })
+                    .catch(err2 => {
+                        status.innerHTML = "Error: Could not determine country. " + err2.message;
+                        const btn = document.getElementById("geo-btn");
+                        btn.disabled = false;
+                        btn.style.opacity = "1";
+                    });
             });
     }
 
-    function error() {
+    function redirect(country) {
         const status = document.getElementById("status");
-        status.innerHTML = "Unable to retrieve your location";
+        status.innerHTML = "Success! Redirecting to " + country + "...";
+        const currentUrl = new URL(window.parent.location.href);
+        currentUrl.searchParams.set('country', country);
+        window.parent.location.href = currentUrl.toString();
+    }
+
+    function error(err) {
+        const status = document.getElementById("status");
+        status.innerHTML = "Location Access Denied or Error: " + err.message;
         const btn = document.getElementById("geo-btn");
         btn.disabled = false;
         btn.style.opacity = "1";
     }
     </script>
     """
-    components.html(html_code, height=100)
+    components.html(html_code, height=125)
