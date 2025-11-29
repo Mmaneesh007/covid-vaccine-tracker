@@ -66,8 +66,7 @@ def geolocation_button():
     """
     Renders a button that gets the user's location and reloads the page with query params.
     """
-    html_code = """
-    <div id="geo-container-v3" style="margin-bottom: 10px;">
+    <div id="geo-container-v3-2" style="margin-bottom: 10px;">
         <button id="geo-btn" onclick="getLocation()" style="
             background-color: #008CBA;
             border: none;
@@ -84,7 +83,7 @@ def geolocation_button():
         ">
             📍 Auto-Detect My Location
         </button>
-        <p id="status" style="font-size: 12px; color: #666; margin-top: 5px;">v3.1 - Ready (Cache Cleared)</p>
+        <p id="status" style="font-size: 12px; color: #666; margin-top: 5px;">v3.2 - Ready (Latest)</p>
     </div>
 
     <script>
@@ -137,7 +136,7 @@ def geolocation_button():
                         redirect(data.address.country);
                     })
                     .catch(err2 => {
-                        status.innerHTML = "Error: Could not determine country. " + err2.message;
+                        status.innerHTML = "v3.2 ERROR: Could not determine country. " + err2.message;
                         const btn = document.getElementById("geo-btn");
                         btn.disabled = false;
                         btn.style.opacity = "1";
@@ -155,7 +154,7 @@ def geolocation_button():
 
     function error(err) {
         const status = document.getElementById("status");
-        status.innerHTML = "Location Access Denied or Error: " + err.message;
+        status.innerHTML = "v3.2 Access Denied or Error: " + err.message;
         const btn = document.getElementById("geo-btn");
         btn.disabled = false;
         btn.style.opacity = "1";
