@@ -19,6 +19,7 @@ from src.utils import format_metric
 from src.pdf_generator import create_symptom_assessment_pdf
 from src.chatbot import get_chatbot_response
 from src.translations import t, SUPPORTED_LANGUAGES
+from src.js_components import text_to_speech_button, geolocation_button
 
 # Page configuration
 st.set_page_config(
@@ -105,6 +106,9 @@ def show_chatbot():
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
+            # Add Listen button for assistant messages
+            if message["role"] == "assistant":
+                text_to_speech_button(message["content"], lang=st.session_state.language)
 
     # React to user input
     if prompt := st.chat_input(t('chatbot_placeholder')):
@@ -119,6 +123,9 @@ def show_chatbot():
                 # Pass current language to chatbot
                 response = get_chatbot_response(prompt, lang=st.session_state.language)
                 st.markdown(response)
+                
+                # Add Text-to-Speech Button
+                text_to_speech_button(response, lang=st.session_state.language)
         
         # Add assistant response to chat history
         st.session_state.messages.append({"role": "assistant", "content": response})
@@ -183,6 +190,17 @@ def show_dashboard():
         
         # Default countries for comparison
         default_countries = ['India', 'United States', 'China', 'United Kingdom', 'Brazil']
+        
+        # If geolocation found a country, add it to defaults
+        if 'detected_country' in st.session_state:
+            detected = st.session_state['detected_country']
+            if detected in countries and detected not in default_countries:
+                default_countries.insert(0, detected)
+            elif detected in default_countries:
+                # Move to front
+                default_countries.remove(detected)
+                default_countries.insert(0, detected)
+
         default_selection = [c for c in default_countries if c in countries]
         
         selected_countries = st.multiselect(
@@ -729,6 +747,23 @@ with st.sidebar:
         st.session_state.language = lang_code
         st.rerun()
         
+    st.divider()
+
+    # Geolocation Feature
+    st.markdown(f"**{t('nav_title')} (Beta)**")
+    geolocation_button()
+    
+    # Check for country query param from Geolocation
+    # st.query_params is the new way in recent Streamlit versions
+    query_params = st.query_params
+    if "country" in query_params:
+        detected_country = query_params["country"]
+        st.success(f"📍 Detected: {detected_country}")
+        # We'll use this to set the default in the dashboard if valid
+        st.session_state['detected_country'] = detected_country
+        # Clear param to avoid sticky state
+        # st.query_params.clear() # Optional: keep it for now so user sees it
+    
     st.divider()
     
     page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot')])
