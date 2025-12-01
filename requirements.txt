@@ -11,3 +11,5 @@ pytest
 gunicorn
 reportlab
 feedparser
+scipy
+streamlit-mic-recorder

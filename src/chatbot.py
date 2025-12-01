@@ -11,6 +11,7 @@ from deep_translator import GoogleTranslator
 from src.chatbot_knowledge import KNOWLEDGE_BASE
 from src.chatbot_translations import KNOWLEDGE_BASE_TRANSLATIONS
 from src.storage import get_all_countries, get_latest_by_country, get_country_timeseries
+from src.nlp_engine import smart_search
 
 class Chatbot:
     def __init__(self):
@@ -249,7 +250,12 @@ class Chatbot:
             if entities:
                  response = self.get_db_response('country_stats', entities)
             else:
-                response = "I'm not sure I understand. I am trained to answer questions about COVID-19, vaccines, and symptoms. Could you rephrase that?"
+                # 4. Try Smart Search (eBook Content)
+                ebook_response = smart_search(corrected_input)
+                if ebook_response:
+                    response = ebook_response
+                else:
+                    response = "I'm not sure I understand. I am trained to answer questions about COVID-19, vaccines, and symptoms. Could you rephrase that?"
         else:
             matched_intent = self.intent_map[best_idx]
             

@@ -24,6 +24,9 @@ from src.location_maps import show_my_location_button
 from src.news_dashboard import render_news_dashboard
 from src.feedback import display_feedback_form
 from src.particles import show_particle_background
+from src.simulation import render_simulator
+from src.voice_input import get_voice_input
+from src.comparison import render_comparison
 
 # Page configuration
 st.set_page_config(
@@ -450,8 +453,17 @@ def show_chatbot():
             if message["role"] == "assistant":
                 text_to_speech_button(message["content"], lang=st.session_state.language)
 
-    # React to user input
-    if prompt := st.chat_input(t('chatbot_placeholder')):
+    # Voice Input
+    voice_text = get_voice_input(language=st.session_state.language)
+    
+    # React to user input (Text OR Voice)
+    prompt = st.chat_input(t('chatbot_placeholder'))
+    
+    # If voice input is detected, use it as prompt
+    if voice_text:
+        prompt = voice_text
+
+    if prompt:
         # Display user message in chat message container
         st.chat_message("user").markdown(prompt)
         # Add user message to chat history
@@ -1111,7 +1123,7 @@ with st.sidebar:
     
     st.divider()
     
-    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot')])
+    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison')])
     
     st.divider()
     
@@ -1150,5 +1162,9 @@ with st.sidebar:
 # Main execution
 if page == t('nav_dashboard'):
     show_dashboard()
-else:
+elif page == t('nav_chatbot'):
     show_chatbot()
+elif page == t('nav_simulator'):
+    render_simulator()
+elif page == t('nav_comparison'):
+    render_comparison()
