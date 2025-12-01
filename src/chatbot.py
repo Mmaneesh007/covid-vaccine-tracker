@@ -195,7 +195,19 @@ class Chatbot:
         if not self.is_trained:
             return "I am initializing, please wait a moment."
 
-        # 0. Spell check and sentiment analysis
+        # 0. PRIORITY: Check for Smart Search keywords in RAW input first
+        # This prevents spell checker from ruining acronyms like "CDC" -> "Do"
+        smart_search_keywords = ['cdc', 'who', 'report', 'guideline', 'myth', 'fact', 'safety', 'pregnant']
+        if any(keyword in user_input.lower() for keyword in smart_search_keywords):
+            print(f"Smart search keyword detected in raw input. Skipping intent matching.")
+            # We still want to use corrected input for the search itself if possible, 
+            # but for CDC/WHO we might want to keep them.
+            # Let's just use raw input for search if it contains these keywords to be safe.
+            context_response = smart_search(user_input)
+            if context_response:
+                return context_response
+
+        # 1. Spell check and sentiment analysis
         corrected_input = self.preprocess_input(user_input)
         sentiment = self.analyze_sentiment(corrected_input)
         emotion = self.detect_emotion_keywords(corrected_input)
@@ -219,7 +231,7 @@ class Chatbot:
              if any(keyword in user_lower for keyword in data_intents['country_stats']):
                  return self.get_db_response('country_stats', entities)
 
-        # 2. If emotion detected, prioritize emotional intents
+        # 3. If emotion detected, prioritize emotional intents
         if emotion:
             # Map emotions to their corresponding intent names
             emotion_intent_map = {
@@ -237,7 +249,31 @@ class Chatbot:
                 for item in KNOWLEDGE_BASE:
                     if item['intent'] == target_intent:
                         response = random.choice(item['responses'])
-            response = None
+                        return self._add_empathy(response, sentiment, emotion, lang)
+        
+        # 4. Fallback to TF-IDF for other intents
+        user_tfidf = self.vectorizer.transform([corrected_input])
+        similarities = cosine_similarity(user_tfidf, self.tfidf_matrix).flatten()
+        best_idx = np.argmax(similarities)
+        best_score = similarities[best_idx]
+        
+        response = None
+        
+        if best_score < threshold:
+            # If low score but we have an entity, maybe try stats?
+            if entities:
+                 return self.get_db_response('country_stats', entities)
+            else:
+                # 5. Try Smart Search (eBook/Knowledge Base)
+                ebook_response = smart_search(corrected_input)
+                if ebook_response:
+                    response = ebook_response
+                else:
+                    response = "I'm not sure I understand. I am trained to answer questions about COVID-19, vaccines, and symptoms. Could you rephrase that?"
+        else:
+            matched_intent = self.intent_map[best_idx]
+            
+            # Find response for intent
             
             # 1. Try Dictionary Translation First (Fast & Accurate for static content)
             if lang != 'en' and lang in KNOWLEDGE_BASE_TRANSLATIONS:
@@ -266,7 +302,7 @@ class Chatbot:
                     # Fallback: append a small note in English if translation fails
                     response += " (Sorry, I couldn't translate this part.)"
         
-        # 4. Add empathetic prefix/suffix based on sentiment and emotion
+        # 6. Add empathetic prefix/suffix based on sentiment and emotion
         return self._add_empathy(response, sentiment, emotion, lang)
 
     def _is_response_translated(self, response, lang):

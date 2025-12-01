@@ -14,7 +14,8 @@ try:
     test_queries = [
         "What are vaccine side effects?",
         "Is COVID-19 vaccine safe?",
-        "Can pregnant women get vaccinated?"
+        "Can pregnant women get vaccinated?",
+        "CDC guidelines"
     ]
     
     print(f"\nKnowledge Base Stats:")
