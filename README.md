@@ -17,7 +17,10 @@ It combines robust data engineering (ETL pipelines) with modern frontend technol
 
 ### 🌟 Key Differentiators
 
-- **🗣️ Voice-Enabled AI Chatbot**: Ask questions naturally in 5 languages (English, Hindi, Bengali, Tamil, Telugu).
+- **🗣️ Voice-Enabled AI Chatbot**: Ask questions naturally in 5 languages (English, Hindi, Bengali, Tamil, Telugu) - now with **voice input**!
+- **🧠 Smart Search with TF-IDF**: Advanced NLP engine that intelligently searches eBook content for accurate answers.
+- **🧪 Pandemic Simulator**: Interactive SIR model to visualize how viruses spread with real-time scenario testing.
+- **⚔️ Country Face-Off**: Head-to-head comparison tool for vaccination stats between any two countries.
 - **🔮 ML Forecasting**: Predicts future vaccination trends using Facebook Prophet.
 - **🌌 Interactive Particle Background**: Dynamic flow field visualization that responds to mouse movements.
 - **♿ Accessibility First**: Built-in Text-to-Speech and high-contrast visualizations.
@@ -53,6 +56,8 @@ The system follows a modern, modular architecture designed for scalability and m
 
 - **Python 3.9+**: Core logic and orchestration.
 - **Pandas & NumPy**: High-performance data manipulation.
+- **SciPy**: Mathematical modeling for SIR pandemic simulation.
+- **Scikit-learn**: TF-IDF vectorization and cosine similarity for smart search.
 - **Facebook Prophet**: Time-series forecasting.
 - **TextBlob & NLTK**: Natural Language Processing for the chatbot.
 - **Google Translate API**: Real-time translation services.
@@ -81,7 +86,9 @@ The system follows a modern, modular architecture designed for scalability and m
 ### 2. 🤖 AI Health Assistant
 
 - **Multi-Language**: Fluent in 5 major languages.
+- **Voice Input**: Speak your questions using browser-native speech recognition.
 - **Voice Output**: Reads responses aloud for accessibility.
+- **Smart Search**: TF-IDF-powered engine searches eBook content for accurate answers.
 - **Context Aware**: Understands health queries and provides empathetic responses.
 
 ### 3. 🔮 Predictive Analytics
@@ -113,6 +120,20 @@ The system follows a modern, modular architecture designed for scalability and m
 - Star rating widget (1-5 stars) for user satisfaction.
 - Optional comment submission for detailed feedback.
 - Feedback stored locally in CSV format for analytics.
+
+### 8. 🧪 Pandemic Simulator
+
+- **Interactive SIR Model**: Visualize how diseases spread through populations.
+- **Preset Scenarios**: Quick-start with scenarios like "Strong Prevention" or "High Vaccination".
+- **Real-time Updates**: Adjust contagiousness and recovery rates to see instant results.
+- **Educational**: Learn about outbreak dynamics, R₀, and "flattening the curve".
+
+### 9. ⚔️ Country Face-Off
+
+- **Head-to-Head Comparison**: Compare vaccination performance between any two countries.
+- **Battle Cards**: Side-by-side metrics including total doses, coverage %, and daily speed.
+- **Trend Visualization**: Historical comparison charts showing who's winning the race.
+- **Smart Insights**: Automatically highlights the better performer for each metric.
 
 ---
 
