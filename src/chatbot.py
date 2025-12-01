@@ -265,10 +265,8 @@ class Chatbot:
                  return self.get_db_response('country_stats', entities)
             else:
                 # 5. Try Smart Search (eBook/Knowledge Base)
-                ebook_response = smart_search(corrected_input)
-                if ebook_response:
-                    response = ebook_response
-                else:
+                response = smart_search(corrected_input)
+                if not response:
                     response = "I'm not sure I understand. I am trained to answer questions about COVID-19, vaccines, and symptoms. Could you rephrase that?"
         else:
             matched_intent = self.intent_map[best_idx]
