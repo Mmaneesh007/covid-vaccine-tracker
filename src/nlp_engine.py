@@ -1,11 +1,13 @@
 import os
 import pickle
+import glob
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
-# Path to the eBook text
-EBOOK_PATH = os.path.join(os.getcwd(), "extracted_ebook_text.txt")
+# Path to knowledge sources
+KNOWLEDGE_FOLDER = os.path.join(os.getcwd(), "knowledge")
+LEGACY_EBOOK_PATH = os.path.join(os.getcwd(), "extracted_ebook_text.txt")
 CACHE_PATH = os.path.join(os.getcwd(), "data", "tfidf_cache.pkl")
 
 class NLPEngine:
@@ -13,6 +15,7 @@ class NLPEngine:
         self.vectorizer = None
         self.tfidf_matrix = None
         self.chunks = []
+        self.sources = []  # Track which source each chunk came from
         self._initialize()
 
     def _initialize(self):
@@ -24,31 +27,59 @@ class NLPEngine:
                     self.vectorizer = data['vectorizer']
                     self.tfidf_matrix = data['matrix']
                     self.chunks = data['chunks']
+                    self.sources = data.get('sources', [])
+                print(f"Loaded TF-IDF cache with {len(self.chunks)} chunks from {len(set(self.sources))} sources")
                 return
-            except Exception:
-                pass  # Fallback to rebuilding
+            except Exception as e:
+                print(f"Cache load failed: {e}, rebuilding...")
 
         self._build_index()
 
     def _build_index(self):
-        """Read file and build index"""
-        if not os.path.exists(EBOOK_PATH):
-            print(f"Warning: eBook file not found at {EBOOK_PATH}")
+        """Read all files and build index"""
+        all_text = []
+        
+        # Create knowledge folder if it doesn't exist
+        os.makedirs(KNOWLEDGE_FOLDER, exist_ok=True)
+        
+        # Find all .txt files in knowledge folder
+        knowledge_files = glob.glob(os.path.join(KNOWLEDGE_FOLDER, "*.txt"))
+        
+        # Also check for legacy ebook file
+        if os.path.exists(LEGACY_EBOOK_PATH):
+            knowledge_files.append(LEGACY_EBOOK_PATH)
+        
+        if not knowledge_files:
+            print(f"Warning: No knowledge sources found in {KNOWLEDGE_FOLDER}")
             return
-
-        with open(EBOOK_PATH, 'r', encoding='utf-8') as f:
-            text = f.read()
-
-        # Split into chunks (paragraphs)
-        # We split by double newline to get paragraphs
-        raw_chunks = text.split('\n\n')
-        self.chunks = [c.strip() for c in raw_chunks if len(c.strip()) > 50]
-
+        
+        print(f"Loading knowledge from {len(knowledge_files)} file(s):")
+        
+        # Read and combine all files
+        for filepath in knowledge_files:
+            try:
+                filename = os.path.basename(filepath)
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    text = f.read()
+                
+                # Split into paragraphs
+                raw_chunks = text.split('\n\n')
+                file_chunks = [c.strip() for c in raw_chunks if len(c.strip()) > 50]
+                
+                all_text.extend(file_chunks)
+                self.sources.extend([filename] * len(file_chunks))
+                
+                print(f"  [OK] {filename}: {len(file_chunks)} paragraphs")
+            except Exception as e:
+                print(f"  [FAIL] Failed to load {filepath}: {e}")
+        
+        self.chunks = all_text
+        
         if not self.chunks:
             return
 
         # Create TF-IDF Matrix
-        self.vectorizer = TfidfVectorizer(stop_words='english')
+        self.vectorizer = TfidfVectorizer(stop_words='english', max_features=5000)
         self.tfidf_matrix = self.vectorizer.fit_transform(self.chunks)
 
         # Save to cache
@@ -58,8 +89,10 @@ class NLPEngine:
                 pickle.dump({
                     'vectorizer': self.vectorizer,
                     'matrix': self.tfidf_matrix,
-                    'chunks': self.chunks
+                    'chunks': self.chunks,
+                    'sources': self.sources
                 }, f)
+            print(f"Saved TF-IDF cache with {len(self.chunks)} total chunks")
         except Exception as e:
             print(f"Warning: Could not save TF-IDF cache: {e}")
 
