@@ -237,29 +237,6 @@ class Chatbot:
                 for item in KNOWLEDGE_BASE:
                     if item['intent'] == target_intent:
                         response = random.choice(item['responses'])
-                        return self._add_empathy(response, sentiment, emotion)
-        
-        # 3. Fallback to TF-IDF for other intents
-        user_tfidf = self.vectorizer.transform([corrected_input])
-        similarities = cosine_similarity(user_tfidf, self.tfidf_matrix).flatten()
-        best_idx = np.argmax(similarities)
-        best_score = similarities[best_idx]
-        
-        if best_score < threshold:
-            # If low score but we have an entity, maybe try stats?
-            if entities:
-                 response = self.get_db_response('country_stats', entities)
-            else:
-                # 4. Try Smart Search (eBook Content)
-                ebook_response = smart_search(corrected_input)
-                if ebook_response:
-                    response = ebook_response
-                else:
-                    response = "I'm not sure I understand. I am trained to answer questions about COVID-19, vaccines, and symptoms. Could you rephrase that?"
-        else:
-            matched_intent = self.intent_map[best_idx]
-            
-            # Find response for intent
             response = None
             
             # 1. Try Dictionary Translation First (Fast & Accurate for static content)
