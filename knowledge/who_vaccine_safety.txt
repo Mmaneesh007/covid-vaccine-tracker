@@ -1,0 +1,78 @@
+WHO COVID-19 VACCINE SAFETY Q&A
+Source: World Health Organization (WHO)
+Official Safety Information
+
+===================
+SAFETY ASSURANCE
+===================
+
+How do we know COVID-19 vaccines are safe?
+
+Strict precautions are in place to ensure the safety of all COVID-19 vaccines. Before receiving validation from WHO and national regulatory agencies for emergency use, vaccines undergo rigorous testing in clinical trials to meet internationally agreed benchmarks for safety and efficacy. 
+
+Unprecedented scientific collaborations and extensive prior research allowed for swift development while maintaining high safety standards. WHO and regulatory authorities continuously monitor the use of these vaccines globally to identify and respond to any safety issues that may arise.
+
+===================
+SIDE EFFECTS
+===================
+
+What are the common side effects of COVID-19 vaccines?
+
+Like with any vaccine, some individuals may experience mild to moderate side effects after COVID-19 vaccination, indicating that the body is developing protection. These common side effects can include:
+- Fever
+- Tiredness
+- Headache
+- Muscle ache
+- Chills
+- Diarrhea
+- Pain or redness at the injection site
+
+Most side effects are temporary and resolve within a few days on their own. These can be managed with rest, plenty of non-alcoholic liquids, and pain/fever medication if needed.
+
+Are there more serious side effects?
+
+More serious or long-lasting side effects are possible but extremely rare. National health authorities and WHO continuously monitor vaccine use to detect and respond to such rare adverse events. 
+
+Reports of very rare cases of myocarditis (inflammation of the heart muscle) and pericarditis (inflammation of the membrane surrounding the heart) have been noted following mRNA COVID-19 vaccines, particularly after the second dose. Severe allergic reactions, such as anaphylaxis, are also very rare side effects of any vaccine.
+
+===================
+PREGNANCY
+===================
+
+Can pregnant individuals receive the COVID-19 vaccine?
+
+Yes, WHO recommends a single dose of the COVID-19 vaccine during each pregnancy. Pregnant individuals face a higher risk from COVID-19, which can impact both them and the baby. 
+
+Vaccination during pregnancy is safe and beneficial for the baby, as antibodies created can be passed from mother to child, offering protection in the first few months of life. The vaccine can be administered at any time during pregnancy, with vaccination in the mid-second trimester maximizing protection.
+
+===================
+VACCINE EFFECTIVENESS
+===================
+
+Can I still get COVID-19 after being vaccinated?
+
+Yes. While COVID-19 vaccines are highly effective against severe disease and death, no vaccine is 100% effective. Vaccinated individuals can still get infected and may experience breakthrough infections. However, those who contract COVID-19 after vaccination are much more likely to experience mild symptoms, as the vaccines maintain high effectiveness against serious illness and death.
+
+===================
+mRNA TECHNOLOGY
+===================
+
+Are mRNA vaccines safe, given their newer technology?
+
+The COVID-19 mRNA vaccine technology has been rigorously assessed for safety, and clinical trials have demonstrated that these vaccines produce an immune response with high efficacy against the disease. 
+
+mRNA vaccine technology has been studied for several decades, including in the contexts of Zika, rabies, and influenza vaccines. mRNA vaccines are not live virus vaccines and do not interfere with human DNA.
+
+===================
+RECOMMENDATIONS
+===================
+
+Who should get vaccinated?
+
+WHO's Strategic Advisory Group of Experts on Immunization (SAGE) recommends vaccination, particularly for those at high risk of severe illness, including:
+- Older persons
+- Adults with chronic diseases
+- Individuals with immunocompromising conditions
+- Health workers with direct patient contact
+
+Pregnant persons are also recommended to receive a dose during each pregnancy. Everyone should consider vaccination to prevent severe COVID-19 infection and death.
