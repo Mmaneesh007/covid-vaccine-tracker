@@ -50,6 +50,34 @@ def get_latest_by_country(limit=100):
     
     return pd.read_sql_query(query, engine, params={"limit": limit})
 
+def get_country_latest(country_name):
+    """
+    Get the latest vaccination statistics for a specific country.
+    
+    Args:
+        country_name (str): Name of the country
+    
+    Returns:
+        pd.Series: Latest stats for the country, or None if not found
+    """
+    engine = sa.create_engine(DB_URL)
+    
+    query = """
+    SELECT *
+    FROM countries_vaccinations
+    WHERE location = :country
+    AND total_vaccinations IS NOT NULL
+    ORDER BY date DESC
+    LIMIT 1
+    """
+    
+    df = pd.read_sql_query(query, engine, params={"country": country_name})
+    
+    if df.empty:
+        return None
+        
+    return df.iloc[0]
+
 def get_country_timeseries(country_name):
     """
     Get complete time series data for a specific country.

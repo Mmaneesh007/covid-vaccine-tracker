@@ -27,7 +27,7 @@ wheels/
 .pytest_cache/
 
 # Database (optional - remove this line if you want to include the DB in git)
-data/vax_tracker.db
+# data/vax_tracker.db  # Commented out to include DB in repo for cloud deployment
 
 # CSV cache
 data/owid-covid-data.csv

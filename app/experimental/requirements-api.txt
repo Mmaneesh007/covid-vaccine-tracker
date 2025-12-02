@@ -1,0 +1,17 @@
+# FastAPI Experimental Backend Dependencies
+# Install with: pip install -r app/experimental/requirements-api.txt
+
+# Core FastAPI
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+pydantic==2.9.2
+pydantic-settings==2.6.1
+
+# CORS and middleware
+python-multipart==0.0.20
+
+# Optional: Redis for caching (improves performance)
+redis==5.0.1
+
+# Note: All other dependencies (pandas, sqlalchemy, prophet, etc.) 
+# are already included in the main requirements.txt

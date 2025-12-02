@@ -13,3 +13,7 @@ reportlab
 feedparser
 scipy
 streamlit-mic-recorder
+# FastAPI dependencies
+fastapi
+uvicorn[standard]
+pydantic
