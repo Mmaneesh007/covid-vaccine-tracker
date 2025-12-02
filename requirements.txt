@@ -17,3 +17,4 @@ streamlit-mic-recorder
 fastapi
 uvicorn[standard]
 pydantic
+pydantic-settings
