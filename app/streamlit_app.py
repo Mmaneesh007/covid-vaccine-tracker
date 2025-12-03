@@ -28,6 +28,7 @@ from src.simulation import render_simulator
 from src.voice_input import get_voice_input
 from src.comparison import render_comparison
 from src.globe import render_3d_globe
+from src.insights import generate_country_insight, generate_global_insight
 
 # Page configuration
 st.set_page_config(
@@ -533,6 +534,13 @@ def show_dashboard():
                 f"{pct_vaccinated:.1f}%" if pct_vaccinated > 0 else "N/A"
             )
         
+        # AI-Generated Global Insight
+        try:
+            global_insight = generate_global_insight(df)
+            st.info(f"🧠 **AI Insights:** {global_insight}")
+        except Exception as e:
+            pass  # Silently skip if insights fail
+        
         st.divider()
         
         # Country Selection
@@ -561,6 +569,15 @@ def show_dashboard():
             options=countries,
             default=default_selection[:3] if default_selection else countries[:3]
         )
+        
+        # AI Insights for first selected country
+        if selected_countries:
+            try:
+                primary_country = selected_countries[0]
+                country_insight = generate_country_insight(df, primary_country)
+                st.info(f"🧠 **AI Insights:** {country_insight}")
+            except Exception as e:
+                pass  # Silently skip if insights fail
         
         if selected_countries:
             # Filter data for selected countries

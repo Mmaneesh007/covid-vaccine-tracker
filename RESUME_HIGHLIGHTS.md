@@ -19,7 +19,7 @@ Here are several variations of resume bullet points, categorized by focus area. 
 
 ## 📊 Data Science & Analytics Focus
 
-* **Created an interactive dashboard** featuring choropleth maps and dynamic time-series charts using **Plotly**, enabling users to compare vaccination rates across **200+ countries**.
+* **Created an interactive dashboard** featuring a **3D Interactive Globe** and dynamic time-series charts using **Plotly**, enabling users to compare vaccination rates across **200+ countries** with an immersive user experience.
 * **Conducted comparative analysis** of vaccination campaigns, implementing a "Country Face-Off" feature that automatically highlights performance metrics between selected nations.
 * **Automated data quality checks** and missing value imputation within the ETL process, ensuring **99.9% data integrity** for downstream analytics and reporting.
 
