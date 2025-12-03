@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Vaccine Tracker - Track, Forecast & Stay Safe</title>
+    <meta name="description" content="Real-time global COVID-19 vaccination tracker with AI insights, 3D globe visualization, and pandemic forecasting. Install the app today!">
+    <meta name="keywords" content="covid vaccine, vaccination tracker, pandemic simulator, ai health assistant, covid app">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://covid-vaccine-tracker.streamlit.app/">
+    <meta property="og:title" content="COVID-19 Vaccine Tracker">
+    <meta property="og:description" content="Track global vaccination progress with real-time data and AI insights.">
+    <meta property="og:image" content="assets/pwa/icon-512.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="COVID-19 Vaccine Tracker">
+    <meta property="twitter:description" content="Track global vaccination progress with real-time data and AI insights.">
+    <meta property="twitter:image" content="assets/pwa/icon-512.png">
+
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --text: #2d3748;
+            --bg: #f7fafc;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .features {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            header { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>COVID-19 Vaccine Tracker</h1>
+            <p class="subtitle">Real-time global monitoring, AI health insights, and pandemic forecasting in one powerful app.</p>
+            <a href="https://share.streamlit.io/mmaneesh007/covid-vaccine-tracker/main/app/streamlit_app.py" class="btn">🚀 Launch App</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="features">
+            <div class="feature-card">
+                <span class="icon">🌍</span>
+                <h3>3D Global Map</h3>
+                <p>Interactive 3D visualization of vaccination rates across every country in the world.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon">🤖</span>
+                <h3>AI Health Assistant</h3>
+                <p>Chat with our AI to get instant answers about vaccines, safety, and travel guidelines.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon">📈</span>
+                <h3>Smart Forecasting</h3>
+                <p>Predict future vaccination trends using advanced machine learning models.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon">📱</span>
+                <h3>Mobile App</h3>
+                <p>Install as a PWA on your phone for instant access and offline capabilities.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 COVID-19 Vaccine Tracker. Open Source Project.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

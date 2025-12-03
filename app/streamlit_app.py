@@ -1144,7 +1144,7 @@ with st.sidebar:
     
     st.divider()
     
-    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison'), "🏥 Resources", "🔌 Developers"])
+    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison'), "🏥 Resources", "✨ Share & Viral", "🔌 Developers"])
     
     st.divider()
     
@@ -1338,6 +1338,7 @@ python examples/api_cli.py chat --message "What are side effects?"
 
 from src.locator import render_center_locator
 from src.reminder import render_vaccine_reminder
+from src.share_page import render_share_page
 
 # ... (existing imports)
 
@@ -1360,6 +1361,9 @@ elif page == "🏥 Resources":  # New Page
     
     with tab2:
         render_vaccine_reminder()
+        
+elif page == "✨ Share & Viral":
+    render_share_page()
         
 elif page == "🔌 Developers":
     show_api_docs()
