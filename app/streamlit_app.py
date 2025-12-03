@@ -1123,7 +1123,7 @@ with st.sidebar:
     
     st.divider()
     
-    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison'), "🔌 Developers"])
+    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison'), "🏥 Resources", "🔌 Developers"])
     
     st.divider()
     
@@ -1315,6 +1315,11 @@ python examples/api_cli.py chat --message "What are side effects?"
     </div>
     """, unsafe_allow_html=True)
 
+from src.locator import render_center_locator
+from src.reminder import render_vaccine_reminder
+
+# ... (existing imports)
+
 # Main execution
 if page == t('nav_dashboard'):
     show_dashboard()
@@ -1324,5 +1329,16 @@ elif page == t('nav_simulator'):
     render_simulator()
 elif page == t('nav_comparison'):
     render_comparison()
+elif page == "🏥 Resources":  # New Page
+    st.markdown(f'<p class="main-title">🏥 Resources & Tools</p>', unsafe_allow_html=True)
+    
+    tab1, tab2 = st.tabs(["📍 Center Locator", "📅 Dose Reminder"])
+    
+    with tab1:
+        render_center_locator()
+    
+    with tab2:
+        render_vaccine_reminder()
+        
 elif page == "🔌 Developers":
     show_api_docs()
