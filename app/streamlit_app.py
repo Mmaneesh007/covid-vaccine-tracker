@@ -27,6 +27,7 @@ from src.particles import show_particle_background
 from src.simulation import render_simulator
 from src.voice_input import get_voice_input
 from src.comparison import render_comparison
+from src.globe import render_3d_globe
 
 # Page configuration
 st.set_page_config(
@@ -812,27 +813,8 @@ def show_dashboard():
         # Get latest data for each country
         latest_by_country = df[df['date'] == latest_date].copy()
         
-        # Create choropleth map
-        fig = px.choropleth(
-            latest_by_country,
-            locations='location',
-            locationmode='country names',
-            color='pct_vaccinated',
-            hover_name='location',
-            hover_data={
-                'pct_vaccinated': ':.2f',
-                'total_vaccinations': ':,.0f',
-                'people_vaccinated': ':,.0f'
-            },
-            color_continuous_scale='Viridis',
-            title=t('pct_vax_chart'),
-            labels={'pct_vaccinated': 'Vaccinated (%)'}
-        )
-        
-        fig.update_layout(
-            geo=dict(showframe=False, showcoastlines=True),
-            height=600
-        )
+        # Create 3D Globe
+        fig = render_3d_globe(latest_by_country)
         
         st.plotly_chart(fig, use_container_width=True)
         

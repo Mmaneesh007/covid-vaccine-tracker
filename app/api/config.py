@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     
     # CORS Settings - Allow Streamlit Cloud and localhost
     cors_origins: list = [
-        "https://covid-vaccine-tracker-hifycegebbt5evg4gq48dw.streamlit.app",
+        "https://covid-vaccine-tracker-2025.streamlit.app",
         "http://localhost:8501",
         "http://localhost:3000",
         "*"  # Allow all for public API testing
