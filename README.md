@@ -17,6 +17,8 @@ It combines robust data engineering (ETL pipelines) with modern frontend technol
 
 ### 🌟 Key Differentiators
 
+- **🌍 3D Interactive Globe**: Explore vaccination data on a rotatable 3D Earth with orthographic projection - a premium, Google Earth-style experience.
+- **🤖 AI-Powered Insights**: Auto-generated natural language summaries using NLG (e.g., *"India vaccinated 1.4M today, up 15% from last week"*).
 - **🗣️ Voice-Enabled AI Chatbot**: Ask questions naturally in 5 languages (English, Hindi, Bengali, Tamil, Telugu) - now with **voice input**!
 - **🧠 Smart Search with TF-IDF**: Advanced NLP engine that intelligently searches eBook content for accurate answers.
 - **🧪 Pandemic Simulator**: Interactive SIR model to visualize how viruses spread with real-time scenario testing.
@@ -96,8 +98,10 @@ The system is built on a modular, data-centric architecture that separates data 
 
 ### 1. 📊 Interactive Dashboard
 
+- **3D Interactive Globe** with orthographic projection for immersive data exploration.
+- **AI-Generated Insights** with trend analysis and projections in natural language.
 - Global and country-specific vaccination metrics.
-- Interactive choropleth maps and time-series charts.
+- Dynamic time-series charts with animations.
 - "Top Performing Countries" analysis.
 
 ### 2. 🤖 AI Health Assistant
