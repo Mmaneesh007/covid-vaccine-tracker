@@ -11,10 +11,10 @@ import pandas as pd
 # Add project root to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
 
-from app.experimental.models import ForecastResponse, ForecastPoint
+from app.api.models import ForecastResponse, ForecastPoint
 from src.storage import get_country_timeseries
 from src.forecast import fit_prophet_for_country
-from app.experimental.cache import cached
+from app.api.cache import cached
 
 router = APIRouter()
 

@@ -10,7 +10,7 @@ import os
 # Add project root to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
 
-from app.experimental.models import ChatRequest, ChatResponse
+from app.api.models import ChatRequest, ChatResponse
 from src.chatbot import get_chatbot_response
 
 router = APIRouter()

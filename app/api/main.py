@@ -1,6 +1,6 @@
 """
 Main FastAPI Application
-Run with: uvicorn app.experimental.main:app --reload --port 8001
+Run with: uvicorn app.api.main:app --reload --port 8001
 """
 from fastapi import FastAPI, HTTPException, Query, Path
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,8 +12,8 @@ import os
 # Add project root to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from app.experimental.config import get_settings
-from app.experimental.models import (
+from app.api.config import get_settings
+from app.api.models import (
     VaccinationStats,
     TimeSeriesData,
     ForecastResponse,
@@ -23,7 +23,7 @@ from app.experimental.models import (
     HealthResponse,
     ErrorResponse
 )
-from app.experimental.routes import vaccination, forecast, chatbot
+from app.api.routes import vaccination, forecast, chatbot
 
 # Initialize settings
 settings = get_settings()
@@ -143,7 +143,7 @@ async def not_found_handler(request, exc):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
-        "app.experimental.main:app",
+        "app.api.main:app",
         host=settings.host,
         port=settings.port,
         reload=settings.reload

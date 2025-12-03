@@ -11,9 +11,9 @@ import os
 # Add project root to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
 
-from app.experimental.models import VaccinationStats, CountryListResponse, TimeSeriesData, TimeSeriesPoint
+from app.api.models import VaccinationStats, CountryListResponse, TimeSeriesData, TimeSeriesPoint
 from src.storage import get_all_countries, get_latest_by_country, get_country_timeseries, get_country_latest
-from app.experimental.cache import cached
+from app.api.cache import cached
 
 router = APIRouter()
 
