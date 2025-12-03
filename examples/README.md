@@ -4,55 +4,25 @@ This folder contains example scripts demonstrating how to use the COVID-19 Vacci
 
 ## Files
 
-### 1. `basic_usage.py`
+### 1. `basic_queries.py` & `basic_usage.py`
 
-Simple examples showing how to call each API endpoint.
+Simple scripts demonstrating how to fetch data, get stats, and chat with the bot.
 
-**Run:**
+### 2. `api_cli.py` & `cli_tool.py`
 
-```powershell
-python examples/basic_usage.py
-```
-
-**Shows:**
-
-- Get all countries
-- Get country stats
-- Get time series data
-- Get ML forecasts
-- Chat with AI
-- Compare countries
-
----
-
-### 2. `cli_tool.py`
-
-Full-featured command-line interface for the API.
-
-**Install:**
+Command-line tools for interacting with the API.
 
 ```powershell
-pip install requests  # Only  dependency
+python examples/api_cli.py stats --country "India"
 ```
 
-**Usage:**
+### 3. `analysis_notebook.py`
 
-```powershell
-# List all countries
-python examples/cli_tool.py list
+A data analysis script (VS Code notebook format) that compares vaccination rates and plots forecasts.
 
-# Get India's stats
-python examples/cli_tool.py stats India
+### 4. `USE_CASES.md`
 
-# Get 30-day forecast
-python examples/cli_tool.py forecast India --days 30
-
-# Chat with AI
-python examples/cli_tool.py chat "Is the vaccine safe?"
-
-# Compare countries
-python examples/cli_tool.py compare India "United States"
-```
+Documentation describing common scenarios like building mobile apps or automated reports.
 
 ---
 

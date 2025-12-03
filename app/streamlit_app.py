@@ -1123,7 +1123,7 @@ with st.sidebar:
     
     st.divider()
     
-    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison')])
+    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison'), "🔌 Developers"])
     
     st.divider()
     
@@ -1159,6 +1159,162 @@ with st.sidebar:
     # Feedback Form Widget
     display_feedback_form()
 
+def show_api_docs():
+    """Display API documentation and usage examples"""
+    st.markdown('<p class="main-title">🔌 API Documentation</p>', unsafe_allow_html=True)
+    st.markdown("### Access vaccination data programmatically via REST API")
+    
+    st.info("""
+    **Experimental Feature**: The COVID-19 Vaccine Tracker provides a FastAPI-based REST API
+    for programmatic access to all vaccination data, forecasts, and AI chatbot features.
+    """)
+    
+    # Quick Start
+    st.header("⚡ Quick Start")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Installation")
+        st.code("""pip install requests""", language="bash")
+    
+    with col2:
+        st.subheader("Base URL")
+        st.code("http://localhost:8000/api/v1", language="text")
+    
+    st.warning("**Note**: The API runs independently from this Streamlit app on port 8000.")
+    
+    # Endpoints
+    st.header("📡 Available Endpoints")
+    
+   # Create tabs for different endpoint categories
+    tab1, tab2, tab3, tab4 = st.tabs(["Countries", "Forecasting", "Chatbot", "All Endpoints"])
+    
+    with tab1:
+        st.subheader("Get Countries")
+        st.code("GET /api/v1/countries", language="http")
+        st.markdown("**Description**: Returns a list of all available countries.")
+        
+        with st.expander("📄 Example Response"):
+            st.code("""{
+  "countries": ["India", "United States", "Brazil", ...],
+  "total_count": 237
+}""", language="json")
+        
+        st.divider()
+        
+        st.subheader("Get Country Stats")
+        st.code("GET /api/v1/countries/{country_name}", language="http")
+        st.markdown("**Description**: Get latest vaccination statistics for a specific country.")
+        
+        with st.expander("💻 Python Example"):
+            st.code("""import requests
+
+response = requests.get("http://localhost:8000/api/v1/countries/India")
+data = response.json()
+print(f"Total Vaccinations: {data['total_vaccinations']:,}")""", language="python")
+    
+    with tab2:
+        st.subheader("Generate Forecast")
+        st.code("GET /api/v1/forecast/{country_name}?days=30", language="http")
+        st.markdown("**Description**: Generate machine learning forecast using Facebook Prophet.")
+        
+        with st.expander("💻 Python Example"):
+            st.code("""import requests
+
+response = requests.get("http://localhost:8000/api/v1/forecast/USA?days=30")
+forecast = response.json()['forecast']
+
+for day in forecast:
+    print(f"{day['ds']}: {day['yhat']:.0f} doses")""", language="python")
+    
+    with tab3:
+        st.subheader("Chat with AI")
+        st.code("POST /api/v1/chat", language="http")
+        st.markdown("**Description**: Send a message to the AI Health Assistant.")
+        
+        with st.expander("💻 Python Example"):
+            st.code("""import requests
+
+payload = {
+    "message": "Is the vaccine safe?",
+    "language": "en"
+}
+response = requests.post("http://localhost:8000/api/v1/chat", json=payload)
+print(response.json()['message'])""", language="python")
+    
+    with tab4:
+        endpoints_table = """
+| Method | Endpoint | Description |
+|:-------|:---------|:------------|
+| `GET` | `/countries` | List all countries |
+| `GET` | `/countries/{name}` | Get country stats |
+| `GET` | `/countries/{name}/timeseries` | Get historical data |
+| `GET` | `/forecast/{name}` | Generate forecast |
+| `POST` | `/chat` | Chat with AI assistant |
+| `GET` | `/chat/languages` | Supported languages |
+"""
+        st.markdown(endpoints_table)
+        
+        st.info("**Interactive Docs**: Run the API and visit `http://localhost:8000/docs` for full Swagger UI.")
+    
+    # Code Examples
+    st.header("💡 Common Use Cases")
+    
+    use_cases = {
+        "📱 Mobile App Dashboard": "Fetch country stats and display in native UI",
+        "🤖 Slack Bot": "Integrate chatbot responses into workspace commands",
+        "📊 Automated Reports": "Schedule weekly vaccination analysis reports",
+        "🏥 Hospital Kiosk": "Voice-enabled information system",
+        "🔬 Data Science": "Correlate vaccination with economic indicators"
+    }
+    
+    for title, desc in use_cases.items():
+        st.markdown(f"**{title}**: {desc}")
+    
+    st.markdown("[View detailed use cases →](https://github.com/Mmaneesh007/covid-vaccine-tracker/blob/main/examples/USE_CASES.md)")
+    
+    # CLI Tool
+    st.header("🔧 Command-Line Tool")
+    st.markdown("For quick testing, use the included CLI tool:")
+    
+    st.code("""# List countries
+python examples/api_cli.py list-countries
+
+# Get stats
+python examples/api_cli.py stats --country "India"
+
+# Forecast
+python examples/api_cli.py forecast --country "USA" --days 30
+
+# Chat
+python examples/api_cli.py chat --message "What are side effects?"
+""", language="bash")
+    
+    # Running the API
+    st.header("🚀 Running the API Locally")
+    
+    st.markdown("**Step 1**: Install dependencies")
+    st.code("pip install -r app/experimental/requirements-api.txt", language="bash")
+    
+    st.markdown("**Step 2**: Start the API server")
+    st.code(".\\app\\experimental\\start_api.ps1", language="powershell")
+    
+    st.markdown("**Step 3**: Access the docs")
+    st.markdown("Visit [http://localhost:8000/docs](http://localhost:8000/docs)")
+    
+    st.success("""
+    ✅ **Safe to Test**: The API runs on a separate port and does not affect this Streamlit application.
+    You can run both simultaneously!
+    """)
+    
+    # Footer
+    st.divider()
+    st.markdown("""
+    <div style='text-align: center; color: #666; padding: 1rem;'>
+        <p>For more examples, check the <a href='https://github.com/Mmaneesh007/covid-vaccine-tracker/tree/main/examples' target='_blank'>examples/ folder</a> on GitHub.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 # Main execution
 if page == t('nav_dashboard'):
     show_dashboard()
@@ -1168,3 +1324,5 @@ elif page == t('nav_simulator'):
     render_simulator()
 elif page == t('nav_comparison'):
     render_comparison()
+elif page == "🔌 Developers":
+    show_api_docs()
