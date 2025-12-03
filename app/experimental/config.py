@@ -18,8 +18,13 @@ class Settings(BaseSettings):
     port: int = 8001
     reload: bool = True
     
-    # CORS Settings - Allow all for public deployment
-    cors_origins: list = ["*"]  # Allow all origins for public API
+    # CORS Settings - Allow Streamlit Cloud and localhost
+    cors_origins: list = [
+        "https://covid-vaccine-tracker-hifycegebbt5evg4gq48dw.streamlit.app",
+        "http://localhost:8501",
+        "http://localhost:3000",
+        "*"  # Allow all for public API testing
+    ]
     
     # Database Settings (reuse existing SQLite)
     database_url: str = "sqlite:///./data/vaccinations.db"

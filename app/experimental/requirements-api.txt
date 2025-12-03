@@ -10,7 +10,7 @@ pydantic-settings==2.6.1
 # CORS and middleware
 python-multipart==0.0.20
 
-# Optional: Redis for caching (improves performance)
+# Caching (optional but recommended for performance)
 redis==5.0.1
 
 # Note: All other dependencies (pandas, sqlalchemy, prophet, etc.) 

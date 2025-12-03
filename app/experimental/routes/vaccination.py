@@ -125,6 +125,7 @@ async def list_countries():
 
 
 @router.get("/countries/{country_name}", response_model=VaccinationStats)
+@cached(ttl=1800)  # Cache for 30 minutes
 async def get_country_stats(
     country_name: str = Path(..., description="Name of the country (e.g., 'India', 'United States')")
 ):
