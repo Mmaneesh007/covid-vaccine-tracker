@@ -1034,7 +1034,25 @@ def show_dashboard():
                 help=t('pdf_help')
             )
             
+            # Social Share Card
+            from src.social_share import generate_health_check_card
+            try:
+                share_img = generate_health_check_card(risk_level_str)
+                st.download_button(
+                    label="📸 Share My Status",
+                    data=share_img,
+                    file_name=f"Health_Status_{datetime.now().strftime('%Y%m%d')}.png",
+                    mime="image/png",
+                    use_container_width=True,
+                    help="Download and share your health status on social media!"
+                )
+            except Exception as e:
+                pass  # Silently fail if image generation doesn't work
+            
             st.info(t('pdf_info'))
+            
+        except Exception as e:
+            st.error(f"Error generating PDF: {str(e)}")
             
         except Exception as e:
             st.error(f"Error generating PDF: {str(e)}")
