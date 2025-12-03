@@ -64,7 +64,7 @@ st.markdown("""
     /* Elegant Title - Gradient Text with Entrance Animation */
     .main-title {
         font-family: 'Google Sans Display', sans-serif;
-        font-size: 3.2rem;
+        font-size: 4rem;
         font-weight: 500;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
