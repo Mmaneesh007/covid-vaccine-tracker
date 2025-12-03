@@ -5,7 +5,7 @@
         "buildCommand": "pip install -r requirements.txt && pip install -r app/experimental/requirements-api.txt && python -m textblob.download_corpora"
     },
     "deploy": {
-        "startCommand": "uvicorn app.experimental.main:app --host 0.0.0.0 --port $PORT",
+        "startCommand": "uvicorn app.experimental.main:app --host 0.0.0.0 --port ${PORT:-8000}",
         "restartPolicyType": "ON_FAILURE",
         "restartPolicyMaxRetries": 10
     }
