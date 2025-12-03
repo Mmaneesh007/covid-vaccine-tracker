@@ -28,19 +28,36 @@ It combines robust data engineering (ETL pipelines) with modern frontend technol
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Full-Stack Architecture
 
-The system follows a modern, modular architecture designed for scalability and maintainability.
+The system is built on a modular, data-centric architecture that separates data engineering, backend logic, and frontend presentation.
 
 ![System Architecture](assets/architecture_diagram.png)
 
-### Data Flow
+### 🔄 Data Pipeline (ETL)
 
-1. **Ingestion**: Automated ETL pipeline fetches raw data from OWID (Our World in Data).
-2. **Processing**: Data is cleaned, normalized, and stored in a local SQLite database.
-3. **Analysis**: Prophet models generate forecasts; Pandas handles aggregations.
-4. **Presentation**: Streamlit renders the interactive UI; Plotly handles visualizations.
-5. **Interaction**: NLP engine processes user queries and routes them to the appropriate response handler.
+- **Source**: Fetches raw CSV data from *Our World in Data* (OWID) GitHub repository.
+
+- **Transformation**: Python scripts (`src/etl.py`) clean, normalize, and impute missing values.
+- **Storage**: Processed data is stored in a local **SQLite** database for fast, serverless querying.
+
+### ⚙️ Backend Layer
+
+- **Core Logic**: Shared Python modules (`src/`) handle forecasting (Prophet), simulation (SIR models), and NLP.
+
+- **API Service**: An experimental **FastAPI** service (`app/experimental/`) exposes these capabilities via REST endpoints, enabling decoupled access to data and ML models.
+
+### 🖥️ Frontend Layer
+
+- **Streamlit Application**: The main user interface, rendering interactive **Plotly** charts and maps.
+
+- **Client-Side Interactivity**: Custom HTML/JS components handle voice recognition (Web Speech API) and the particle background system.
+
+### 🧠 AI & ML Engine
+
+- **Forecasting**: Facebook Prophet models trained on historical time-series data.
+
+- **NLP**: TF-IDF vectorization for document search and TextBlob for sentiment analysis.
 
 ---
 
@@ -137,6 +154,28 @@ The system follows a modern, modular architecture designed for scalability and m
 
 ---
 
+## 🔌 API Documentation
+
+The project includes an experimental **FastAPI** backend that exposes vaccination data and AI features programmatically.
+
+### Base URL
+
+`http://localhost:8000/api/v1`
+
+### Key Endpoints
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/countries` | List all available countries |
+| `GET` | `/countries/{name}` | Get latest stats for a specific country |
+| `GET` | `/forecast/{name}` | Get ML-generated vaccination forecast |
+| `POST` | `/chat` | Send a message to the AI Health Assistant |
+
+> **Note**: For full documentation, run the API and visit the Swagger UI at `http://localhost:8000/docs`.
+> See [app/experimental/README.md](app/experimental/README.md) for detailed setup instructions.
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -201,7 +240,7 @@ pytest --cov=src tests/
 
 - [ ] **Mobile App**: Develop a React Native version for mobile.
 - [ ] **Real-time Alerts**: Email/SMS notifications for vaccination slots.
-- [ ] **API Endpoint**: Expose data via a RESTful API using FastAPI.
+- [x] **API Endpoint**: Expose data via a RESTful API using FastAPI.
 - [ ] **Community Forum**: Add a discussion board for users.
 
 ---
