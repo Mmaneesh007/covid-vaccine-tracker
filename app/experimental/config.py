@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     ]
     
     # Database Settings (reuse existing SQLite)
-    database_url: str = "sqlite:///./data/vaccinations.db"
+    database_url: str = "sqlite:///./data/vax_tracker.db"
     
     # Cache Settings
     enable_cache: bool = True
