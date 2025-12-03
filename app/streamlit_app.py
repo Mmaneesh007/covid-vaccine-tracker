@@ -29,6 +29,7 @@ from src.voice_input import get_voice_input
 from src.comparison import render_comparison
 from src.globe import render_3d_globe
 from src.insights import generate_country_insight, generate_global_insight
+from src.pwa_injector import inject_pwa_components
 
 # Page configuration
 st.set_page_config(
@@ -41,6 +42,9 @@ st.set_page_config(
 # Initialize language in session state if not present
 if 'language' not in st.session_state:
     st.session_state.language = 'en'
+
+# Inject PWA Components (manifest, service worker, meta tags)
+inject_pwa_components()
 
 # Render Particle Background
 show_particle_background()
