@@ -56,13 +56,23 @@ The system is built on a modular, data-centric architecture that separates data 
 ### 🖥️ Frontend Layer
 
 - **Streamlit Application**: The main user interface, rendering interactive **Plotly** charts and maps.
-
 - **Client-Side Interactivity**: Custom HTML/JS components handle voice recognition (Web Speech API) and the particle background system.
+
+### 📱 PWA Layer
+
+- **Progressive Web App**: Enables mobile installation with native app experience.
+  - **Manifest** (`assets/pwa/manifest.json`): App metadata, icons, and display settings.
+  - **Service Worker** (`assets/pwa/sw.js`): Offline caching and asset management.
+  - **PWA Injector** (`src/pwa_injector.py`): Injects PWA components into Streamlit HTML.
+
+### ✨ Social & Monetization
+
+- **Social Sharing**: Dynamic image generation using PIL (`src/social_share.py`, `src/share_page.py`).
+- **Payment Integration**: Dual monetization with Buy Me a Coffee API and UPI deep links.
 
 ### 🧠 AI & ML Engine
 
 - **Forecasting**: Facebook Prophet models trained on historical time-series data.
-
 - **NLP**: TF-IDF vectorization for document search and TextBlob for sentiment analysis.
 
 ---
@@ -74,6 +84,8 @@ The system is built on a modular, data-centric architecture that separates data 
 - **Streamlit**: For rapid, interactive web application development.
 - **Plotly**: For interactive, publication-quality graphs.
 - **HTML/CSS/JS**: Custom components for voice and location features.
+- **PIL (Pillow)**: Dynamic image generation for social sharing cards.
+- **QR Code**: UPI payment QR code generation.
 
 ### Backend & Logic
 
