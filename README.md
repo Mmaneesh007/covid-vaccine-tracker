@@ -286,4 +286,10 @@ If you find this app useful, consider supporting its development:
 
 ---
 
+## 📢 Affiliate Disclosure
+
+This application participates in the Amazon Services LLC Associates Program and other affiliate programs. We may earn a commission if you purchase products through our links, at no extra cost to you. This revenue helps support the maintenance and development of this free public health tool.
+
+---
+
 *Disclaimer: This application is for informational purposes only. Always consult a medical professional for health advice.*
