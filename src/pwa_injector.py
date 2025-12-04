@@ -76,18 +76,41 @@ def inject_pwa_components():
             });
         </script>
         
-        <!-- Google Analytics 4 -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKGKT8WW48"></script>
+        <!-- Google Analytics 4 - Parent Window Injection -->
         <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-VKGKT8WW48', {
-                'page_title': 'COVID-19 Vaccine Tracker',
-                'page_location': window.location.href,
-                'send_page_view': true
-            });
-            console.log('✅ Google Analytics 4 loaded');
+            // Inject GA4 into parent window (main page) instead of iframe
+            (function() {
+                if (window.parent && window.parent.document) {
+                    try {
+                        // Check if GA4 is already loaded
+                        if (!window.parent.document.querySelector('script[src*="gtag/js?id=G-VKGKT8WW48"]')) {
+                            // Load gtag.js
+                            var gtagScript = window.parent.document.createElement('script');
+                            gtagScript.async = true;
+                            gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-VKGKT8WW48';
+                            window.parent.document.head.appendChild(gtagScript);
+                            
+                            // Initialize GA4
+                            var initScript = window.parent.document.createElement('script');
+                            initScript.innerHTML = `
+                                window.dataLayer = window.dataLayer || [];
+                                function gtag(){dataLayer.push(arguments);}
+                                gtag('js', new Date());
+                                gtag('config', 'G-VKGKT8WW48', {
+                                    'page_title': 'COVID-19 Vaccine Tracker',
+                                    'page_location': window.location.href,
+                                    'send_page_view': true
+                                });
+                                console.log('✅ Google Analytics 4 initialized');
+                            `;
+                            window.parent.document.head.appendChild(initScript);
+                            console.log('✅ GA4 injected into parent window');
+                        }
+                    } catch(e) {
+                        console.error('❌ GA4 injection failed:', e);
+                    }
+                }
+            })();
         </script>
     </head>
     """
