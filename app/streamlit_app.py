@@ -1386,6 +1386,7 @@ python examples/api_cli.py chat --message "What are side effects?"
 from src.locator import render_center_locator
 from src.reminder import render_vaccine_reminder
 from src.share_page import render_share_page
+from src.affiliate_ui import render_affiliate_resources_page
 
 # ... (existing imports)
 
@@ -1398,15 +1399,18 @@ elif page == t('nav_simulator'):
     render_simulator()
 elif page == t('nav_comparison'):
     render_comparison()
-elif page == "🏥 Resources":  # New Page
+elif page == "🏥 Resources":  # Resources & Affiliate Marketing
     st.markdown(f'<p class="main-title">🏥 Resources & Tools</p>', unsafe_allow_html=True)
     
-    tab1, tab2 = st.tabs(["📍 Center Locator", "📅 Dose Reminder"])
+    tab1, tab2, tab3 = st.tabs(["🌍 Travel & Health Products", "📍 Center Locator", "📅 Dose Reminder"])
     
     with tab1:
-        render_center_locator()
+        render_affiliate_resources_page()
     
     with tab2:
+        render_center_locator()
+    
+    with tab3:
         render_vaccine_reminder()
         
 elif page == "✨ Share & Viral":
