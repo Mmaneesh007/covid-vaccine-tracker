@@ -10,6 +10,30 @@ DB_URL = f"sqlite:///{DB_PATH}"
 
 os.makedirs(DB_DIR, exist_ok=True)
 
+def init_db():
+    """Initialize database tables."""
+    conn = sa.create_engine(DB_URL).connect()
+    
+    # Create API Keys table
+    conn.execute(sa.text("""
+        CREATE TABLE IF NOT EXISTS api_keys (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            key_hash TEXT UNIQUE NOT NULL,
+            owner TEXT NOT NULL,
+            tier TEXT DEFAULT 'free',
+            created_at TEXT,
+            is_active BOOLEAN DEFAULT 1
+        )
+    """))
+    conn.close()
+    print("Database initialized")
+
+# Initialize on module load
+try:
+    init_db()
+except Exception as e:
+    print(f"DB Init Warning: {e}")
+
 def save_df_to_db(df, table_name="countries_vaccinations"):
     """
     Save DataFrame to SQLite database.

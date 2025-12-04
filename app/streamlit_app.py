@@ -1144,7 +1144,7 @@ with st.sidebar:
     
     st.divider()
     
-    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison'), "🏥 Resources", "✨ Share & Viral", "🔌 Developers"])
+    page = st.radio(t('nav_go_to'), [t('nav_dashboard'), t('nav_chatbot'), t('nav_simulator'), t('nav_comparison'), "🏥 Resources", "✨ Share & Viral", "🔌 Developers", "🔑 Admin Portal"])
     
     st.divider()
     
@@ -1387,6 +1387,7 @@ from src.locator import render_center_locator
 from src.reminder import render_vaccine_reminder
 from src.share_page import render_share_page
 from src.affiliate_ui import render_affiliate_resources_page
+from src.admin_ui import render_admin_panel
 
 # ... (existing imports)
 
@@ -1418,3 +1419,6 @@ elif page == "✨ Share & Viral":
         
 elif page == "🔌 Developers":
     show_api_docs()
+
+elif page == "🔑 Admin Portal":
+    render_admin_panel()
