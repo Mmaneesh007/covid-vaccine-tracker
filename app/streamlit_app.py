@@ -43,27 +43,8 @@ st.set_page_config(
 if 'language' not in st.session_state:
     st.session_state.language = 'en'
 
-# Inject PWA Components (manifest, service worker, meta tags)
+# Inject PWA Components (manifest, service worker, meta tags, and Google Analytics)
 inject_pwa_components()
-
-# Inject Google Analytics 4 - Using markdown injection for better compatibility
-st.markdown("""
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VKGKT8WW48"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-VKGKT8WW48', {
-    'page_title': 'COVID-19 Vaccine Tracker',
-    'page_location': window.location.href
-  });
-  
-  // Track page views on Streamlit reruns
-  if (window.performance && window.performance.navigation.type === 0) {
-    gtag('event', 'page_view');
-  }
-</script>
-""", unsafe_allow_html=True)
 
 # Render Particle Background
 show_particle_background()

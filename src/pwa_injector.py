@@ -75,6 +75,20 @@ def inject_pwa_components():
                 deferredPrompt = null;
             });
         </script>
+        
+        <!-- Google Analytics 4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKGKT8WW48"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VKGKT8WW48', {
+                'page_title': 'COVID-19 Vaccine Tracker',
+                'page_location': window.location.href,
+                'send_page_view': true
+            });
+            console.log('✅ Google Analytics 4 loaded');
+        </script>
     </head>
     """
     
