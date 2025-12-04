@@ -15,7 +15,7 @@ AFFILIATE_PRODUCTS = {
                 "✅ Covers 180+ countries",
                 "✅ No medical exam required"
             ],
-            "affiliate_link": "https://safetywing.com/?referenceID=covidtracker&lan=en",  # Replace with actual affiliate link
+            "affiliate_link": "https://safetywing.com/?referenceID=26436762&utm_source=26436762&utm_medium=Ambassador",  # Actual affiliate link
             "cta": "Get a Quote",
             "icon": "🛡️"
         },
