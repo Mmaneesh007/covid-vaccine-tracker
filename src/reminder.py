@@ -101,18 +101,18 @@ def render_vaccine_reminder():
                 help="Download .ics file to add to Google Calendar, Outlook, or Apple Calendar"
             )
             
-            # Social Share Card
-            from src.social_share import generate_vaccine_warrior_card
-            try:
-                share_img = generate_vaccine_warrior_card()
-                st.download_button(
-                    label="📸 Share My Journey",
-                    data=share_img,
-                    file_name="Vaccine_Warrior.png",
-                    mime="image/png",
-                    help="Download and share on social media!"
-                )
-            except:
-                pass  # Silently fail if image generation doesn't work
+            # Social Share Card - Temporarily disabled due to import issues
+            # from src.social_share import generate_vaccine_warrior_card
+            # try:
+            #     share_img = generate_vaccine_warrior_card()
+            #     st.download_button(
+            #         label="📸 Share My Journey",
+            #         data=share_img,
+            #         file_name="Vaccine_Warrior.png",
+            #         mime="image/png",
+            #         help="Download and share on social media!"
+            #     )
+            # except:
+            #     pass  # Silently fail if image generation doesn't work
 
 
