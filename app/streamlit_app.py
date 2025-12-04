@@ -1169,6 +1169,20 @@ with st.sidebar:
     st.markdown("If you find this app useful, consider buying me a coffee!")
     st.markdown("[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Donate-orange.svg?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/Manish_Sau)")
     
+    
+    # UPI Payment Option
+    st.markdown("**OR Pay via UPI (India)**")
+    st.markdown("Scan this QR code with any UPI app:")
+    
+    try:
+        import os
+        upi_qr_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets", "upi_qr.png")
+        if os.path.exists(upi_qr_path):
+            st.image(upi_qr_path, width=200)
+            st.caption("UPI ID: manish7044436272@okaxis")
+    except:
+        st.info("💳 UPI ID: manish7044436272@okaxis")
+    
     st.divider()
     
     # Data info
