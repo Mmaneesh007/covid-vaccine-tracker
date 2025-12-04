@@ -1172,16 +1172,47 @@ with st.sidebar:
     
     # UPI Payment Option
     st.markdown("**OR Pay via UPI (India)**")
-    st.markdown("Scan this QR code with any UPI app:")
     
-    try:
-        import os
-        upi_qr_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets", "upi_qr.png")
-        if os.path.exists(upi_qr_path):
-            st.image(upi_qr_path, width=200)
-            st.caption("UPI ID: manish7044436272@okaxis")
-    except:
-        st.info("💳 UPI ID: manish7044436272@okaxis")
+    # Create UPI payment link
+    upi_id = "manish7044436272@okaxis"
+    name = "Manish Sau"
+    upi_link = f"upi://pay?pa={upi_id}&pn={name}&cu=INR"
+    
+    # Payment button with JavaScript to open UPI link
+    payment_html = f"""
+    <style>
+        .upi-button {{
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }}
+        .upi-button:hover {{
+            transform: scale(1.05);
+        }}
+        .upi-info {{
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }}
+    </style>
+    <button class="upi-button" onclick="window.open('{upi_link}', '_blank')">
+        💳 Pay via UPI
+    </button>
+    <div class="upi-info">
+        Click to pay with GPay, PhonePe, Paytm, etc.<br>
+        UPI ID: {upi_id}
+    </div>
+    """
+    
+    st.markdown(payment_html, unsafe_allow_html=True)
     
     st.divider()
     
