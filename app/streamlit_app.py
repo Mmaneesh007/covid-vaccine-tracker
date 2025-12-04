@@ -1176,7 +1176,9 @@ with st.sidebar:
     # Create UPI payment link
     upi_id = "manish7044436272@okaxis"
     name = "Manish Sau"
-    upi_link = f"upi://pay?pa={upi_id}&pn={name}&cu=INR"
+    amount = "50"  # Suggested amount (user can change)
+    note = "Support COVID Vaccine Tracker"
+    upi_link = f"upi://pay?pa={upi_id}&pn={name}&am={amount}&cu=INR&tn={note}"
     
     # Use components.html with proper iframe to handle UPI link
     upi_button_html = f"""
