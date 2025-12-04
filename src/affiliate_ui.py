@@ -46,25 +46,34 @@ def render_product_card(product):
     """, unsafe_allow_html=True)
     
     # Call-to-action button
-    if st.button(
-        f"{product['cta']} →",
-        key=f"btn_{product['name']}",
-        use_container_width=True
-    ):
-        # Track click in GA4 (if enabled)
-        st.markdown(f"""
-        <script>
-            if (typeof gtag !== 'undefined') {{
-                gtag('event', 'affiliate_click', {{
-                    'product_name': '{product['name']}',
-                    'event_category': 'Affiliate',
-                    'event_label': 'Product Click'
-                }});
-            }}
-            window.open('{product['affiliate_link']}', '_blank');
-        </script>
-        """, unsafe_allow_html=True)
-        st.success(f"Opening {product['name']} in a new tab...")
+    # Call-to-action button using direct HTML link to avoid popup blockers
+    st.markdown(f"""
+    <a href="{product['affiliate_link']}" target="_blank" style="text-decoration: none;" onclick="
+        if (typeof gtag !== 'undefined') {{
+            gtag('event', 'affiliate_click', {{
+                'product_name': '{product['name']}',
+                'event_category': 'Affiliate',
+                'event_label': 'Product Click'
+            }});
+        }}
+    ">
+        <div style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+            margin-top: 1rem;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)';" 
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)';">
+            {product['cta']} →
+        </div>
+    </a>
+    """, unsafe_allow_html=True)
 
 
 def render_category_section(category_key, category_title, icon):
