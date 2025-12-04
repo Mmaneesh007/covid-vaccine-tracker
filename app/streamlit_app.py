@@ -1178,41 +1178,34 @@ with st.sidebar:
     name = "Manish Sau"
     upi_link = f"upi://pay?pa={upi_id}&pn={name}&cu=INR"
     
-    # Payment button with JavaScript to open UPI link
-    payment_html = f"""
-    <style>
-        .upi-button {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            margin: 10px 0;
-            transition: transform 0.2s;
-        }}
-        .upi-button:hover {{
-            transform: scale(1.05);
-        }}
-        .upi-info {{
-            font-size: 12px;
-            color: #666;
-            margin-top: 8px;
-        }}
-    </style>
-    <button class="upi-button" onclick="window.open('{upi_link}', '_blank')">
-        💳 Pay via UPI
-    </button>
-    <div class="upi-info">
-        Click to pay with GPay, PhonePe, Paytm, etc.<br>
-        UPI ID: {upi_id}
+    # Use components.html with proper iframe to handle UPI link
+    upi_button_html = f"""
+    <div style="margin: 10px 0;">
+        <a href="{upi_link}" target="_blank" style="text-decoration: none;">
+            <button style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                border: none;
+                font-weight: bold;
+                cursor: pointer;
+                width: 100%;
+                font-size: 16px;
+                transition: transform 0.2s;
+            ">
+                💳 Pay via UPI
+            </button>
+        </a>
+        <div style="font-size: 12px; color: #666; margin-top: 8px; text-align: center;">
+            Click to pay with GPay, PhonePe, Paytm, etc.<br>
+            UPI ID: {upi_id}
+        </div>
     </div>
     """
     
-    st.markdown(payment_html, unsafe_allow_html=True)
+    from streamlit import components
+    components.v1.html(upi_button_html, height=120)
     
     st.divider()
     
