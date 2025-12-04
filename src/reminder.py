@@ -1,6 +1,7 @@
 """
 Vaccine Reminder Module
 Calculates second dose dates and generates .ics calendar files for reminders.
+Version: 1.0.1 - Fixed import issue
 """
 import streamlit as st
 from datetime import datetime, timedelta
