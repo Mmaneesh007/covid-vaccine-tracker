@@ -3,9 +3,10 @@
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://covid-vaccine-tracker-2025.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![PWA](https://img.shields.io/badge/PWA-Installable-brightgreen)](https://covid-vaccine-tracker-2025.streamlit.app/)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange)](https://www.buymeacoffee.com/Manish_Sau)
 
-> **A full-stack data analytics platform featuring real-time vaccination tracking, ML-based forecasting, and an accessible AI chatbot with voice interaction in 5 languages.**
+> **A full-stack Progressive Web App (PWA) featuring real-time vaccination tracking, ML-based forecasting, viral social sharing, and an accessible AI chatbot. Installable on mobile devices with dual monetization (global + UPI).**
 
 ---
 
@@ -17,6 +18,9 @@ It combines robust data engineering (ETL pipelines) with modern frontend technol
 
 ### 🌟 Key Differentiators
 
+- **📱 Progressive Web App (PWA)**: Installable on Android, iOS, and Desktop with offline caching and native app experience.
+- **💰 Dual Monetization**: Global donations via Buy Me a Coffee + India-specific UPI payments (GPay/PhonePe/Paytm).
+- **✨ Viral Social Sharing**: Generate personalized vaccination certificates and country status cards to share on social media.
 - **🌍 3D Interactive Globe**: Explore vaccination data on a rotatable 3D Earth with orthographic projection - a premium, Google Earth-style experience.
 - **🤖 AI-Powered Insights**: Auto-generated natural language summaries using NLG (e.g., *"India vaccinated 1.4M today, up 15% from last week"*).
 - **🗣️ Voice-Enabled AI Chatbot**: Ask questions naturally in 5 languages (English, Hindi, Bengali, Tamil, Telugu) - now with **voice input**!
@@ -240,9 +244,20 @@ pytest --cov=src tests/
 
 ---
 
+## 💰 Support This Project
+
+If you find this app useful, consider supporting its development:
+
+- ☕ **Global**: [Buy Me a Coffee](https://www.buymeacoffee.com/Manish_Sau) (Cards/PayPal via Stripe)
+- 💳 **India**: UPI Payment (Click "Pay via UPI" button in the app sidebar)
+
+---
+
 ## 🔮 Future Roadmap
 
-- [ ] **Mobile App**: Develop a React Native version for mobile.
+- [x] **Progressive Web App**: Installable mobile app with offline support.
+- [x] **Social Sharing**: Viral vaccination certificates and country cards.
+- [x] **Monetization**: Dual payment options (global + UPI).
 - [ ] **Real-time Alerts**: Email/SMS notifications for vaccination slots.
 - [x] **API Endpoint**: Expose data via a RESTful API using FastAPI.
 - [ ] **Community Forum**: Add a discussion board for users.
