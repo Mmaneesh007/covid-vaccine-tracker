@@ -1164,6 +1164,13 @@ with st.sidebar:
     
     st.divider()
     
+    # Support the Project
+    st.markdown("### ☕ Support the Project")
+    st.markdown("If you find this app useful, consider buying me a coffee!")
+    st.markdown("[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Donate-orange.svg?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/yourusername)")
+    
+    st.divider()
+    
     # Data info
     try:
         df = load_vaccination_data()
