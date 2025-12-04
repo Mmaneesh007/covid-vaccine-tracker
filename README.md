@@ -176,11 +176,40 @@ The system is built on a modular, data-centric architecture that separates data 
 
 ## 🔌 API Documentation
 
-The project includes an experimental **FastAPI** backend that exposes vaccination data and AI features programmatically.
+The project includes a **professional FastAPI backend** with API Key authentication that exposes vaccination data and AI features programmatically.
+
+### 🔑 Authentication Required
+
+All API endpoints require a valid API key. Contact the administrator to obtain your key.
+
+**Header Format:**
+
+```http
+X-API-Key: YOUR_API_KEY_HERE
+```
+
+### 📦 Python SDK
+
+Install the official Python SDK for easy integration:
+
+```bash
+pip install git+https://github.com/Mmaneesh007/covid-vaccine-tracker.git#subdirectory=sdk
+```
+
+**Quick Example:**
+
+```python
+from vaccine_tracker_sdk import VaccineTrackerAPI
+
+api = VaccineTrackerAPI(api_key="YOUR_API_KEY_HERE")
+countries = api.get_countries()
+india = api.get_country("India")
+forecast = api.get_forecast("India", days=30)
+```
 
 ### Base URL
 
-`http://localhost:8000/api/v1`
+`http://localhost:8001/api/v1`
 
 ### Key Endpoints
 
@@ -188,11 +217,13 @@ The project includes an experimental **FastAPI** backend that exposes vaccinatio
 | :--- | :--- | :--- |
 | `GET` | `/countries` | List all available countries |
 | `GET` | `/countries/{name}` | Get latest stats for a specific country |
+| `GET` | `/countries/{name}/timeseries` | Get historical vaccination data |
 | `GET` | `/forecast/{name}` | Get ML-generated vaccination forecast |
 | `POST` | `/chat` | Send a message to the AI Health Assistant |
 
-> **Note**: For full documentation, run the API and visit the Swagger UI at `http://localhost:8000/docs`.
-> See [app/experimental/README.md](app/experimental/README.md) for detailed setup instructions.
+> **📚 Full Documentation**: See [API_CLIENT_DOCS.md](API_CLIENT_DOCS.md) for complete API reference.  
+> **🎮 Interactive Docs**: Run the API and visit `http://localhost:8001/docs` for Swagger UI.  
+> **🔧 Setup Guide**: See [app/api/README.md](app/api/README.md) for detailed setup instructions.
 
 ---
 
@@ -269,10 +300,14 @@ If you find this app useful, consider supporting its development:
 
 - [x] **Progressive Web App**: Installable mobile app with offline support.
 - [x] **Social Sharing**: Viral vaccination certificates and country cards.
-- [x] **Monetization**: Dual payment options (global + UPI).
+- [x] **Monetization**: Dual payment options (global + UPI) + Affiliate marketing.
+- [x] **API Endpoint**: RESTful API using FastAPI with secure authentication.
+- [x] **Python SDK**: Professional package for easy API integration.
+- [x] **API Key Management**: Secure authentication system with admin portal.
+- [ ] **Rate Limiting**: Implement request quotas for API tiers.
 - [ ] **Real-time Alerts**: Email/SMS notifications for vaccination slots.
-- [x] **API Endpoint**: Expose data via a RESTful API using FastAPI.
 - [ ] **Community Forum**: Add a discussion board for users.
+- [ ] **Publish to PyPI**: Make SDK pip-installable via `pip install vaccine-tracker-sdk`.
 
 ---
 
