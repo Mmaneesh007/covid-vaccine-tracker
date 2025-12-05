@@ -1408,6 +1408,201 @@ KNOWLEDGE_BASE = [
     {
         "intent": "feeling_sad",
         "patterns": [
+            "India treatment protocol"
+        ],
+        "responses": [
+            "Lopinavir and Ritonavir are anti-HIV drugs that were used early in the pandemic for high-risk COVID-19 patients (elderly, diabetic, immunocompromised). However, evidence of effectiveness was limited and they can cause significant side effects."
+        ]
+    },
+    {
+        "intent": "thermal_scanners",
+        "patterns": [
+            "Do thermal scanners work?", "Temperature screening", "Airport screening effective?",
+            "Thermal cameras COVID"
+        ],
+        "responses": [
+            "Thermal scanners can detect fever (high temperature) but cannot detect people who are infected but not yet sick. Since incubation is 2-14 days, many infected people pass through without fever."
+        ]
+    },
+    {
+        "intent": "swimming_pool_safety",
+        "patterns": [
+            "Can I get COVID from swimming pool?", "Swimming pool transmission", "Chlorine kills virus?",
+            "Is pool safe?"
+        ],
+        "responses": [
+            "Highly unlikely. COVID-19 is a respiratory droplet infection, not waterborne. Chlorination of swimming pools to recommended levels can inactivate the virus."
+        ]
+    },
+    {
+        "intent": "meat_safety",
+        "patterns": [
+            "Is eating chicken safe?", "Can I eat meat?", "Food transmission COVID",
+            "Is it a foodborne virus?"
+        ],
+        "responses": [
+            "Yes, it's safe to eat meat. COVID-19 is a respiratory virus, not a foodborne one. There's no evidence of transmission through food, including chicken, mutton, or any meat products."
+        ]
+    },
+    {
+        "intent": "myth_hot_climate",
+        "patterns": [
+            "Can heat kill COVID?", "Does hot weather stop COVID?", "Summer and coronavirus",
+            "Tropical countries immune?"
+        ],
+        "responses": [
+            "Myth: This is FALSE. COVID-19 can be transmitted in ALL climates, including hot and humid areas. Climate does not prevent transmission. Protection measures (masks, hand hygiene) are needed everywhere."
+        ]
+    },
+    {
+        "intent": "myth_mosquito",
+        "patterns": [
+            "Can mosquitoes spread COVID?", "Mosquito transmission", "Is it like malaria?"
+        ],
+        "responses": [
+            "Myth: This is FALSE. There is no evidence that mosquitoes can transmit COVID-19. It spreads through respiratory droplets, not insect bites."
+        ]
+    },
+    {
+        "intent": "myth_garlic",
+        "patterns": [
+            "Does garlic cure COVID?", "Home remedies COVID", "Garlic prevent coronavirus?",
+            "Natural cures"
+        ],
+        "responses": [
+            "Myth: While garlic is healthy and has some antimicrobial properties, there is NO evidence it can prevent or treat COVID-19. Rely on proven measures like vaccination and hygiene."
+        ]
+    },
+    {
+        "intent": "myth_pneumonia_vaccine",
+        "patterns": [
+            "Does pneumonia vaccine protect against COVID?", "Pneumococcal vaccine", "Hib vaccine COVID"
+        ],
+        "responses": [
+            "No. Pneumonia vaccines (pneumococcal, Hib) do NOT protect against COVID-19. The virus is so new it needs its own vaccine. However, these vaccines are still recommended for overall respiratory health."
+        ]
+    },
+    {
+        "intent": "flu_vs_covid_symptoms",
+        "patterns": [
+            "Difference between flu and COVID?", "Is it flu or COVID?", "How to tell them apart?"
+        ],
+        "responses": [
+            "Cough and cold alone could be an allergy. Fever with cough/cold suggests flu. Fever with cough AND breathlessness is a key COVID-19 symptom. Get tested if you have trouble breathing."
+        ]
+    },
+    {
+        "intent": "sari_definition",
+        "patterns": [
+            "What is SARI?", "Define SARI", "Severe Acute Respiratory Infection"
+        ],
+        "responses": [
+            "SARI (Severe Acute Respiratory Infection) is a clinical term for severe respiratory illness. COVID-19 patients often present with SARI, which includes severe pneumonia, ARDS (Acute Respiratory Distress Syndrome), sepsis, or septic shock."
+        ]
+    },
+    {
+        "intent": "india_testing_labs",
+        "patterns": [
+            "Where to get tested in India?", "COVID labs India", "ICMR labs", "NCDC labs"
+        ],
+        "responses": [
+            "In India, you can get tested at 52 ICMR (Indian Council of Medical Research) labs, 10 NCDC (National Centre for Disease Control) labs, and the NIV in Pune. Private labs are also authorized."
+        ]
+    },
+    {
+        "intent": "respiratory_hygiene",
+        "patterns": [
+            "How to cough safely?", "Respiratory hygiene", "Cough etiquette",
+            "How to sneeze properly?"
+        ],
+        "responses": [
+            "Cover your mouth and nose with your bent elbow or a tissue when coughing or sneezing. Dispose of used tissues immediately in a closed bin. Then wash your hands."
+        ]
+    },
+    {
+        "intent": "lipid_envelope_detail",
+        "patterns": [
+            "How does soap kill virus?", "Lipid envelope explanation", "Why soap works",
+            "Soap science"
+        ],
+        "responses": [
+            "Soap molecules have a water-loving head and an oil-loving tail. The tail inserts into the virus's fatty (lipid) envelope and breaks it apart like a crowbar. This dissolves the virus, which is then washed away by water."
+        ]
+    },
+    {
+        "intent": "ards_definition",
+        "patterns": [
+            "What is ARDS?", "Define ARDS", "Acute Respiratory Distress Syndrome"
+        ],
+        "responses": [
+            "ARDS (Acute Respiratory Distress Syndrome) is a life-threatening condition where fluid builds up in the lungs' air sacs, preventing oxygen from reaching the bloodstream. Severe COVID-19 can cause ARDS, requiring ventilation."
+        ]
+    },
+    {
+        "intent": "what_are_coronaviruses",
+        "patterns": [
+            "What are coronaviruses?", "Define coronaviruses", "Coronavirus family",
+            "What is coronavirus?", "Explain coronaviruses", "Coronavirus meaning"
+        ],
+        "responses": [
+            "Coronaviruses are a large family of viruses that can cause illnesses ranging from the common cold to more severe diseases like SARS (Severe Acute Respiratory Syndrome) and MERS (Middle East Respiratory Syndrome). SARS-CoV-2, which causes COVID-19, is a coronavirus similar to the one that caused SARS. Many coronaviruses are zoonotic, meaning they transmit from animals to humans."
+        ]
+    },
+    {
+        "intent": "feeling_angry",
+        "patterns": [
+            "I'm angry", "I am angry", "This makes me angry", "I'm mad", "I am mad",
+            "So angry", "Really angry", "This is frustrating", "I'm frustrated", "I am frustrated",
+            "So frustrated", "Furious", "Annoyed", "Irritated", "This irritates me",
+            "Makes me mad", "I hate this", "This sucks", "Infuriating"
+        ],
+        "responses": [
+            "I understand your frustration. The pandemic has been difficult for everyone. Let me help you find the information you need.",
+            "I hear your frustration. It's completely understandable to feel this way. How can I assist you with your COVID-19 questions?"
+        ]
+    },
+    {
+        "intent": "feeling_scared",
+        "patterns": [
+            "I'm scared", "I am scared", "I'm afraid", "I am afraid", "Scared about",
+            "Afraid of", "Terrified", "Frightened", "Worried", "I'm worried", "I am worried",
+            "So worried", "Nervous", "I'm nervous", "Anxious", "I'm anxious",
+            "This scares me", "This worries me", "What if", "Fear", "Fearful"
+        ],
+        "responses": [
+            "It's completely natural to feel worried or scared. Many people share your concerns. Let me provide you with accurate information to help ease your worries.",
+            "I understand your concerns. It's normal to feel anxious about health matters. I'm here to give you reliable, fact-based answers."
+        ]
+    },
+    {
+        "intent": "feeling_bored",
+        "patterns": [
+            "I'm bored", "I am bored", "This is boring", "So boring", "Too long",
+            "TLDR", "Too much info", "Too much information", "Short answer", "Quick answer",
+            "Make it short", "Brief answer", "Be brief", "Tired of this", "Fed up",
+            "Keep it simple", "Summarize", "In short"
+        ],
+        "responses": [
+            "I'll keep this brief. What specific question can I answer for you?",
+            "Let me give you a quick answer. What would you like to know?"
+        ]
+    },
+    {
+        "intent": "feeling_confused",
+        "patterns": [
+            "I'm confused", "I am confused", "Don't understand", "I don't understand",
+            "Confused about", "This is confusing", "So confusing", "Not clear", "Unclear",
+            "Lost", "I'm lost", "Can't follow", "Don't get it", "I don't get it",
+            "Explain better", "Explain again", "What does that mean", "Clarify"
+        ],
+        "responses": [
+            "Let me explain this more clearly. Which part would you like me to clarify?",
+            "I understand this can be confusing. Let me break it down for you in simpler terms. What specifically confuses you?"
+        ]
+    },
+    {
+        "intent": "feeling_sad",
+        "patterns": [
             "I'm sad", "I am sad", "Depressed", "I'm depressed", "Feeling down",
             "So sad", "This makes me sad", "Upset", "I'm upset", "Crying",
             "Devastated", "Heartbroken", "Miserable", "Unhappy", "Feeling low"
@@ -1416,6 +1611,117 @@ KNOWLEDGE_BASE = [
             "I'm sorry you're feeling this way. While I'm here for health information, if you're experiencing depression or persistent sadness, please consider reaching out to a mental health professional or support hotline.",
             "I hear that you're going through a difficult time. Remember, it's important to take care of your mental health too. How can I help with your COVID-19 questions?"
         ]
+    },
+    
+    # ============ AFFILIATE MARKETING PRODUCTS KNOWLEDGE ============
+    {
+        "intent": "travel_insurance",
+        "patterns": [
+            "Travel insurance", "Insurance for travel", "Do I need travel insurance?",
+            "Best travel insurance", "COVID travel insurance", "Medical insurance while traveling",
+            "Trip cancellation insurance", "Insurance for international travel",
+            "Nomad insurance", "SafetyWing", "World Nomads insurance",
+            "Travel insurance recommendations", "Health insurance abroad",
+            "Insurance that covers COVID", "Travel medical insurance"
+        ],
+        "responses": [
+            "For safe travel during COVID-19, I recommend comprehensive travel insurance. **SafetyWing Nomad Insurance** offers COVID-19 coverage, covers 180+ countries, and costs from $45/month with no medical exam required. It's perfect for digital nomads and travelers. **World Nomads** is another great option with trip cancellation protection and adventure sports coverage. Both include COVID-19 medical expenses. You can find these in our Resources section! 🛡️"
+        ]
+    },
+    {
+        "intent": "protective_masks",
+        "patterns": [
+            "Best masks", "N95 masks", "KN95 masks", "Where to buy masks?",
+            "What masks should I use?", "Face masks for COVID", "Protective masks",
+            "High filtration masks", "Masks for travel", "FDA approved masks",
+            "Best mask for flight", "Respirator masks", "Which mask is best?",
+            "Recommend masks", "Mask for protection"
+        ],
+        "responses": [
+            "For maximum protection, I recommend **N95 or KN95 masks** with 95%+ filtration efficiency. These are FDA-approved, comfortable for all-day wear, and ideal for flights and public transport. Look for multiple sizes for the best fit. You can find quality masks in our **Resources → Travel & Health Products** section! 😷"
+        ]
+    },
+    {
+        "intent": "hand_sanitizer",
+        "patterns": [
+            "Hand sanitizer", "Sanitizer for travel", "Travel size sanitizer",
+            "Best hand sanitizer", "TSA approved sanitizer", "Portable sanitizer",
+            "Alcohol-based sanitizer", "Where to buy sanitizer?",
+            "Hand hygiene products", "Sanitizer recommendations"
+        ],
+        "responses": [
+            "Keep your hands clean on the go! I recommend **travel-size hand sanitizers** with 70%+ alcohol content. Look for TSA-compliant sizes (under 3.4oz), moisturizing formulas, and portable packaging. They kill 99.9% of germs and are essential for safe travel. Check our **Resources** section for trusted options! 🧴"
+        ]
+    },
+    {
+        "intent": "immune_supplements",
+        "patterns": [
+            "Immune boosters", "Vitamins for immunity", "Vitamin C", "Vitamin D",
+            "Zinc supplements", "Immune support", "Best vitamins for travelers",
+            "Boost immune system", "Supplements for COVID protection",
+            "Immunity vitamins", "Health supplements", "Vitamin recommendations"
+        ],
+        "responses": [
+            "To support your immune system, consider **Vitamin C, D3, and Zinc supplements**. These are essential for immune function and especially important for travelers. Look for trusted brands with combined formulations for convenience. Find quality immune support vitamins in our **Resources → Travel & Health Products** section! 💊"
+        ]
+    },
+    {
+        "intent": "first_aid_kit",
+        "patterns": [
+            "First aid kit", "Travel first aid", "Medical kit for travel",
+            "Emergency supplies", "First aid for travelers", "Travel medical kit",
+            "What should be in first aid kit?", "Best travel first aid kit",
+            "Compact first aid", "Medical supplies for travel"
+        ],
+        "responses": [
+            "A **Travel First Aid Kit** is essential for safe journeys! Look for kits with 100+ pieces including bandages, pain relievers, antiseptics, and COVID essentials. Choose compact, lightweight designs perfect for international travel. Find complete medical kits in our **Resources** section! 🩹"
+        ]
+    },
+    {
+        "intent": "vpn_service",
+        "patterns": [
+            "VPN for travel", "Best VPN", "Secure browsing abroad",
+            "VPN recommendations", "NordVPN", "ExpressVPN",
+            "Protect my data while traveling", "Safe internet abroad",
+            "VPN for security", "Encrypt my connection", "Privacy while traveling",
+            "Access content from anywhere", "VPN service"
+        ],
+        "responses": [
+            "For secure browsing while traveling, I recommend using a VPN! **NordVPN** offers military-grade encryption, 5,500+ servers in 60 countries, and a no-logs policy. **ExpressVPN** is another excellent choice with lightning-fast speeds and 24/7 support. Both protect your data and let you access content from anywhere. Check our **Resources → Travel & Health Products** section for more! 🔒"
+        ]
+    },
+    {
+        "intent": "resources_page",
+        "patterns": [
+            "Resources", "Where can I buy products?", "Product recommendations",
+            "Travel products", "Health products", "Show me resources",
+            "Where is the resources page?", "Affiliate products",
+            "Travel essentials", "Health essentials"
+        ],
+        "responses": [
+            "Great question! Visit our **Resources & Tools** section from the sidebar menu. There you'll find:\n\n🌍 **Travel & Health Products** - Insurance, masks, sanitizers, vitamins, VPNs, first aid kits\n📍 **Center Locator** - Find nearby vaccination centers\n📅 **Dose Reminder** - Set up vaccine reminders\n\nAll products are carefully selected to help you stay safe and healthy! 🙏"
+        ]
+    },
+    {
+        "intent": "affiliate_disclosure",
+        "patterns": [
+            "Do you make money from this?", "Affiliate links", "Are these sponsored?",
+            "Do you get commission?", "Why recommend these products?",
+            "Disclosure", "Are you affiliated?", "Revenue from recommendations"
+        ],
+        "responses": [
+            "**Affiliate Disclosure:** Yes, this page contains affiliate links. If you click through and make a purchase, we may earn a small commission at no additional cost to you. This helps us maintain and improve this free service. We only recommend products we believe will benefit our users. Your trust is important to us! 🙏"
+        ]
+    },
+    {
+        "intent": "why_these_products",
+        "patterns": [
+            "Why should I buy these?", "Are these products good?",
+            "Are these reliable?", "Why do you recommend these?",
+            "Product quality", "Are these trustworthy?", "Product benefits"
+        ],
+        "responses": [
+            "All recommended products are carefully selected based on:\n\n✅ **COVID-19 Relevance** - Directly help with protection and safe travel\n✅ **Quality Standards** - FDA-approved or from trusted brands\n✅ **User Reviews** - Highly rated by real customers\n✅ **Value for Money** - Reasonably priced and effective\n\nWe only recommend products that genuinely help our users stay safe and healthy during the pandemic!"
+        ]
     }
 ]
-
