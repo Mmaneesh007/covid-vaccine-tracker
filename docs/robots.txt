@@ -1,0 +1,22 @@
+# www.robotstxt.org/
+# Allow all search engines to crawl everything
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://covid-vaccine-tracker-2025.streamlit.app/sitemap.xml
+
+# Crawl-delay for aggressive bots
+User-agent: *
+Crawl-delay: 1
+
+# Block common bad bots (optional)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
