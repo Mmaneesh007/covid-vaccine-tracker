@@ -26,6 +26,12 @@ from app.api.models import (
 )
 from app.api.routes import vaccination, forecast, chatbot
 from src.auth import validate_api_key
+from app.api.cache_warmer import warm_forecast_cache
+import asyncio
+import logging
+
+# Setup logger for cache warming
+logger = logging.getLogger(__name__)
 
 # Initialize settings
 settings = get_settings()
@@ -83,6 +89,57 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Startup event - Warm forecast cache for popular countries
+@app.on_event("startup")
+async def startup_event():
+    """
+    Execute startup tasks:
+    - Warm forecast cache for popular countries (runs in background)
+    """
+    logger.info("🚀 API Starting up...")
+    
+    # Run cache warming in background (non-blocking)
+    # This ensures the API becomes available immediately
+    asyncio.create_task(warm_forecast_cache_background())
+
+
+async def warm_forecast_cache_background():
+    """Background task to warm the forecast cache"""
+    try:
+        logger.info("🔥 Starting background cache warming...")
+        stats = await warm_forecast_cache(use_db_countries=False)
+        logger.info(f"✨ Cache warming complete: {stats}")
+        
+        # Start the scheduled refresh after initial warming
+        from app.api.cache_enhancements import get_scheduler
+        scheduler = get_scheduler()
+        scheduler.start_background()
+        logger.info("🕐 Scheduled cache refresh enabled (every 2 hours)")
+        
+    except Exception as e:
+        logger.error(f"❌ Cache warming failed: {e}")
+        # Don't crash the API if cache warming fails
+
+
+# Shutdown event - Stop scheduler
+@app.on_event("shutdown")
+async def shutdown_event():
+    """
+    Execute shutdown tasks:
+    - Stop scheduled cache refresh
+    """
+    logger.info("🛑 API Shutting down...")
+    
+    try:
+        from app.api.cache_enhancements import get_scheduler
+        scheduler = get_scheduler()
+        await scheduler.stop()
+        logger.info("✅ Cache refresh scheduler stopped")
+    except Exception as e:
+        logger.error(f"Error during shutdown: {e}")
+
 
 
 # Root endpoint (Public)

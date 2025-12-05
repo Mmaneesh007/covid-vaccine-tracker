@@ -18,6 +18,34 @@ The API uses **Redis** for distributed caching with automatic fallback to **in-m
 | `GET /global` | 1 hour | Aggregated stats cached |
 | `GET /top` | 1 hour | Sorted country rankings cached |
 
+### Cache Warming (Automatic)
+
+**NEW**: The API automatically pre-warms the forecast cache during startup for popular countries. This eliminates the "cold start" problem where the first forecast request takes 2.5 seconds.
+
+**Popular Countries (automatically cached on startup)**:
+
+- United States, India, Brazil, United Kingdom, Germany
+- France, Italy, Spain, Canada, Japan
+- South Korea, Australia, Mexico, Argentina, Russia
+
+**Startup Behavior**:
+
+1. API becomes available immediately (non-blocking)
+2. Cache warming runs in background (~30-40 seconds for all 15 countries)
+3. Popular country forecasts are available within seconds of startup
+4. If warming fails for a country, it falls back to on-demand caching
+
+**Monitoring**: Check startup logs for warming progress:
+
+```
+🚀 API Starting up...
+🔥 Starting background cache warming...
+✅ Cache warmed for 'United States' (30 days, total_vaccinations)
+✅ Cache warmed for 'India' (30 days, total_vaccinations)
+...
+✨ Cache warming complete: {'successful': 15, 'failed': 0, 'duration_seconds': 35.2}
+```
+
 ### Cache Invalidation
 
 **Automatic**: Cached data expires based on TTL (Time To Live).
@@ -171,7 +199,9 @@ clear_cache()  # Next request will be slow (cache miss)
 
 ## 🔮 Future Enhancements
 
-- [ ] Cache warming on startup
+- [x] **Cache warming on startup** - Popular countries pre-cached automatically
+- [ ] Scheduled background refresh (every 1-2 hours)
+- [ ] Cache warming on ETL data updates
 - [ ] Distributed caching for multi-instance deployments
 - [ ] Compression for large responses
 - [ ] Cache hit/miss metrics dashboard
