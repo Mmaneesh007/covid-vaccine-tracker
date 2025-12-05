@@ -1,5 +1,6 @@
 # 🌍 COVID-19 Vaccine Tracker & AI Assistant
 
+[![🌐 Landing Page](https://img.shields.io/badge/🌐-Landing_Page-blueviolet?style=for-the-badge)](https://mmaneesh007.github.io/covid-vaccine-tracker/)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://covid-vaccine-tracker-2025.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -7,6 +8,8 @@
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange)](https://www.buymeacoffee.com/Manish_Sau)
 
 > **A full-stack Progressive Web App (PWA) featuring real-time vaccination tracking, ML-based forecasting, viral social sharing, and an accessible AI chatbot. Installable on mobile devices with dual monetization (global + UPI).**
+
+**🌐 SEO-Optimized Landing Page:** [https://mmaneesh007.github.io/covid-vaccine-tracker/](https://mmaneesh007.github.io/covid-vaccine-tracker/)
 
 ---
 

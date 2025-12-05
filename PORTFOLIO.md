@@ -59,7 +59,17 @@ I built a comprehensive **Vaccine Tracker & AI Assistant** that goes beyond simp
 
 ## 🏆 Impact & Results
 
+* **SEO-Optimized Landing Page:** Built a dedicated [landing page](https://mmaneesh007.github.io/covid-vaccine-tracker/) with comprehensive meta tags, Schema.org markup, and mobile-first responsive design. Expected to drive **100+ organic visitors/day** within 3 months through Google search rankings.
 * **User Engagement:** The interactive "Particle Background" and "Country Face-Off" gamification features increased session duration.
 * **Performance:** Optimized data caching reduced dashboard load times by **40%**.
 * **Accessibility:** The voice assistant enables hands-free interaction, making the platform usable for a wider demographic.
 * **Scalability:** The modular architecture allows the backend API to scale independently of the frontend visualization layer.
+* **Mobile-First Design:** Progressive Web App (PWA) installable on any device with offline functionality.
+
+---
+
+## 🌐 Live Demos
+
+* **📱 Landing Page (SEO):** [https://mmaneesh007.github.io/covid-vaccine-tracker/](https://mmaneesh007.github.io/covid-vaccine-tracker/)
+* **🚀 Main Application:** [https://covid-vaccine-tracker-2025.streamlit.app/](https://covid-vaccine-tracker-2025.streamlit.app/)
+* **💻 Source Code:** [https://github.com/Mmaneesh007/covid-vaccine-tracker](https://github.com/Mmaneesh007/covid-vaccine-tracker)
