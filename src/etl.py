@@ -5,8 +5,14 @@ import pandas as pd
 import requests
 import logging
 
-# Import new data source manager
-from src.data_sources import get_data_source_manager, DATA_SOURCE_OWID
+# Import new data source manager (with fallback if not available)
+try:
+    from src.data_sources import get_data_source_manager, DATA_SOURCE_OWID
+    MULTI_SOURCE_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Multi-source data not available: {e}. Using legacy OWID-only mode.")
+    MULTI_SOURCE_AVAILABLE = False
+    DATA_SOURCE_OWID = "OWID"  # Fallback constant
 
 # Legacy OWID URL (kept for backward compatibility)
 OWID_URL = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv"
@@ -51,7 +57,7 @@ def load_data(use_multi_source: bool = True, source_preference: str = None):
     Returns:
         pd.DataFrame: Vaccination data with parsed date column and 'data_source' column
     """
-    if use_multi_source:
+    if use_multi_source and MULTI_SOURCE_AVAILABLE:
         try:
             manager = get_data_source_manager()
             result = manager.get_data_with_source_info(source_preference=source_preference)
@@ -76,6 +82,9 @@ def load_data(use_multi_source: bool = True, source_preference: str = None):
             logger.error(f"Multi-source fetch failed: {e}")
             logger.info("Falling back to legacy OWID-only method...")
             # Fall through to legacy method
+    elif use_multi_source and not MULTI_SOURCE_AVAILABLE:
+        logger.info("Multi-source requested but not available, using legacy OWID-only method...")
+        # Fall through to legacy method
     
     # Legacy method: OWID only
     download_csv()
