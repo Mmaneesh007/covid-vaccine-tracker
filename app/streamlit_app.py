@@ -7,6 +7,7 @@ from datetime import datetime
 import numpy as np
 import sys
 import os
+import logging
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -30,6 +31,9 @@ from src.comparison import render_comparison
 from src.globe import render_3d_globe
 from src.insights import generate_country_insight, generate_global_insight
 from src.pwa_injector import inject_pwa_components
+
+# Setup logger
+logger = logging.getLogger(__name__)
 
 # Page configuration
 st.set_page_config(
@@ -436,23 +440,109 @@ def load_vaccination_data():
             from sqlalchemy import create_engine
             engine = create_engine(f"sqlite:///{DB_PATH}")
             df = pd.read_sql("SELECT * FROM countries_vaccinations", engine, parse_dates=["date"])
-            return df
-        except:
+            # Check if data is fresh (less than 2 hours old)
+            if not df.empty and 'date' in df.columns:
+                latest_date = pd.to_datetime(df['date']).max()
+                # Convert UTC timestamp to timezone-naive for comparison with database dates
+                # Database dates are timezone-naive, so we need to match that
+                utc_now_naive = pd.Timestamp.utcnow().tz_localize(None)
+                hours_old = (utc_now_naive - latest_date).total_seconds() / 3600
+                if hours_old < 2:
+                    return df
+        except Exception as e:
+            # Log the error for debugging instead of silently passing
+            logger.warning(f"Error checking data freshness, will re-fetch: {e}")
             pass
     
-    # Fallback to loading from source
-    df = load_data()
+    # Fallback to loading from source (with multi-source support)
+    df = load_data(use_multi_source=True)
     df_clean = clean_vax(df)
     save_df_to_db(df_clean)
     return df_clean
 
 def refresh_data():
-    """Force refresh data from source"""
+    """Force refresh data from source (with multi-source support)"""
     st.cache_data.clear()
-    df = load_data()
+    df = load_data(use_multi_source=True)
     df_clean = clean_vax(df)
     save_df_to_db(df_clean)
     return df_clean
+
+def get_data_source_info(df):
+    """
+    Get data source information from DataFrame.
+    
+    Returns:
+        dict: {
+            'primary_source': str,
+            'sources': dict (source -> count),
+            'last_updated': str
+        }
+    """
+    info = {
+        'primary_source': 'OWID',
+        'sources': {},
+        'last_updated': None
+    }
+    
+    if df is None or df.empty:
+        return info
+    
+    # Get data source distribution
+    if 'data_source' in df.columns:
+        sources = df['data_source'].value_counts()
+        info['sources'] = sources.to_dict()
+        if len(sources) > 0:
+            info['primary_source'] = sources.index[0]
+    
+    # Get last updated date
+    if 'date' in df.columns:
+        try:
+            latest_date = pd.to_datetime(df['date']).max()
+            info['last_updated'] = latest_date.strftime('%Y-%m-%d %H:%M UTC')
+        except:
+            pass
+    
+    return info
+
+def display_data_source_badge(df, position="top-right"):
+    """
+    Display data source attribution badge in the UI.
+    
+    Args:
+        df: DataFrame with data
+        position: Where to display ("top-right", "sidebar", "inline")
+    """
+    info = get_data_source_info(df)
+    
+    # Create badge HTML
+    source_name = info['primary_source']
+    source_display = {
+        'OWID': 'Our World in Data',
+        'CDC': 'Centers for Disease Control (CDC)',
+        'WHO': 'World Health Organization'
+    }.get(source_name, source_name)
+    
+    badge_html = f"""
+    <div style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(102, 126, 234, 0.95);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 999;
+        backdrop-filter: blur(10px);
+    ">
+        <strong>📊 Data:</strong> {source_display}
+        {f"<br><small>Updated: {info['last_updated']}</small>" if info['last_updated'] else ""}
+    </div>
+    """
+    
+    st.markdown(badge_html, unsafe_allow_html=True)
 
 def show_chatbot():
     """Display the AI Health Assistant interface"""
@@ -514,7 +604,34 @@ def show_dashboard():
     st.markdown(f"### {t('dashboard_subtitle')}")
 
     try:
+        # Load data with error handling
         df = load_vaccination_data()
+        
+        # Display data source info in sidebar
+        if df is not None and not df.empty:
+            try:
+                info = get_data_source_info(df)
+                source_display = {
+                    'OWID': 'Our World in Data',
+                    'CDC': 'Centers for Disease Control',
+                    'WHO': 'World Health Organization'
+                }.get(info['primary_source'], info['primary_source'])
+                
+                # Display data source in sidebar
+                with st.sidebar:
+                    st.caption("📊 **Data Source**")
+                    st.info(f"**Primary:** {source_display}")
+                    if info['last_updated']:
+                        st.caption(f"Last updated: {info['last_updated']}")
+                    if len(info['sources']) > 1:
+                        st.caption(f"Multiple sources: {', '.join(info['sources'].keys())}")
+                
+                # Show data source badge (subtle, non-intrusive) in main content
+                st.caption(f"📊 Data source: **{source_display}**" + 
+                          (f" | Last updated: {info['last_updated']}" if info['last_updated'] else ""))
+            except Exception as e:
+                # Silently fail data source display - don't break the dashboard
+                logger.warning(f"Failed to display data source info: {e}")
         
         # Global Overview
         st.header(t('global_overview'))

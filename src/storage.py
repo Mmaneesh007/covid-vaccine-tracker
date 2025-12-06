@@ -43,7 +43,19 @@ def save_df_to_db(df, table_name="countries_vaccinations"):
         table_name (str): Name of the table to create/replace
     """
     engine = sa.create_engine(DB_URL)
+    
+    # Ensure data_source column exists
+    if 'data_source' not in df.columns:
+        df['data_source'] = 'OWID'  # Default to OWID for backward compatibility
+    
+    # Save to database
     df.to_sql(table_name, engine, if_exists="replace", index=False)
+    
+    # Log data source distribution
+    if 'data_source' in df.columns:
+        sources = df['data_source'].value_counts()
+        print(f"Data sources saved: {sources.to_dict()}")
+    
     print(f"Saved {len(df):,} records to {DB_URL} (table: {table_name})")
 
 def get_latest_by_country(limit=100):
