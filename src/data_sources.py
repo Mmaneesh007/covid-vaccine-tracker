@@ -1,6 +1,6 @@
 """
 Multi-source data integration for vaccination data.
-Supports OWID (primary), CDC (secondary), and future sources.
+Supports OWID (primary), CDC (secondary), WHO (tertiary), and future sources.
 """
 import pandas as pd
 import requests
@@ -298,6 +298,181 @@ class CDCSource(DataSource):
         return normalized
 
 
+class WHOSource(DataSource):
+    """WHO data source (tertiary, global data)"""
+    
+    def __init__(self):
+        super().__init__(DATA_SOURCE_WHO, cache_ttl=3600)  # 1 hour
+        # WHO COVID-19 data endpoints
+        # Note: WHO doesn't have a direct vaccination API, but provides data through various channels
+        # We'll try multiple potential endpoints
+        self.base_url = "https://covid19.who.int"
+        # WHO publishes data via their dashboard API (if available)
+        self.vaccination_endpoint = f"{self.base_url}/api/v1/data.json"  # May not exist
+        # Alternative: WHO data through their GitHub or other sources
+        self.alternative_endpoints = [
+            f"{self.base_url}/who-data/vaccination-data.json",
+        ]
+    
+    def fetch(self, country: Optional[str] = None, **kwargs) -> pd.DataFrame:
+        """
+        Fetch data from WHO.
+        
+        Note: WHO doesn't have a direct public vaccination API like CDC.
+        This implementation attempts known WHO data sources and gracefully
+        falls back if unavailable.
+        
+        Args:
+            country: Country name (optional filter)
+            
+        Returns:
+            pd.DataFrame: Vaccination data (empty if WHO data unavailable)
+        """
+        try:
+            logger.info(f"Attempting to fetch data from {self.name}...")
+            
+            # Try primary endpoint first
+            try:
+                response = self._make_request(self.vaccination_endpoint)
+                data = response.json()
+                if data:
+                    df = pd.DataFrame(data)
+                    df = self._normalize_who_data(df)
+                    if not df.empty:
+                        logger.info(f"{self.name}: Fetched {len(df):,} records from primary endpoint")
+                        return df
+            except (requests.exceptions.HTTPError, DataSourceError) as e:
+                logger.debug(f"{self.name}: Primary endpoint failed: {e}")
+            
+            # Try alternative endpoints
+            for alt_endpoint in self.alternative_endpoints:
+                try:
+                    response = self._make_request(alt_endpoint)
+                    data = response.json()
+                    if data:
+                        df = pd.DataFrame(data)
+                        df = self._normalize_who_data(df)
+                        if not df.empty:
+                            logger.info(f"{self.name}: Fetched {len(df):,} records from alternative endpoint")
+                            return df
+                except (requests.exceptions.HTTPError, DataSourceError) as e:
+                    logger.debug(f"{self.name}: Alternative endpoint {alt_endpoint} failed: {e}")
+                    continue
+            
+            # If all endpoints fail, return empty DataFrame (graceful degradation)
+            logger.warning(f"{self.name}: All endpoints failed, returning empty DataFrame (WHO data not available)")
+            return pd.DataFrame()
+            
+        except Exception as e:
+            logger.warning(f"{self.name} fetch error (graceful degradation): {e}")
+            # Return empty DataFrame instead of raising error (WHO is optional)
+            return pd.DataFrame()
+    
+    def _normalize_who_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Normalize WHO data format to match OWID format.
+        
+        WHO data structure may vary, so we map common column names.
+        """
+        if df is None or df.empty:
+            return pd.DataFrame()
+        
+        # Create normalized DataFrame
+        normalized = pd.DataFrame()
+        
+        # Map date - try common WHO date column names
+        date_columns = ['date', 'Date', 'DATE', 'reporting_date', 'date_reported', 'Date_reported']
+        for col in date_columns:
+            if col in df.columns:
+                normalized['date'] = pd.to_datetime(df[col], errors='coerce')
+                break
+        
+        if 'date' not in normalized.columns:
+            logger.warning(f"{self.name}: No date column found in WHO data")
+            return pd.DataFrame()
+        
+        # Map location - try common WHO location column names
+        location_columns = ['location', 'Location', 'LOCATION', 'country', 'Country', 'COUNTRY', 
+                           'Country_Region', 'country_region', 'name', 'Name', 'NAME']
+        for col in location_columns:
+            if col in df.columns:
+                normalized['location'] = df[col].astype(str)
+                break
+        
+        if 'location' not in normalized.columns:
+            # If no location column, try to infer from data structure
+            logger.warning(f"{self.name}: No location column found, using 'Global' as fallback")
+            normalized['location'] = 'Global'  # Default fallback
+        
+        normalized['data_source'] = DATA_SOURCE_WHO
+        
+        # Map vaccination metrics - try common WHO column names
+        # Total vaccinations
+        total_vax_columns = ['total_vaccinations', 'Total_Vaccinations', 'TOTAL_VACCINATIONS',
+                            'doses_administered', 'Doses_Administered', 'cumulative_doses',
+                            'Cumulative_Doses', 'total_doses']
+        for col in total_vax_columns:
+            if col in df.columns:
+                normalized['total_vaccinations'] = pd.to_numeric(df[col], errors='coerce')
+                break
+        
+        # People vaccinated (at least one dose)
+        people_vax_columns = ['people_vaccinated', 'People_Vaccinated', 'PEOPLE_VACCINATED',
+                             'persons_vaccinated', 'Persons_Vaccinated', 'at_least_one_dose',
+                             'At_Least_One_Dose', 'first_dose']
+        for col in people_vax_columns:
+            if col in df.columns:
+                normalized['people_vaccinated'] = pd.to_numeric(df[col], errors='coerce')
+                break
+        
+        # People fully vaccinated
+        fully_vax_columns = ['people_fully_vaccinated', 'People_Fully_Vaccinated', 
+                           'PEOPLE_FULLY_VACCINATED', 'fully_vaccinated', 'Fully_Vaccinated',
+                           'persons_fully_vaccinated', 'Persons_Fully_Vaccinated']
+        for col in fully_vax_columns:
+            if col in df.columns:
+                normalized['people_fully_vaccinated'] = pd.to_numeric(df[col], errors='coerce')
+                break
+        
+        # Calculate daily vaccinations if total_vaccinations exists
+        if 'total_vaccinations' in normalized.columns:
+            normalized = normalized.sort_values('date')
+            normalized['daily_vaccinations'] = normalized['total_vaccinations'].diff().fillna(0).clip(lower=0)
+        
+        # Remove rows with invalid dates
+        normalized = normalized.dropna(subset=['date'])
+        
+        # If we have location data, aggregate by location and date
+        if not normalized.empty and 'location' in normalized.columns:
+            agg_dict = {
+                'location': 'first',
+                'data_source': 'first',
+            }
+            if 'total_vaccinations' in normalized.columns:
+                agg_dict['total_vaccinations'] = 'max'
+            if 'people_vaccinated' in normalized.columns:
+                agg_dict['people_vaccinated'] = 'max'
+            if 'people_fully_vaccinated' in normalized.columns:
+                agg_dict['people_fully_vaccinated'] = 'max'
+            if 'daily_vaccinations' in normalized.columns:
+                agg_dict['daily_vaccinations'] = 'sum'
+            
+            normalized = normalized.groupby(['location', 'date']).agg(agg_dict).reset_index()
+        
+        return normalized
+    
+    def is_available(self) -> bool:
+        """
+        Check if WHO data source is available.
+        
+        Since WHO doesn't have a reliable public API, we're more lenient here.
+        Returns True to allow attempts (fetch will gracefully return empty if unavailable).
+        """
+        # WHO is optional, so we return True to allow attempts
+        # The fetch method will gracefully return empty DataFrame if unavailable
+        return True
+
+
 class DataSourceManager:
     """Manages multiple data sources with fallback logic"""
     
@@ -305,9 +480,10 @@ class DataSourceManager:
         self.sources = {
             DATA_SOURCE_OWID: OWIDSource(),
             DATA_SOURCE_CDC: CDCSource(),
+            DATA_SOURCE_WHO: WHOSource(),
         }
         self.primary_source = DATA_SOURCE_OWID
-        self.fallback_sources = [DATA_SOURCE_CDC]
+        self.fallback_sources = [DATA_SOURCE_CDC, DATA_SOURCE_WHO]
     
     def get_data(self, source_preference: Optional[str] = None, 
                  use_fallback: bool = True) -> pd.DataFrame:

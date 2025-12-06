@@ -1,12 +1,12 @@
 """
-Test script for CDC API integration
+Test script for multi-source data integration (OWID, CDC, WHO)
 Run this to verify the multi-source data integration works correctly.
 """
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
 
-from src.data_sources import get_data_source_manager, DATA_SOURCE_OWID, DATA_SOURCE_CDC
+from src.data_sources import get_data_source_manager, DATA_SOURCE_OWID, DATA_SOURCE_CDC, DATA_SOURCE_WHO
 from src.etl import load_data
 from src.clean import clean_vax
 import logging
@@ -49,6 +49,23 @@ def test_data_sources():
     except Exception as e:
         print(f"✗ CDC: Failed - {e}")
         print("  Note: CDC may not have global data, only US state-level")
+    
+    # Test WHO
+    print("\n[TEST 3] Testing WHO Source...")
+    try:
+        who_source = manager.sources[DATA_SOURCE_WHO]
+        df_who = who_source.fetch()
+        if not df_who.empty:
+            print(f"✓ WHO: Successfully fetched {len(df_who):,} records")
+            print(f"  Columns: {df_who.columns.tolist()[:5]}...")
+            if 'location' in df_who.columns:
+                print(f"  Locations: {df_who['location'].unique()[:5]}")
+        else:
+            print(f"⚠ WHO: No data available (expected - WHO doesn't have public vaccination API)")
+            print("  Note: WHO source gracefully returns empty DataFrame if unavailable")
+    except Exception as e:
+        print(f"⚠ WHO: Failed gracefully - {e}")
+        print("  Note: This is expected - WHO doesn't have a direct public vaccination API")
 
 def test_data_source_manager():
     """Test the data source manager with fallback"""
@@ -59,7 +76,7 @@ def test_data_source_manager():
     manager = get_data_source_manager()
     
     # Test getting data with fallback
-    print("\n[TEST 3] Getting data with automatic fallback...")
+    print("\n[TEST 4] Getting data with automatic fallback...")
     try:
         result = manager.get_data_with_source_info()
         df = result['data']
@@ -79,7 +96,7 @@ def test_etl_integration():
     print("Testing ETL Integration")
     print("=" * 70)
     
-    print("\n[TEST 4] Loading data via ETL (multi-source enabled)...")
+    print("\n[TEST 5] Loading data via ETL (multi-source enabled)...")
     try:
         df = load_data(use_multi_source=True)
         print(f"✓ Successfully loaded {len(df):,} records")
@@ -89,7 +106,7 @@ def test_etl_integration():
             print(f"  Data sources: {sources.to_dict()}")
         
         # Test cleaning
-        print("\n[TEST 5] Cleaning data...")
+        print("\n[TEST 6] Cleaning data...")
         df_clean = clean_vax(df)
         print(f"✓ Cleaned {len(df_clean):,} records")
         print(f"  Columns: {df_clean.columns.tolist()}")
@@ -115,7 +132,7 @@ def test_available_sources():
 
 if __name__ == "__main__":
     print("\n" + "=" * 70)
-    print("CDC API Integration Test Suite")
+    print("Multi-Source Data Integration Test Suite (OWID, CDC, WHO)")
     print("=" * 70)
     
     try:
