@@ -455,7 +455,13 @@ def load_vaccination_data():
             pass
     
     # Fallback to loading from source (with multi-source support)
-    df = load_data(use_multi_source=True)
+    # Try with new parameter first, fallback to old signature if needed
+    try:
+        df = load_data(use_multi_source=True)
+    except TypeError:
+        # Backward compatibility: old version doesn't have use_multi_source parameter
+        logger.warning("Using legacy load_data() signature (backward compatibility)")
+        df = load_data()
     df_clean = clean_vax(df)
     save_df_to_db(df_clean)
     return df_clean
@@ -463,7 +469,13 @@ def load_vaccination_data():
 def refresh_data():
     """Force refresh data from source (with multi-source support)"""
     st.cache_data.clear()
-    df = load_data(use_multi_source=True)
+    # Try with new parameter first, fallback to old signature if needed
+    try:
+        df = load_data(use_multi_source=True)
+    except TypeError:
+        # Backward compatibility: old version doesn't have use_multi_source parameter
+        logger.warning("Using legacy load_data() signature (backward compatibility)")
+        df = load_data()
     df_clean = clean_vax(df)
     save_df_to_db(df_clean)
     return df_clean
