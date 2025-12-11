@@ -14,25 +14,25 @@ This is an **experimental REST API** built with FastAPI that runs **independentl
 
 ```powershell
 # Install FastAPI-specific dependencies
-pip install -r app/experimental/requirements-api.txt
+pip install -r app/api/requirements-api.txt
 ```
 
 ### 2. Start the API Server
 
 ```powershell
 # Option 1: Using the startup script
-.\app\experimental\start_api.ps1
+.\app\api\start_api.ps1
 
 # Option 2: Direct uvicorn command
-uvicorn app.experimental.main:app --reload --port 8000
+uvicorn app.api.main:app --reload --port 8001
 ```
 
 ### 3. Access the API
 
-- **API Base URL**: <http://localhost:8000>
-- **Interactive Docs (Swagger)**: <http://localhost:8000/docs>
-- **Alternative Docs (ReDoc)**: <http://localhost:8000/redoc>
-- **Health Check**: <http://localhost:8000/health>
+- **API Base URL**: <http://localhost:8001>
+- **Interactive Docs (Swagger)**: <http://localhost:8001/docs>
+- **Alternative Docs (ReDoc)**: <http://localhost:8001/redoc>
+- **Health Check**: <http://localhost:8001/health>
 
 ---
 

@@ -23,7 +23,7 @@ class Settings(BaseSettings):
         "https://covid-vaccine-tracker-2025.streamlit.app",
         "http://localhost:8501",
         "http://localhost:3000",
-        "*"  # Allow all for public API testing
+        "http://localhost:8001"  # API development
     ]
     
     # Database Settings (reuse existing SQLite)

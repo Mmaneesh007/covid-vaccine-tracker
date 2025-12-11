@@ -5,10 +5,15 @@ Tests all endpoints: Health, Vaccination Data, Forecasting, and AI Chatbot
 import requests
 import json
 from datetime import datetime
+from src.auth import create_api_key
 
 # API Configuration
 BASE_URL = "http://localhost:8001"
 API_PREFIX = "/api/v1"
+
+# Generate API key for authenticated endpoints
+API_KEY = create_api_key("API Test Suite", "test")
+DEFAULT_HEADERS = {"X-API-Key": API_KEY} if API_KEY else {}
 
 def print_section(title):
     """Print formatted section header"""
@@ -16,7 +21,7 @@ def print_section(title):
     print(f"  {title}")
     print(f"{'='*70}")
 
-def test_endpoint(method, endpoint, description, data=None, expected_status=200):
+def test_endpoint(method, endpoint, description, data=None, expected_status=200, headers=DEFAULT_HEADERS):
     """Test a single API endpoint"""
     url = f"{BASE_URL}{endpoint}"
     print(f"\n[TEST] Testing: {description}")
@@ -24,9 +29,9 @@ def test_endpoint(method, endpoint, description, data=None, expected_status=200)
     
     try:
         if method == "GET":
-            response = requests.get(url, timeout=10)
+            response = requests.get(url, headers=headers, timeout=10)
         elif method == "POST":
-            response = requests.post(url, json=data, timeout=10)
+            response = requests.post(url, json=data, headers=headers, timeout=10)
         else:
             print(f"❌ Unsupported method: {method}")
             return False
