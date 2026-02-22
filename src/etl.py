@@ -5,6 +5,9 @@ import pandas as pd
 import requests
 import logging
 
+# Setup logger BEFORE any code that uses it
+logger = logging.getLogger(__name__)
+
 # Import new data source manager (with fallback if not available)
 try:
     from src.data_sources import get_data_source_manager, DATA_SOURCE_OWID
@@ -21,8 +24,6 @@ CSV_PATH = os.path.join(DATA_DIR, "owid-covid-data.csv")
 MAX_AGE = 2 * 3600  # Reduced from 24 hours to 2 hours for fresher data
 
 os.makedirs(DATA_DIR, exist_ok=True)
-
-logger = logging.getLogger(__name__)
 
 def download_csv():
     """
